@@ -84,8 +84,8 @@ declare namespace API {
   };
 
   type Certificate = {
-    certificateId?: string;
     certificateName?: string;
+    certificateNumber?: string;
     certificateSituation?: number;
     certificateType?: number;
     certificateUrl?: string;
@@ -103,7 +103,6 @@ declare namespace API {
   };
 
   type CertificateAddRequest = {
-    certificateId?: string;
     certificateName?: string;
     certificateSituation?: number;
     certificateType?: number;
@@ -113,8 +112,8 @@ declare namespace API {
   };
 
   type CertificateQueryRequest = {
-    certificateId?: string;
     certificateName?: string;
+    certificateNumber?: string;
     certificateSituation?: number;
     certificateType?: number;
     certificateUrl?: string;
@@ -122,6 +121,7 @@ declare namespace API {
     current?: number;
     gainUserId?: number;
     id?: number;
+    noId?: number;
     pageSize?: number;
     reviewMessage?: string;
     reviewStatus?: number;
@@ -133,7 +133,6 @@ declare namespace API {
   };
 
   type CertificateUpdateRequest = {
-    certificateId?: string;
     certificateName?: string;
     certificateSituation?: number;
     certificateType?: number;
@@ -144,8 +143,8 @@ declare namespace API {
   };
 
   type CertificateVO = {
-    certificateId?: string;
     certificateName?: string;
+    certificateNumber?: string;
     certificateSituation?: number;
     certificateType?: number;
     certificateUrl?: string;
@@ -193,7 +192,6 @@ declare namespace API {
     userAvatar?: string;
     userEmail?: string;
     userGender?: number;
-    userIdCard?: string;
     userName?: string;
     userNumber?: string;
     userPhone?: string;
@@ -325,11 +323,11 @@ declare namespace API {
   type UserCertificate = {
     certificateId?: number;
     certificateName?: string;
+    certificateNumber?: string;
     createTime?: string;
     gainTime?: string;
     gainUserName?: string;
     id?: number;
-    isDelete?: number;
     updateTime?: string;
     userId?: number;
   };
@@ -337,6 +335,7 @@ declare namespace API {
   type UserCertificateQueryRequest = {
     certificateId?: number;
     certificateName?: string;
+    certificateNumber?: string;
     current?: number;
     gainTime?: string;
     gainUserName?: string;
@@ -350,6 +349,7 @@ declare namespace API {
   type UserCertificateVO = {
     certificateId?: number;
     certificateName?: string;
+    certificateNumber?: string;
     certificateVO?: CertificateVO;
     createTime?: string;
     gainTime?: string;
@@ -419,7 +419,6 @@ declare namespace API {
     userAvatar?: string;
     userEmail?: string;
     userGender?: number;
-    userIdCard?: string;
     userName?: string;
     userNumber?: string;
     userPhone?: string;

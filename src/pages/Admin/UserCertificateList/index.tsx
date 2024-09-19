@@ -3,7 +3,7 @@ import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import { Space, Typography } from 'antd';
 import { listUserCertificateVoByPageUsingPost } from '@/services/stephen-backend/userCertificateController';
 import CertificateDetailsModal from '@/pages/Admin/UserCertificateList/components/CertificateDetailsModal';
-import UserDetailsModal from '@/components/ReAccount/UserDetailsModal';
+import Index from '@/pages/IndexPage/compoents/UserInfoCard';
 
 const UserCertificateList: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -26,7 +26,7 @@ const UserCertificateList: React.FC = () => {
       hideInForm: true,
     },
     {
-      title: '证书编号',
+      title: '证书id',
       dataIndex: 'certificateId',
       valueType: 'text',
     },
@@ -36,11 +36,14 @@ const UserCertificateList: React.FC = () => {
       valueType: 'text',
     },
     {
-      title: '获得人姓名',
-      dataIndex: 'userVO',
-      hideInSearch: true,
+      title: '证书编号',
+      dataIndex: 'certificateNumber',
       valueType: 'text',
-      render: (_, record) => record.userVO?.userName,
+    },
+    {
+      title: '获得人姓名',
+      dataIndex: 'gainUserName',
+      valueType: 'text',
     },
     {
       title: '证书获得时间',
@@ -125,14 +128,14 @@ const UserCertificateList: React.FC = () => {
         />
       )}
       {userDetails && (
-        <UserDetailsModal
+        <Index
           visible={userDetails}
           onCancel={() => setUserDetails(false)}
           user={currentRow?.userVO ?? {}}
         />
       )}
       {downloadCertificate && (
-        <UserDetailsModal
+        <Index
           visible={downloadCertificate}
           onCancel={() => setDownloadCertificate(false)}
           user={currentRow?.userVO ?? {}}

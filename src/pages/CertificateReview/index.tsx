@@ -3,7 +3,7 @@ import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import { CertificateSituationEnum } from '@/enums/CertificateSituationEnum';
 import { CertificateTypeEnum } from '@/enums/CertificateTypeEnum';
 import { message, Space, Typography } from 'antd';
-import UserDetailsModal from '@/components/ReAccount/UserDetailsModal';
+import Index from '@/pages/IndexPage/compoents/UserInfoCard';
 import { getUserByIdUsingGet } from '@/services/stephen-backend/userController';
 import { listCertificateByPageUsingPost } from '@/services/stephen-backend/certificateController';
 import { ReviewStatus, ReviewStatusEnum } from '@/enums/ReviewStatus';
@@ -155,7 +155,7 @@ const CertificateReview: React.FC = () => {
       />
       {/*获得者信息*/}
       {userDetails && (
-        <UserDetailsModal
+        <Index
           visible={userDetails}
           onCancel={() => setUserDetails(false)}
           user={userInfo ?? {}}

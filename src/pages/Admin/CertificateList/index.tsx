@@ -62,12 +62,12 @@ const CertificateList: React.FC = () => {
       dataIndex: 'id',
       valueType: 'text',
       hideInForm: true,
+      hideInTable: true,
     },
     {
-      title: '创建人id',
-      dataIndex: 'userId',
+      title: '证书编号',
+      dataIndex: 'certificateNumber',
       valueType: 'text',
-      hideInForm: true,
     },
     {
       title: '证书名称',
@@ -87,7 +87,7 @@ const CertificateList: React.FC = () => {
     {
       title: '证书获得情况',
       dataIndex: 'certificateSituation',
-      valueType: 'select',
+      valueType: 'text',
       valueEnum: CertificateSituationEnum,
     },
     {

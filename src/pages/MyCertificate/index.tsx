@@ -4,6 +4,7 @@ import React, {useRef} from 'react';
 import {listMyCertificateVoByPageUsingPost} from '@/services/stephen-backend/certificateController';
 import {CertificateSituationEnum} from '@/enums/CertificateSituationEnum';
 import {CertificateTypeEnum} from '@/enums/CertificateTypeEnum';
+import {ReviewStatus} from '@/enums/ReviewStatus';
 
 /**
  * 用户管理列表
@@ -26,6 +27,11 @@ const MyCertificateList: React.FC = () => {
       dataIndex: 'userId',
       valueType: 'text',
       hideInForm: true,
+    },
+    {
+      title: '证书名称',
+      dataIndex: 'certificateNumber',
+      valueType: 'text',
     },
     {
       title: '证书名称',
@@ -55,22 +61,6 @@ const MyCertificateList: React.FC = () => {
       valueType: 'text',
       hideInSearch: true,
     },
-    {
-      title: '创建时间',
-      sorter: true,
-      dataIndex: 'createTime',
-      valueType: 'dateTime',
-      hideInSearch: true,
-      hideInForm: true,
-    },
-    {
-      title: '更新时间',
-      sorter: true,
-      dataIndex: 'updateTime',
-      valueType: 'dateTime',
-      hideInSearch: true,
-      hideInForm: true,
-    },
   ];
   return (
     <>
@@ -89,6 +79,7 @@ const MyCertificateList: React.FC = () => {
             ...filter,
             sortField,
             sortOrder,
+            reviewStatus: ReviewStatus.PASS
           } as API.CertificateQueryRequest);
 
           return {

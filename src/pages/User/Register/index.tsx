@@ -4,7 +4,7 @@ import { history } from '@umijs/max';
 import { message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { createStyles } from 'antd-style';
-import { BACKGROUND_IMAGE, STEPHEN_SUBTITLE, STEPHEN_TITLE } from '@/constants';
+import { BACKGROUND_IMAGE, LEARNING_TITLE } from '@/constants';
 import { userRegisterUsingPost } from '@/services/stephen-backend/userController';
 import RegisterPage from '@/pages/User/Register/components/RegisterPage';
 
@@ -82,8 +82,7 @@ const Login: React.FC = () => {
             backdropFilter: 'blur(4px)',
           }}
           logo={<img alt="logo" src="/logo.svg" />}
-          title={STEPHEN_TITLE}
-          subTitle={STEPHEN_SUBTITLE}
+          title={LEARNING_TITLE}
           initialValues={{
             autoLogin: true,
           }}

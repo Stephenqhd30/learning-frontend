@@ -11,13 +11,16 @@ export const ReviewStatusEnum = {
   0: {
     text: '待审核',
     value: ReviewStatus.REVIEWING,
+    color: 'yellow',
   },
   1: {
     text: '通过',
     value: ReviewStatus.PASS,
+    color:'green',
   },
   2: {
     text: '拒绝',
     value: ReviewStatus.REJECT,
+    color: 'red',
   },
 };

@@ -1,9 +1,9 @@
 import { DefaultFooter } from '@ant-design/pro-components';
 import React from 'react';
-import { STEPHEN_DEFAULT_MESSAGE } from '@/constants';
+import { LEARNING_DEFAULT_MESSAGE } from '@/constants';
 
 const Footer: React.FC = () => {
-  const defaultMessage = STEPHEN_DEFAULT_MESSAGE;
+  const defaultMessage = LEARNING_DEFAULT_MESSAGE;
   const currentYear = new Date().getFullYear();
   return (
     <DefaultFooter

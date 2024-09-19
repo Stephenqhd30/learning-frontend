@@ -6,9 +6,10 @@ import { listCertificateVoByPageUsingPost } from '@/services/stephen-backend/cer
 import { CertificateTypeEnum } from '@/enums/CertificateTypeEnum';
 import { CertificateSituationEnum } from '@/enums/CertificateSituationEnum';
 import { message, Space, Typography } from 'antd';
-import { getUserByIdUsingGet } from '@/services/stephen-backend/userController';
+import { getUserVoByIdUsingGet } from '@/services/stephen-backend/userController';
 import { INDEX_PAGE_TITLE } from '@/constants';
-import UserDetailsModal from '@/components/ReAccount/UserDetailsModal';
+import { ReviewStatus } from '@/enums/ReviewStatus';
+import UserInfoCard from '@/pages/IndexPage/compoents/UserInfoCard';
 
 const IndexPage: React.FC = () => {
   const { initialState } = useModel('@@initialState');
@@ -23,7 +24,7 @@ const IndexPage: React.FC = () => {
   const [userInfo, setUserInfo] = useState<API.User>({});
   const getCurrentUserInfo = async (userId: any) => {
     try {
-      const res = await getUserByIdUsingGet({ id: userId });
+      const res = await getUserVoByIdUsingGet({ id: userId });
       if (res.code === 0 && res.data) {
         setUserInfo(res.data);
       }
@@ -36,8 +37,22 @@ const IndexPage: React.FC = () => {
    */
   const columns: ProColumns<API.CertificateVO>[] = [
     {
+      title: '证书id',
+      dataIndex: 'id',
+      valueType: 'text',
+      hideInTable: true,
+      hideInSearch: true,
+    },
+    {
+      title: '创建人id',
+      dataIndex: 'userId',
+      valueType: 'text',
+      hideInTable: true,
+      hideInSearch: true,
+    },
+    {
       title: '证书编号',
-      dataIndex: 'certificateId',
+      dataIndex: 'certificateNumber',
       valueType: 'text',
     },
     {
@@ -93,7 +108,7 @@ const IndexPage: React.FC = () => {
   ];
   return (
     // @ts-ignore
-    <WaterMark content={currentUser?.userName + currentUser?.userIdCard ?? '河南开封科技传媒学院'}>
+    <WaterMark content={currentUser?.userName + ' - 河南开封科技传媒学院'}>
       <PageContainer title={INDEX_PAGE_TITLE}>
         <ProTable<API.Certificate, API.PageParams>
           headerTitle={'证书列表'}
@@ -109,6 +124,7 @@ const IndexPage: React.FC = () => {
               ...filter,
               sortField,
               sortOrder,
+              reviewStatus: ReviewStatus.PASS,
             } as API.CertificateQueryRequest);
 
             return {
@@ -120,14 +136,14 @@ const IndexPage: React.FC = () => {
           columns={columns}
         />
         {userDetails && (
-          <UserDetailsModal
+          <UserInfoCard
             visible={userDetails}
             onCancel={() => setUserDetails(false)}
             user={userInfo ?? {}}
           />
         )}
         {downloadCertificate && (
-          <UserDetailsModal
+          <UserInfoCard
             visible={downloadCertificate}
             onCancel={() => setDownloadCertificate(false)}
             user={currentRow?.userVO ?? {}}

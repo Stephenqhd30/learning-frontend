@@ -15,6 +15,7 @@ const UserDetailsCard: React.FC<UserProps> = (props) => {
     <>
       <ProCard>
         <ProDescriptions<API.User>
+          column={1}
           title={
             <>
               <Typography.Title level={3}>{user?.userName}</Typography.Title>
@@ -46,6 +47,7 @@ const UserDetailsCard: React.FC<UserProps> = (props) => {
               key: 'userIdCard',
               dataIndex: 'userIdCard',
               valueType: 'text',
+              hideInDescriptions: true,
             },
             {
               title: '简介',

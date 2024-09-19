@@ -97,9 +97,6 @@ const BaseView: React.FC<BaseViewProps> = (props) => {
             <Col xs={24} sm={12} md={12} lg={8} xl={8} xxl={8}>
               <ProFormText name="userEmail" label="邮箱" />
             </Col>
-            <Col xs={24} sm={12} md={12} lg={8} xl={8} xxl={8}>
-              <ProFormText name="userIdCard" label="身份证号" />
-            </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
               <ProFormTextArea name="userProfile" label="简介" />
             </Col>

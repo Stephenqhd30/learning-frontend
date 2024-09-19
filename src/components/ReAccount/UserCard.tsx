@@ -7,7 +7,7 @@ interface UserProps {
   user: API.User;
 }
 
-const UserInfoCard: React.FC<UserProps> = (props) => {
+const UserCard: React.FC<UserProps> = (props) => {
   const { user } = props;
 
   return (
@@ -40,4 +40,4 @@ const UserInfoCard: React.FC<UserProps> = (props) => {
     </>
   );
 };
-export default UserInfoCard;
+export default UserCard;
