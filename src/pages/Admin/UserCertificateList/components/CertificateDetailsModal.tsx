@@ -1,8 +1,9 @@
-import React from 'react';
-import {Modal, Typography} from 'antd';
+import React, {useState} from 'react';
+import {message, Modal, Typography} from 'antd';
 import {ProCard, ProDescriptions} from '@ant-design/pro-components';
 import {CertificateSituationEnum} from '@/enums/CertificateSituationEnum';
 import {CertificateTypeEnum} from '@/enums/CertificateTypeEnum';
+import {getUserVoByIdUsingGet} from '@/services/stephen-backend/userController';
 
 interface CertificateDetailsProps {
   certificate: API.CertificateVO;
@@ -25,19 +26,24 @@ const CertificateDetailsModal: React.FC<CertificateDetailsProps> = (props) => {
             dataSource={certificate}
             columns={[
               {
-                title: '证书编号',
+                title: '证书id',
                 key: 'id',
                 dataIndex: 'id'
               },
               {
-                title: '获得者id',
-                key: 'gainUserId',
-                dataIndex: 'gainUserId'
+                title: '证书编号',
+                key: 'certificateNumber',
+                dataIndex: 'certificateNumber'
               },
               {
                 title: '证书名称',
                 key: 'certificateName',
                 dataIndex: 'certificateName'
+              },
+              {
+                title: '获得者id',
+                key: 'gainUserId',
+                dataIndex: 'gainUserId'
               },
               {
                 title: '证书获得情况',

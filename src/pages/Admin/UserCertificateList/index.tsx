@@ -1,20 +1,60 @@
 import React, { useRef, useState } from 'react';
 import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
-import { Space, Typography } from 'antd';
-import { listUserCertificateVoByPageUsingPost } from '@/services/stephen-backend/userCertificateController';
+import { message, Space, Typography } from 'antd';
+import { listUserCertificateByPageUsingPost } from '@/services/stephen-backend/userCertificateController';
 import CertificateDetailsModal from '@/pages/Admin/UserCertificateList/components/CertificateDetailsModal';
-import Index from '@/pages/IndexPage/compoents/UserInfoCard';
+import UserInfoCard from '@/pages/IndexPage/compoents/UserInfoCard';
+import { getUserVoByIdUsingGet } from '@/services/stephen-backend/userController';
+import { getCertificateVoByIdUsingGet } from '@/services/stephen-backend/certificateController';
 
 const UserCertificateList: React.FC = () => {
   const actionRef = useRef<ActionType>();
-  // 查看证书信息
+  // 查看证书信息Drawer
   const [certificateDetails, setCertificateDetails] = useState<boolean>(false);
-  // 查看用户信息
+  // 查看用户信息Drawer
   const [userDetails, setUserDetails] = useState<boolean>(false);
   // 下载证书
   const [downloadCertificate, setDownloadCertificate] = useState<boolean>(false);
   // 当前用户的所点击的数据
   const [currentRow, setCurrentRow] = useState<API.UserCertificateVO>();
+  // 证书获得者信息
+  const [currentUserInfo, setCurrentUserInfo] = useState<API.UserVO>({});
+  // 证书信息
+  const [certificateInfo, setCertificateInfo] = useState<API.Certificate>({});
+  /**
+   * 获取用户信息
+   * @param userId
+   */
+  const gainUserInfo = async (userId: any) => {
+    try {
+      const res = await getUserVoByIdUsingGet({
+        id: userId,
+      });
+      if (res.code === 0 && res.data) {
+        setCurrentUserInfo(res.data);
+      }
+    } catch (error: any) {
+      message.error('获取用户信息失败：' + error.message);
+    }
+  };
+
+  /**
+   * 获取证书信息
+   * @param certificateId
+   */
+  const getCertificateInfo = async (certificateId: any) => {
+    try {
+      const res = await getCertificateVoByIdUsingGet({
+        id: certificateId,
+      });
+      if (res.code === 0 && res.data) {
+        setCertificateInfo(res.data);
+      }
+    } catch (error: any) {
+      message.error('获取用户信息失败：' + error.message);
+    }
+  };
+
   /**
    * 表格列数据
    */
@@ -72,18 +112,20 @@ const UserCertificateList: React.FC = () => {
         <Space size={'middle'}>
           <Typography.Link
             key={'user-details'}
-            onClick={() => {
+            onClick={async () => {
               setUserDetails(true);
               setCurrentRow(record);
+              await gainUserInfo(currentRow?.userId);
             }}
           >
             查看获得者信息
           </Typography.Link>
           <Typography.Link
             key={'certificate-details'}
-            onClick={() => {
+            onClick={async () => {
               setCertificateDetails(true);
               setCurrentRow(record);
+              await getCertificateInfo(currentRow?.certificateId);
             }}
           >
             查看证书信息
@@ -105,7 +147,7 @@ const UserCertificateList: React.FC = () => {
         request={async (params, sort, filter) => {
           const sortField = Object.keys(sort)?.[0];
           const sortOrder = sort?.[sortField] ?? undefined;
-          const { data, code } = await listUserCertificateVoByPageUsingPost({
+          const { data, code } = await listUserCertificateByPageUsingPost({
             ...params,
             ...filter,
             sortField,
@@ -124,21 +166,21 @@ const UserCertificateList: React.FC = () => {
         <CertificateDetailsModal
           visible={certificateDetails}
           onCancel={() => setCertificateDetails(false)}
-          certificate={currentRow?.certificateVO ?? {}}
+          certificate={certificateInfo ?? {}}
         />
       )}
       {userDetails && (
-        <Index
+        <UserInfoCard
           visible={userDetails}
           onCancel={() => setUserDetails(false)}
-          user={currentRow?.userVO ?? {}}
+          user={currentUserInfo ?? {}}
         />
       )}
       {downloadCertificate && (
-        <Index
+        <UserInfoCard
           visible={downloadCertificate}
           onCancel={() => setDownloadCertificate(false)}
-          user={currentRow?.userVO ?? {}}
+          user={currentUserInfo ?? {}}
         />
       )}
     </>

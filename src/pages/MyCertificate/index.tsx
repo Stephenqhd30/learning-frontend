@@ -5,6 +5,8 @@ import {listMyCertificateVoByPageUsingPost} from '@/services/stephen-backend/cer
 import {CertificateSituationEnum} from '@/enums/CertificateSituationEnum';
 import {CertificateTypeEnum} from '@/enums/CertificateTypeEnum';
 import {ReviewStatus} from '@/enums/ReviewStatus';
+import {WaterMark} from '@ant-design/pro-layout';
+import {useModel} from '@@/exports';
 
 /**
  * 用户管理列表
@@ -12,6 +14,8 @@ import {ReviewStatus} from '@/enums/ReviewStatus';
  */
 const MyCertificateList: React.FC = () => {
   const actionRef = useRef<ActionType>();
+  const {initialState} = useModel('@@initialState');
+  const currentUser = initialState?.currentUser;
   /**
    * 表格列数据
    */
@@ -20,16 +24,16 @@ const MyCertificateList: React.FC = () => {
       title: 'id',
       dataIndex: 'id',
       valueType: 'text',
-      hideInForm: true,
+      hideInSearch: true,
     },
     {
       title: '创建人id',
       dataIndex: 'userId',
       valueType: 'text',
-      hideInForm: true,
+      hideInSearch: true,
     },
     {
-      title: '证书名称',
+      title: '证书编号',
       dataIndex: 'certificateNumber',
       valueType: 'text',
     },
@@ -63,7 +67,7 @@ const MyCertificateList: React.FC = () => {
     },
   ];
   return (
-    <>
+    <WaterMark content={currentUser?.userName + ' - 河南开封科技传媒学院'}>
       <ProTable<API.Certificate, API.PageParams>
         headerTitle={'我的证书列表'}
         actionRef={actionRef}
@@ -90,7 +94,7 @@ const MyCertificateList: React.FC = () => {
         }}
         columns={columns}
       />
-    </>
+    </WaterMark>
   );
 };
 export default MyCertificateList;
