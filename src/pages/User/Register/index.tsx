@@ -1,41 +1,15 @@
 import { Footer } from '@/components';
-import { LoginFormPage } from '@ant-design/pro-components';
+import { LoginForm, ProConfigProvider } from '@ant-design/pro-components';
 import { history } from '@umijs/max';
-import { message } from 'antd';
+import { Image, message, theme } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { createStyles } from 'antd-style';
-import { BACKGROUND_IMAGE, LEARNING_TITLE } from '@/constants';
+import { LEARNING_SUBTITLE, LEARNING_TITLE } from '@/constants';
 import { userRegisterUsingPost } from '@/services/stephen-backend/userController';
 import RegisterPage from '@/pages/User/Register/components/RegisterPage';
 
-const useStyles = createStyles(({ token }) => {
-  return {
-    action: {
-      marginLeft: '8px',
-      color: 'rgba(0, 0, 0, 0.2)',
-      fontSize: '24px',
-      verticalAlign: 'middle',
-      cursor: 'pointer',
-      transition: 'color 0.3s',
-      '&:hover': {
-        color: token.colorPrimaryActive,
-      },
-    },
-    container: {
-      display: 'flex',
-      flexDirection: 'column',
-      height: '100vh',
-      overflow: 'auto',
-      backgroundImage:
-        "url('https://mdn.alipayobjects.com/yuyan_qk0oxh/afts/img/V-_oS6r-i7wAAAAAAAAAAAAAFl94AQBr')",
-      backgroundSize: '100% 100%',
-    },
-  };
-});
-
-const Login: React.FC = () => {
+const Register: React.FC = () => {
+  const { token } = theme.useToken();
   const [redirected, setRedirected] = useState(false); // 控制重定向状态
-  const { styles } = useStyles();
 
   // 用户注册
   const handleRegisterSubmit = async (values: API.UserRegisterRequest) => {
@@ -63,39 +37,41 @@ const Login: React.FC = () => {
   }, [redirected]);
 
   return (
-    <div className={styles.container}>
+    <>
       <div
         style={{
-          flex: '1 auto',
-          padding: '0',
+          backgroundColor: token.colorBgContainer,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          height: '85vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
-        {/*用户登录的表单*/}
-        <LoginFormPage
-          submitter={{
-            searchConfig: {
-              submitText: '注册',
-            },
-          }}
-          backgroundImageUrl={BACKGROUND_IMAGE}
-          containerStyle={{
-            backdropFilter: 'blur(4px)',
-          }}
-          logo={<img alt="logo" src="/logo.svg" />}
-          title={LEARNING_TITLE}
-          initialValues={{
-            autoLogin: true,
-          }}
-          onFinish={async (values) => {
-            await handleRegisterSubmit(values as API.UserRegisterRequest);
-            setRedirected(true);
-          }}
-        >
-          <RegisterPage />
-        </LoginFormPage>
+        <ProConfigProvider hashed={false}>
+          <div style={{ backgroundColor: token.colorBgContainer }}>
+            <LoginForm
+              submitter={{
+                searchConfig: {
+                  submitText: '注册',
+                },
+              }}
+              logo={<Image src={'/logo.svg'} preview={false} />}
+              title={LEARNING_TITLE}
+              subTitle={LEARNING_SUBTITLE}
+              onFinish={async (values) => {
+                await handleRegisterSubmit(values as API.UserRegisterRequest);
+                setRedirected(true);
+              }}
+            >
+              <RegisterPage key={'register'} />
+            </LoginForm>
+          </div>
+        </ProConfigProvider>
       </div>
       <Footer />
-    </div>
+    </>
   );
 };
-export default Login;
+export default Register;

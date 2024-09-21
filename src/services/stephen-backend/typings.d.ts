@@ -104,6 +104,7 @@ declare namespace API {
 
   type CertificateAddRequest = {
     certificateName?: string;
+    certificateNumber?: string;
     certificateSituation?: number;
     certificateType?: number;
     certificateUrl?: string;
@@ -364,7 +365,6 @@ declare namespace API {
     userAvatar?: string;
     userEmail?: string;
     userGender?: number;
-    userIdCard?: string;
     userName?: string;
     userNumber?: string;
     userPhone?: string;

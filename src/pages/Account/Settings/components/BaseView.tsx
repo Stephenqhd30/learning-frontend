@@ -1,6 +1,6 @@
 import { Avatar, Col, message, Row, UploadProps } from 'antd';
 import React, { useState } from 'react';
-import { updateUserUsingPost } from '@/services/stephen-backend/userController';
+import {updateMyUserUsingPost, updateUserUsingPost} from '@/services/stephen-backend/userController';
 import {
   ProCard,
   ProForm,
@@ -21,13 +21,12 @@ const BaseView: React.FC<BaseViewProps> = (props) => {
    * 更新用户信息
    * @param values
    */
-  const handleUpdate = async (values: API.UserUpdateRequest) => {
+  const handleUpdate = async (values: API.UserEditRequest) => {
     const hide = message.loading('正在更新');
     console.log(values);
     try {
-      await updateUserUsingPost({
+      await updateMyUserUsingPost({
         ...values,
-        id: user?.id,
         userAvatar: userAvatar,
       });
       hide();

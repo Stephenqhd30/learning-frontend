@@ -1,43 +1,16 @@
 import { Footer } from '@/components';
-import { LoginFormPage } from '@ant-design/pro-components';
-import { Helmet, history, useModel } from '@umijs/max';
-import { message, Typography } from 'antd';
+import { LoginForm, ProConfigProvider } from '@ant-design/pro-components';
+import { history, useModel } from '@umijs/max';
+import { Image, message, theme, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { createStyles } from 'antd-style';
-import { BACKGROUND_IMAGE, LEARNING_TITLE } from '@/constants';
-import AccountLoginPage from '@/pages/User/Login/components/AccountLoginPage';
 import { userLoginUsingPost } from '@/services/stephen-backend/userController';
-
-const useStyles = createStyles(({ token }) => {
-  return {
-    action: {
-      marginLeft: '8px',
-      color: 'rgba(0, 0, 0, 0.2)',
-      fontSize: '24px',
-      verticalAlign: 'middle',
-      cursor: 'pointer',
-      transition: 'color 0.3s',
-      '&:hover': {
-        color: token.colorPrimaryActive,
-      },
-    },
-    container: {
-      display: 'flex',
-      flexDirection: 'column',
-      height: '100vh',
-      overflow: 'auto',
-      backgroundImage:
-        "url('https://mdn.alipayobjects.com/yuyan_qk0oxh/afts/img/V-_oS6r-i7wAAAAAAAAAAAAAFl94AQBr')",
-      backgroundSize: '100% 100%',
-    },
-  };
-});
-
+import { LEARNING_SUBTITLE, LEARNING_TITLE } from '@/constants';
+import AccountLoginPage from '@/pages/User/Login/components/AccountLoginPage';
 
 const Login: React.FC = () => {
-  const {initialState, setInitialState} = useModel('@@initialState');
+  const { initialState, setInitialState } = useModel('@@initialState');
   const [redirected, setRedirected] = useState(false); // 控制重定向状态
-  const {styles} = useStyles();
+  const { token } = theme.useToken();
   // 用户登录
   const handleLoginSubmit = async (values: API.UserLoginRequest) => {
     try {
@@ -66,48 +39,44 @@ const Login: React.FC = () => {
   }, [redirected]);
 
   return (
-    <div className={styles.container}>
-      <Helmet>
-        <title>{LEARNING_TITLE}</title>
-      </Helmet>
+    <>
       <div
         style={{
-          flex: '1 auto',
-          padding: '16',
+          backgroundColor: token.colorBgContainer,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          height: '85vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
-        {/*用户登录的表单*/}
-        <LoginFormPage
-          backgroundImageUrl={BACKGROUND_IMAGE}
-          containerStyle={{
-            backdropFilter: 'blur(4px)',
-          }}
-          logo={<img alt="logo" src="/logo.svg" />}
-          title={LEARNING_TITLE}
-          initialValues={{
-            autoLogin: true,
-          }}
-          onFinish={async (values) => {
-            await handleLoginSubmit(values as API.UserLoginRequest);
-          }}
-          actions={
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'left',
-                flexDirection: 'column',
+        <ProConfigProvider hashed={false}>
+          <div style={{ backgroundColor: token.colorBgContainer }}>
+            <LoginForm
+              logo={<Image src={'/logo.svg'} preview={false} />}
+              title={LEARNING_TITLE}
+              subTitle={LEARNING_SUBTITLE}
+              onFinish={async (values) => {
+                await handleLoginSubmit(values as API.UserLoginRequest);
+                setRedirected(true);
               }}
             >
-              <Typography.Link href={'/user/register'}>去注册</Typography.Link>
-            </div>
-          }
-        >
-          <AccountLoginPage />
-        </LoginFormPage>
+              <AccountLoginPage key={'account'} />
+              <Typography.Link
+                href={'/user/register'}
+                style={{
+                  float: 'right',
+                }}
+              >
+                去注册
+              </Typography.Link>
+            </LoginForm>
+          </div>
+        </ProConfigProvider>
       </div>
       <Footer />
-    </div>
+    </>
   );
 };
 export default Login;
