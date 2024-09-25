@@ -1,14 +1,14 @@
-import { ProColumns, ProTable } from '@ant-design/pro-components';
+import {DrawerForm, ProColumns, ProTable} from '@ant-design/pro-components';
 import '@umijs/max';
-import { Drawer, message } from 'antd';
+import {Drawer, message, Modal} from 'antd';
 import React from 'react';
-import {addCertificateUsingPost} from '@/services/stephen-backend/certificateController';
+import { addUserUsingPost } from '@/services/stephen-backend/userController';
 
 interface CreateProps {
   onCancel: () => void;
-  onSubmit: (values: API.CertificateAddRequest) => Promise<void>;
+  onSubmit: (values: API.UserAddRequest) => Promise<void>;
   visible: boolean;
-  columns: ProColumns<API.Certificate>[];
+  columns: ProColumns<API.User>[];
 }
 
 /**
@@ -16,10 +16,10 @@ interface CreateProps {
  *
  * @param fields
  */
-const handleAdd = async (fields: API.CertificateAddRequest) => {
+const handleAdd = async (fields: API.UserAddRequest) => {
   const hide = message.loading('正在添加');
   try {
-    await addCertificateUsingPost({
+    await addUserUsingPost({
       ...fields,
     });
     hide();
@@ -37,18 +37,19 @@ const handleAdd = async (fields: API.CertificateAddRequest) => {
  * @param props
  * @constructor
  */
-const CreateCertificateDrawer: React.FC<CreateProps> = (props) => {
+const CreateUserModal: React.FC<CreateProps> = (props) => {
   const { visible, onSubmit, onCancel, columns } = props;
   return (
-    <Drawer
+    <Modal
       destroyOnClose
-      title={"新建证书"}
-      onClose={() => onCancel?.()}
+      title={"新建用户"}
+      onCancel={() => onCancel?.()}
       open={visible}
+      footer
     >
       <ProTable
         columns={columns}
-        onSubmit={async (values: API.CertificateAddRequest) => {
+        onSubmit={async (values: API.UserAddRequest) => {
           const success = await handleAdd(values);
           if (success) {
             onSubmit?.(values);
@@ -56,7 +57,7 @@ const CreateCertificateDrawer: React.FC<CreateProps> = (props) => {
         }}
         type={'form'}
       />
-    </Drawer>
+    </Modal>
   );
 };
-export default CreateCertificateDrawer;
+export default CreateUserModal;

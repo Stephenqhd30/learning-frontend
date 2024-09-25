@@ -1,13 +1,16 @@
 import {PlusOutlined} from '@ant-design/icons';
 import {ActionType, ProColumns, ProTable} from '@ant-design/pro-components';
 import '@umijs/max';
-import {Button, message, Popconfirm, Space, Tag, Typography} from 'antd';
-import React, {useRef, useState} from 'react';
-import UpdateUserDrawer from './components/UpdateUserDrawer';
-import {deleteUserUsingPost, listUserByPageUsingPost} from '@/services/stephen-backend/userController';
-import CreateUserDrawer from '@/pages/Admin/UserList/components/CreateUserDrawer';
-import {UserRoleEnum} from '@/enums/UserRoleEnum';
-import {UserGenderEnum} from '@/enums/UserGenderEnum';
+import { Button, message, Popconfirm, Select, Space, Tag, Typography } from 'antd';
+import React, { useRef, useState } from 'react';
+import UpdateUserModal from './components/UpdateUserModal';
+import {
+  deleteUserUsingPost,
+  listUserByPageUsingPost,
+} from '@/services/stephen-backend/userController';
+import CreateUserModal from '@/pages/Admin/UserList/components/CreateUserModal';
+import { UserRoleEnum } from '@/enums/UserRoleEnum';
+import { UserGender, UserGenderEnum } from '@/enums/UserGenderEnum';
 
 /**
  * 删除节点
@@ -34,10 +37,10 @@ const handleDelete = async (row: API.DeleteRequest) => {
  * @constructor
  */
 const UserList: React.FC = () => {
-  // 新建窗口的Drawer框
-  const [createDrawerVisible, setCreateDrawerVisible] = useState<boolean>(false);
-  // 更新窗口的Drawer框
-  const [updateDrawerVisible, setUpdateDrawerVisible] = useState<boolean>(false);
+  // 新建窗口的Modal框
+  const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
+  // 更新窗口的Modal框
+  const [updateModalVisible, setUpdateModalVisible] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   // 当前用户的所点击的数据
   const [currentRow, setCurrentRow] = useState<API.User>();
@@ -88,11 +91,26 @@ const UserList: React.FC = () => {
     {
       title: '性别',
       dataIndex: 'userGender',
-      valueType: 'select',
+      valueType: 'text',
       valueEnum: UserGenderEnum,
+      renderFormItem: () => {
+        return (
+          <Select>
+            <Select.Option value={UserGender.MALE}>
+              {UserGenderEnum[UserGender.MALE].text}
+            </Select.Option>
+            <Select.Option value={UserGender.FEMALE}>
+              {UserGenderEnum[UserGender.FEMALE].text}
+            </Select.Option>
+            <Select.Option value={UserGender.SECURITY}>
+              {UserGenderEnum[UserGender.SECURITY].text}
+            </Select.Option>
+          </Select>
+        );
+      },
     },
     {
-      title: '性别',
+      title: '学号',
       dataIndex: 'userNumber',
       valueType: 'text',
     },
@@ -131,7 +149,7 @@ const UserList: React.FC = () => {
           <Typography.Link
             key="update"
             onClick={() => {
-              setUpdateDrawerVisible(true);
+              setUpdateModalVisible(true);
               setCurrentRow(record);
               actionRef.current?.reload();
             }}
@@ -177,7 +195,7 @@ const UserList: React.FC = () => {
             type="primary"
             key="primary"
             onClick={() => {
-              setCreateDrawerVisible(true);
+              setCreateModalVisible(true);
             }}
           >
             <PlusOutlined /> 新建
@@ -202,32 +220,32 @@ const UserList: React.FC = () => {
         columns={columns}
       />
 
-      {/*新建表单的Drawer框*/}
-      {createDrawerVisible && (
-        <CreateUserDrawer
+      {/*新建表单的Modal框*/}
+      {createModalVisible && (
+        <CreateUserModal
           onCancel={() => {
-            setCreateDrawerVisible(false);
+            setCreateModalVisible(false);
           }}
           onSubmit={async () => {
-            setCreateDrawerVisible(false);
+            setCreateModalVisible(false);
             actionRef.current?.reload();
           }}
-          visible={createDrawerVisible}
+          visible={createModalVisible}
           columns={columns}
         />
       )}
-      {/*更新表单的Drawer框*/}
-      {updateDrawerVisible && (
-        <UpdateUserDrawer
+      {/*更新表单的Modal框*/}
+      {updateModalVisible && (
+        <UpdateUserModal
           onCancel={() => {
-            setUpdateDrawerVisible(false);
+            setUpdateModalVisible(false);
           }}
           onSubmit={async () => {
-            setUpdateDrawerVisible(false);
+            setUpdateModalVisible(false);
             setCurrentRow(undefined);
             actionRef.current?.reload();
           }}
-          visible={updateDrawerVisible}
+          visible={updateModalVisible}
           columns={columns}
           oldData={currentRow}
         />

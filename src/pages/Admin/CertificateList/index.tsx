@@ -1,17 +1,17 @@
 import {EditOutlined, PlusOutlined} from '@ant-design/icons';
 import {ActionType, ProColumns, ProTable} from '@ant-design/pro-components';
 import '@umijs/max';
-import {Button, message, Popconfirm, Space, Typography} from 'antd';
+import { Button, message, Popconfirm, Select, Space, Typography } from 'antd';
 import React, {useRef, useState} from 'react';
 import {
   deleteCertificateUsingPost,
-  listCertificateByPageUsingPost
+  listCertificateByPageUsingPost,
 } from '@/services/stephen-backend/certificateController';
-import {CertificateSituationEnum} from '@/enums/CertificateSituationEnum';
-import {CertificateTypeEnum} from '@/enums/CertificateTypeEnum';
-import {ReviewStatusEnum} from '@/enums/ReviewStatus';
-import CreateCertificateDrawer from '@/pages/Admin/CertificateList/components/CreateCertificateDrawer';
-import UpdateCertificateDrawer from '@/pages/Admin/CertificateList/components/UpdateCertificateDrawer';
+import { CertificateSituation, CertificateSituationEnum } from '@/enums/CertificateSituationEnum';
+import { CertificateType, CertificateTypeEnum } from '@/enums/CertificateTypeEnum';
+import {ReviewStatus, ReviewStatusEnum} from '@/enums/ReviewStatus';
+import CreateCertificateModal from '@/pages/Admin/CertificateList/components/CreateCertificateModal';
+import UpdateCertificateModal from '@/pages/Admin/CertificateList/components/UpdateCertificateModal';
 
 /**
  * 删除节点
@@ -38,10 +38,10 @@ const handleDelete = async (row: API.DeleteRequest) => {
  * @constructor
  */
 const CertificateList: React.FC = () => {
-  // 新建窗口的Drawer框
-  const [createDrawerVisible, setCreateDrawerVisible] = useState<boolean>(false);
-  // 更新窗口的Drawer框
-  const [updateDrawerVisible, setUpdateDrawerVisible] = useState<boolean>(false);
+  // 新建窗口的Modal框
+  const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
+  // 更新窗口的Modal框
+  const [updateModalVisible, setUpdateModalVisible] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   // 当前用户的所点击的数据
   const [currentRow, setCurrentRow] = useState<API.Certificate>();
@@ -52,7 +52,7 @@ const CertificateList: React.FC = () => {
   const goDoReviewPage = () => {
     // 跳转至审核信息
     window.location.href = `/review/certificate`;
-  }
+  };
   /**
    * 表格列数据
    */
@@ -89,12 +89,36 @@ const CertificateList: React.FC = () => {
       dataIndex: 'certificateSituation',
       valueType: 'text',
       valueEnum: CertificateSituationEnum,
+      renderFormItem: () => {
+        return (
+          <Select>
+            <Select.Option value={CertificateSituation.HAVE}>
+              {CertificateSituationEnum[CertificateSituation.HAVE].text}
+            </Select.Option>
+            <Select.Option value={CertificateSituation.NO}>
+              {CertificateSituationEnum[CertificateSituation.HAVE].text}
+            </Select.Option>
+          </Select>
+        );
+      },
     },
     {
       title: '证书类型',
       dataIndex: 'certificateType',
       valueType: 'select',
       valueEnum: CertificateTypeEnum,
+      renderFormItem: () => {
+        return (
+          <Select>
+            <Select.Option value={CertificateType.CADRE_TRAINING}>
+              {CertificateTypeEnum[CertificateType.CADRE_TRAINING].text}
+            </Select.Option>
+            <Select.Option value={CertificateType.OTHERS}>
+              {CertificateTypeEnum[CertificateType.OTHERS].text}
+            </Select.Option>
+          </Select>
+        );
+      },
     },
     {
       title: '证书下载地址',
@@ -108,6 +132,21 @@ const CertificateList: React.FC = () => {
       valueType: 'select',
       valueEnum: ReviewStatusEnum,
       hideInForm: true,
+      renderFormItem: () => {
+        return (
+          <Select>
+            <Select.Option value={ReviewStatus.REVIEWING}>
+              {ReviewStatusEnum[ReviewStatus.REVIEWING].text}
+            </Select.Option>
+            <Select.Option value={ReviewStatus.PASS}>
+              {ReviewStatusEnum[ReviewStatus.PASS].text}
+            </Select.Option>
+            <Select.Option value={ReviewStatus.REJECT}>
+              {ReviewStatusEnum[ReviewStatus.REJECT].text}
+            </Select.Option>
+          </Select>
+        );
+      },
     },
     {
       title: '审核信息',
@@ -154,7 +193,7 @@ const CertificateList: React.FC = () => {
           <Typography.Link
             key="update"
             onClick={() => {
-              setUpdateDrawerVisible(true);
+              setUpdateModalVisible(true);
               setCurrentRow(record);
               actionRef.current?.reload();
             }}
@@ -200,7 +239,7 @@ const CertificateList: React.FC = () => {
             type="primary"
             key="primary"
             onClick={() => {
-              setCreateDrawerVisible(true);
+              setCreateModalVisible(true);
             }}
           >
             <PlusOutlined /> 新建
@@ -234,32 +273,32 @@ const CertificateList: React.FC = () => {
         columns={columns}
       />
 
-      {/*新建表单的Drawer框*/}
-      {createDrawerVisible && (
-        <CreateCertificateDrawer
+      {/*新建表单的Modal框*/}
+      {createModalVisible && (
+        <CreateCertificateModal
           onCancel={() => {
-            setCreateDrawerVisible(false);
+            setCreateModalVisible(false);
           }}
           onSubmit={async () => {
-            setCreateDrawerVisible(false);
+            setCreateModalVisible(false);
             actionRef.current?.reload();
           }}
-          visible={createDrawerVisible}
+          visible={createModalVisible}
           columns={columns}
         />
       )}
-      {/*更新表单的Drawer框*/}
-      {updateDrawerVisible && (
-        <UpdateCertificateDrawer
+      {/*更新表单的Modal框*/}
+      {updateModalVisible && (
+        <UpdateCertificateModal
           onCancel={() => {
-            setUpdateDrawerVisible(false);
+            setUpdateModalVisible(false);
           }}
           onSubmit={async () => {
-            setUpdateDrawerVisible(false);
+            setUpdateModalVisible(false);
             setCurrentRow(undefined);
             actionRef.current?.reload();
           }}
-          visible={updateDrawerVisible}
+          visible={updateModalVisible}
           columns={columns}
           oldData={currentRow}
         />

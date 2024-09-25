@@ -1,4 +1,4 @@
-import { Drawer, message } from 'antd';
+import {Drawer, message, Modal} from 'antd';
 import { ProColumns, ProTable } from '@ant-design/pro-components';
 import React from 'react';
 import { doCertificateReviewUsingPost } from '@/services/stephen-backend/certificateController';
@@ -11,15 +11,15 @@ interface ReviewModalProps {
   onSubmit: (values: API.ReviewRequest) => Promise<void>;
 }
 
-const ReviewDrawer: React.FC<ReviewModalProps> = (props) => {
+const ReviewModal: React.FC<ReviewModalProps> = (props) => {
   const { visible, onCancel, certificate, onSubmit, columns } = props;
   return (
-    <Drawer
+    <Modal
       destroyOnClose
-      width={600}
       title={'审核信息'}
-      onClose={() => onCancel?.()}
+      onCancel={() => onCancel?.()}
       open={visible}
+      footer
     >
       <ProTable
         type={'form'}
@@ -39,8 +39,8 @@ const ReviewDrawer: React.FC<ReviewModalProps> = (props) => {
           }
         }}
       />
-    </Drawer>
+    </Modal>
   );
 };
 
-export default ReviewDrawer;
+export default ReviewModal;

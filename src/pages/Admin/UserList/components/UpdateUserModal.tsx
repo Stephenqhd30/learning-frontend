@@ -1,15 +1,15 @@
 import { ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
-import { Drawer, message } from 'antd';
+import {Drawer, message, Modal} from 'antd';
 import React from 'react';
-import {updateCertificateUsingPost} from '@/services/stephen-backend/certificateController';
+import { updateUserUsingPost } from '@/services/stephen-backend/userController';
 
 interface UpdateProps {
-  oldData?: API.Certificate;
+  oldData?: API.User;
   onCancel: () => void;
-  onSubmit: (values: API.CertificateUpdateRequest) => Promise<void>;
+  onSubmit: (values: API.UserUpdateRequest) => Promise<void>;
   visible: boolean;
-  columns: ProColumns<API.Certificate>[];
+  columns: ProColumns<API.User>[];
 }
 
 /**
@@ -17,10 +17,10 @@ interface UpdateProps {
  *
  * @param fields
  */
-const handleUpdate = async (fields: API.CertificateUpdateRequest) => {
+const handleUpdate = async (fields: API.UserUpdateRequest) => {
   const hide = message.loading('正在更新');
   try {
-    await updateCertificateUsingPost(fields);
+    await updateUserUsingPost(fields);
     hide();
     message.success('更新成功');
     return true;
@@ -30,18 +30,20 @@ const handleUpdate = async (fields: API.CertificateUpdateRequest) => {
     return false;
   }
 };
-const UpdateCertificateDrawer: React.FC<UpdateProps> = (props) => {
+const UpdateUserModal: React.FC<UpdateProps> = (props) => {
   const { oldData, visible, onSubmit, onCancel, columns } = props;
   if (!oldData) {
     return <></>;
   }
 
   return (
-    <Drawer
+    <Modal
       destroyOnClose
-      title={"更新证书信息"}
-      onClose={() => onCancel?.()}
+      width={600}
+      title={'更新用户'}
+      onCancel={() => onCancel?.()}
       open={visible}
+      footer
     >
       <ProTable
         type={'form'}
@@ -49,7 +51,7 @@ const UpdateCertificateDrawer: React.FC<UpdateProps> = (props) => {
           initialValues: oldData,
         }}
         columns={columns}
-        onSubmit={async (values: API.CertificateUpdateRequest) => {
+        onSubmit={async (values: API.UserUpdateRequest) => {
           const success = await handleUpdate({
             ...values,
             id: oldData?.id,
@@ -59,7 +61,7 @@ const UpdateCertificateDrawer: React.FC<UpdateProps> = (props) => {
           }
         }}
       />
-    </Drawer>
+    </Modal>
   );
 };
-export default UpdateCertificateDrawer;
+export default UpdateUserModal;

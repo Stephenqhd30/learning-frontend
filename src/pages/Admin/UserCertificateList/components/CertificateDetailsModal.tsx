@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
-import {message, Modal, Typography} from 'antd';
-import {ProCard, ProDescriptions} from '@ant-design/pro-components';
-import {CertificateSituationEnum} from '@/enums/CertificateSituationEnum';
-import {CertificateTypeEnum} from '@/enums/CertificateTypeEnum';
-import {getUserVoByIdUsingGet} from '@/services/stephen-backend/userController';
+import React from 'react';
+import { Modal, Typography } from 'antd';
+import { ProCard, ProDescriptions } from '@ant-design/pro-components';
+import { CertificateSituationEnum } from '@/enums/CertificateSituationEnum';
+import { CertificateTypeEnum } from '@/enums/CertificateTypeEnum';
 
 interface CertificateDetailsProps {
   certificate: API.CertificateVO;

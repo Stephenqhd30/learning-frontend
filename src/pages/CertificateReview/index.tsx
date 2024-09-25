@@ -7,7 +7,7 @@ import Index from '@/pages/IndexPage/compoents/UserInfoCard';
 import { getUserByIdUsingGet } from '@/services/stephen-backend/userController';
 import { listCertificateByPageUsingPost } from '@/services/stephen-backend/certificateController';
 import { ReviewStatus, ReviewStatusEnum } from '@/enums/ReviewStatus';
-import ReviewDrawer from '@/pages/CertificateReview/components/ReviewDrawer';
+import ReviewModal from '@/pages/CertificateReview/components/ReviewModal';
 
 const CertificateReview: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -81,7 +81,7 @@ const CertificateReview: React.FC = () => {
     {
       title: '审核信息',
       dataIndex: 'reviewMessage',
-      valueType: 'text',
+      valueType: 'textarea',
     },
     {
       title: '审核时间',
@@ -155,15 +155,11 @@ const CertificateReview: React.FC = () => {
       />
       {/*获得者信息*/}
       {userDetails && (
-        <Index
-          visible={userDetails}
-          onCancel={() => setUserDetails(false)}
-          user={userInfo ?? {}}
-        />
+        <Index visible={userDetails} onCancel={() => setUserDetails(false)} user={userInfo ?? {}} />
       )}
       {/*审核*/}
       {review && (
-        <ReviewDrawer
+        <ReviewModal
           visible={review}
           onCancel={() => setReview(false)}
           certificate={currentRow ?? {}}

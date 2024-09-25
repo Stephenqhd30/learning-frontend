@@ -1,6 +1,6 @@
 import { Avatar, Col, message, Row, UploadProps } from 'antd';
 import React, { useState } from 'react';
-import {updateMyUserUsingPost, updateUserUsingPost} from '@/services/stephen-backend/userController';
+import { updateMyUserUsingPost } from '@/services/stephen-backend/userController';
 import {
   ProCard,
   ProForm,

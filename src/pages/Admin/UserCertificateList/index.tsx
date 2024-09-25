@@ -9,9 +9,9 @@ import { getCertificateVoByIdUsingGet } from '@/services/stephen-backend/certifi
 
 const UserCertificateList: React.FC = () => {
   const actionRef = useRef<ActionType>();
-  // 查看证书信息Drawer
+  // 查看证书信息Modal
   const [certificateDetails, setCertificateDetails] = useState<boolean>(false);
-  // 查看用户信息Drawer
+  // 查看用户信息Modal
   const [userDetails, setUserDetails] = useState<boolean>(false);
   // 下载证书
   const [downloadCertificate, setDownloadCertificate] = useState<boolean>(false);
