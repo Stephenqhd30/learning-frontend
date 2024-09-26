@@ -49,11 +49,6 @@ export const requestConfig: RequestConfig = {
         window.location.href = `/user/login?redirect=${window.location.href}`;
         throw new Error('用户还未登录,请先登录');
       }
-
-      if (code !== 0) {
-        throw new Error(data?.message ?? '服务器错误');
-      }
-
       return response;
     },
   ],

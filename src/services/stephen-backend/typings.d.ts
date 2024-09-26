@@ -23,6 +23,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseMapStringObject_ = {
+    code?: number;
+    data?: Record<string, any>;
+    message?: string;
+  };
+
   type BaseResponsePageCertificate_ = {
     code?: number;
     data?: PageCertificate_;

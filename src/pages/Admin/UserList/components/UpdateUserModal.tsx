@@ -1,6 +1,6 @@
 import { ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
-import {Drawer, message, Modal} from 'antd';
+import { message, Modal } from 'antd';
 import React from 'react';
 import { updateUserUsingPost } from '@/services/stephen-backend/userController';
 
