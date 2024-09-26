@@ -1,4 +1,4 @@
-import {Drawer, message, Modal} from 'antd';
+import { message, Modal } from 'antd';
 import { ProColumns, ProTable } from '@ant-design/pro-components';
 import React from 'react';
 import { doCertificateReviewUsingPost } from '@/services/stephen-backend/certificateController';
@@ -32,7 +32,7 @@ const ReviewModal: React.FC<ReviewModalProps> = (props) => {
             });
             if (success) {
               onSubmit?.(values);
-              message.success('审核通过');
+              message.success('审核信息已更新');
             }
           } catch (error: any) {
             message.error('审核失败' + error.message);

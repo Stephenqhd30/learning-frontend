@@ -96,7 +96,7 @@ const CertificateList: React.FC = () => {
               {CertificateSituationEnum[CertificateSituation.HAVE].text}
             </Select.Option>
             <Select.Option value={CertificateSituation.NO}>
-              {CertificateSituationEnum[CertificateSituation.HAVE].text}
+              {CertificateSituationEnum[CertificateSituation.NO].text}
             </Select.Option>
           </Select>
         );

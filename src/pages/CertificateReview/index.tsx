@@ -36,7 +36,7 @@ const CertificateReview: React.FC = () => {
   const columns: ProColumns<API.Certificate>[] = [
     {
       title: '证书编号',
-      dataIndex: 'certificateId',
+      dataIndex: 'certificateNumber',
       valueType: 'text',
       hideInForm: true,
     },
