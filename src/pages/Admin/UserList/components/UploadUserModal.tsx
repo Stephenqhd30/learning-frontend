@@ -63,9 +63,7 @@ const UploadUserModal: React.FC<CreateProps> = (props) => {
         <ProFormUploadDragger
           onChange={async (info) => {
             const { status } = info.file;
-            if (status === 'done') {
-              message.success(`${info.file.name} 文件上传成功`);
-            } else if (status === 'error') {
+            if (status === 'error') {
               message.error(`${info.file.name} 文件上传失败`);
             }
           }}
