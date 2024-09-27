@@ -29,9 +29,9 @@ export async function deleteUserUsingPost(
   });
 }
 
-/** download GET /api/user/download */
-export async function downloadUsingGet(options?: { [key: string]: any }) {
-  return request<API.BaseResponseString_>('/api/user/download', {
+/** downloadUser GET /api/user/download */
+export async function downloadUserUsingGet(options?: { [key: string]: any }) {
+  return request<any>('/api/user/download', {
     method: 'GET',
     ...(options || {}),
   });

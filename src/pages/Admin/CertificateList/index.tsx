@@ -1,17 +1,22 @@
-import {EditOutlined, PlusOutlined} from '@ant-design/icons';
+import { DownloadOutlined, EditOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import {ActionType, ProColumns, ProTable} from '@ant-design/pro-components';
 import '@umijs/max';
 import { Button, message, Popconfirm, Select, Space, Typography } from 'antd';
 import React, {useRef, useState} from 'react';
 import {
   deleteCertificateUsingPost,
+  downloadCertificateUsingGet,
   listCertificateByPageUsingPost,
 } from '@/services/stephen-backend/certificateController';
 import { CertificateSituation, CertificateSituationEnum } from '@/enums/CertificateSituationEnum';
 import { CertificateType, CertificateTypeEnum } from '@/enums/CertificateTypeEnum';
-import {ReviewStatus, ReviewStatusEnum} from '@/enums/ReviewStatus';
-import CreateCertificateModal from '@/pages/Admin/CertificateList/components/CreateCertificateModal';
-import UpdateCertificateModal from '@/pages/Admin/CertificateList/components/UpdateCertificateModal';
+import { ReviewStatus, ReviewStatusEnum } from '@/enums/ReviewStatus';
+import {
+  CreateCertificateModal,
+  UpdateCertificateModal,
+  UploadCertificateModal,
+} from '@/pages/Admin/CertificateList/components';
+
 
 /**
  * 删除节点
@@ -42,9 +47,37 @@ const CertificateList: React.FC = () => {
   const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
   // 更新窗口的Modal框
   const [updateModalVisible, setUpdateModalVisible] = useState<boolean>(false);
+  // 上传窗口的Modal框
+  const [uploadModalVisible, setUploadModalVisible] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   // 当前用户的所点击的数据
   const [currentRow, setCurrentRow] = useState<API.Certificate>();
+
+  /**
+   * 下载用户信息
+   */
+  const downloadCertificateInfo = async () => {
+    try {
+      const res = await downloadCertificateUsingGet({
+        responseType: 'blob',
+      });
+
+      // 创建 Blob 对象
+      // @ts-ignore
+      const url = window.URL.createObjectURL(new Blob([res]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', '证书信息.xlsx');
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      // 释放对象 URL
+      window.URL.revokeObjectURL(url);
+    } catch (error: any) {
+      message.error('导出失败: ' + error.message);
+    }
+  };
 
   /**
    * 去审核信息页
@@ -235,24 +268,46 @@ const CertificateList: React.FC = () => {
           labelWidth: 120,
         }}
         toolBarRender={() => [
-          <Button
-            type="primary"
-            key="primary"
-            onClick={() => {
-              setCreateModalVisible(true);
-            }}
-          >
-            <PlusOutlined /> 新建
-          </Button>,
-          <Button
-            type="primary"
-            key="text"
-            onClick={() => {
-              goDoReviewPage();
-            }}
-          >
-            <EditOutlined /> 审核信息
-          </Button>,
+          <Space key={'space'} wrap>
+            <Button
+              type="primary"
+              key="create"
+              onClick={() => {
+                setCreateModalVisible(true);
+              }}
+            >
+              <PlusOutlined /> 新建
+            </Button>
+            <Button
+              type="primary"
+              key="text"
+              onClick={() => {
+                goDoReviewPage();
+              }}
+            >
+              <EditOutlined /> 审核信息
+            </Button>
+            <Button
+              type={'primary'}
+              key={'upload'}
+              onClick={() => {
+                setUploadModalVisible(true);
+              }}
+            >
+              <UploadOutlined />
+              批量导入证书信息
+            </Button>
+            <Button
+              type={'primary'}
+              key={'export'}
+              onClick={async () => {
+                await downloadCertificateInfo();
+              }}
+            >
+              <DownloadOutlined />
+              导出证书信息
+            </Button>
+          </Space>,
         ]}
         request={async (params, sort, filter) => {
           const sortField = Object.keys(sort)?.[0];
@@ -301,6 +356,19 @@ const CertificateList: React.FC = () => {
           visible={updateModalVisible}
           columns={columns}
           oldData={currentRow}
+        />
+      )}
+      {/*上传用户信息的Modal框*/}
+      {uploadModalVisible && (
+        <UploadCertificateModal
+          onCancel={() => {
+            setUploadModalVisible(false);
+          }}
+          visible={uploadModalVisible}
+          onSubmit={async () => {
+            setUploadModalVisible(false);
+            actionRef.current?.reload();
+          }}
         />
       )}
     </>

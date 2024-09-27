@@ -4,8 +4,9 @@ import '@umijs/max';
 import { Button, message, Popconfirm, Select, Space, Tag, Typography } from 'antd';
 import React, { useRef, useState } from 'react';
 import {
-  deleteUserUsingPost, downloadUsingGet,
-  listUserByPageUsingPost
+  deleteUserUsingPost,
+  downloadUserUsingGet,
+  listUserByPageUsingPost,
 } from '@/services/stephen-backend/userController';
 import { UserRoleEnum } from '@/enums/UserRoleEnum';
 import { UserGender, UserGenderEnum } from '@/enums/UserGenderEnum';
@@ -51,9 +52,12 @@ const UserList: React.FC = () => {
   // 当前用户的所点击的数据
   const [currentRow, setCurrentRow] = useState<API.User>();
 
+  /**
+   * 下载用户信息
+   */
   const downloadUserInfo = async () => {
     try {
-      const res = await downloadUsingGet({
+      const res = await downloadUserUsingGet({
         responseType: 'blob',
       });
 
