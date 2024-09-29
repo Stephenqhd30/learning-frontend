@@ -268,9 +268,8 @@ const CertificateList: React.FC = () => {
           labelWidth: 120,
         }}
         toolBarRender={() => [
-          <Space key={'space'} wrap>
+          <Space key={'space'} wrap size={'small'}>
             <Button
-              type="primary"
               key="create"
               onClick={() => {
                 setCreateModalVisible(true);
@@ -279,7 +278,6 @@ const CertificateList: React.FC = () => {
               <PlusOutlined /> 新建
             </Button>
             <Button
-              type="primary"
               key="text"
               onClick={() => {
                 goDoReviewPage();
@@ -288,7 +286,6 @@ const CertificateList: React.FC = () => {
               <EditOutlined /> 审核信息
             </Button>
             <Button
-              type={'primary'}
               key={'upload'}
               onClick={() => {
                 setUploadModalVisible(true);
@@ -298,7 +295,6 @@ const CertificateList: React.FC = () => {
               批量导入证书信息
             </Button>
             <Button
-              type={'primary'}
               key={'export'}
               onClick={async () => {
                 await downloadCertificateInfo();

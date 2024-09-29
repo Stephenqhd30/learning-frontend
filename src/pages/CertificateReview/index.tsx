@@ -2,12 +2,12 @@ import React, { useRef, useState } from 'react';
 import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import { CertificateSituationEnum } from '@/enums/CertificateSituationEnum';
 import { CertificateTypeEnum } from '@/enums/CertificateTypeEnum';
-import { message, Space, Typography } from 'antd';
-import Index from '@/pages/IndexPage/compoents/UserInfoCard';
+import {Button, message, Space, Typography} from 'antd';
 import { getUserByIdUsingGet } from '@/services/stephen-backend/userController';
 import { listCertificateByPageUsingPost } from '@/services/stephen-backend/certificateController';
 import { ReviewStatus, ReviewStatusEnum } from '@/enums/ReviewStatus';
 import ReviewModal from '@/pages/CertificateReview/components/ReviewModal';
+import UserInfoCard from '@/pages/IndexPage/compoents/UserInfoCard';
 
 const CertificateReview: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -17,7 +17,7 @@ const CertificateReview: React.FC = () => {
   // 获得者用户信息
   const [userInfo, setUserInfo] = useState<API.User>({});
   // 批量操作的key
-  const [selectedRowKeys, setSelectedRowKeys] = useState<API.Certificate[]>([]);
+  const [selectedCertificates, setSelectedCertificates] = useState<API.Certificate[]>([]);
 
   /**
    * 获得者用户信息
@@ -155,10 +155,31 @@ const CertificateReview: React.FC = () => {
           };
         }}
         columns={columns}
+        rowSelection={{
+          onChange: (selectedCertificates, selectedRows) => {
+            // 当选中的行发生变化时，更新状态
+            setSelectedCertificates(selectedRows);
+          },
+          // 初始化时选中的行
+          // @ts-ignore
+          selectedRowKeys: selectedCertificates.map(item => item.id),
+        }}
+        tableAlertOptionRender={() => {
+          return (
+            <Space wrap>
+              <Button type={'link'}>批量审核数据</Button>
+              <Button type={'link'}>一键审核数据</Button>
+            </Space>
+          );
+        }}
       />
       {/*获得者信息*/}
       {userDetails && (
-        <Index visible={userDetails} onCancel={() => setUserDetails(false)} user={userInfo ?? {}} />
+        <UserInfoCard
+          visible={userDetails}
+          onCancel={() => setUserDetails(false)}
+          user={userInfo ?? {}}
+        />
       )}
       {/*审核*/}
       {review && (

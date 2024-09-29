@@ -227,7 +227,6 @@ const UserList: React.FC = () => {
         toolBarRender={() => [
           <Space key={'space'} wrap>
             <Button
-              type="primary"
               key="create"
               onClick={() => {
                 setCreateModalVisible(true);
@@ -236,7 +235,6 @@ const UserList: React.FC = () => {
               <PlusOutlined /> 新建
             </Button>
             <Button
-              type={'primary'}
               key={'upload'}
               onClick={() => {
                 setUploadModalVisible(true);
@@ -246,7 +244,6 @@ const UserList: React.FC = () => {
               批量导入用户信息
             </Button>
             <Button
-              type={'primary'}
               key={'export'}
               onClick={async () => {
                 await downloadUserInfo();
