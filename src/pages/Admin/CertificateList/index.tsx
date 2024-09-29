@@ -5,6 +5,7 @@ import { Button, message, Popconfirm, Select, Space, Typography } from 'antd';
 import React, {useRef, useState} from 'react';
 import {
   deleteCertificateUsingPost,
+  downloadCertificateExampleUsingGet,
   downloadCertificateUsingGet,
   listCertificateByPageUsingPost,
 } from '@/services/stephen-backend/certificateController';
@@ -39,6 +40,32 @@ const handleDelete = async (row: API.DeleteRequest) => {
 };
 
 /**
+ * 下载用户示例数据
+ */
+const downloadCertificateExample = async () => {
+  try {
+    const res = await downloadCertificateExampleUsingGet({
+      responseType: 'blob',
+    });
+
+    // 创建 Blob 对象
+    // @ts-ignore
+    const url = window.URL.createObjectURL(new Blob([res]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', '导入证书示例数据.xlsx');
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    // 释放对象 URL
+    window.URL.revokeObjectURL(url);
+  } catch (error: any) {
+    message.error('导出失败: ' + error.message);
+  }
+};
+
+/**
  * 用户管理列表
  * @constructor
  */
@@ -54,7 +81,7 @@ const CertificateList: React.FC = () => {
   const [currentRow, setCurrentRow] = useState<API.Certificate>();
 
   /**
-   * 下载用户信息
+   * 下载证书信息
    */
   const downloadCertificateInfo = async () => {
     try {
@@ -284,6 +311,15 @@ const CertificateList: React.FC = () => {
               }}
             >
               <EditOutlined /> 审核信息
+            </Button>
+            <Button
+              key={'export-example'}
+              onClick={async () => {
+                await downloadCertificateExample();
+              }}
+            >
+              <DownloadOutlined/>
+              下载导出证书示例数据
             </Button>
             <Button
               key={'upload'}

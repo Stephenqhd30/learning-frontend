@@ -40,6 +40,14 @@ export async function downloadCertificateUsingGet(options?: { [key: string]: any
   });
 }
 
+/** downloadCertificateExample GET /api/certificate/download/example */
+export async function downloadCertificateExampleUsingGet(options?: { [key: string]: any }) {
+  return request<any>('/api/certificate/download/example', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
 /** getCertificateVOById GET /api/certificate/get/vo */
 export async function getCertificateVoByIdUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

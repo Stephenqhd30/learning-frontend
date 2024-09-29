@@ -4,9 +4,9 @@ import '@umijs/max';
 import { Button, message, Popconfirm, Select, Space, Tag, Typography } from 'antd';
 import React, { useRef, useState } from 'react';
 import {
-  deleteUserUsingPost,
+  deleteUserUsingPost, downloadUserExampleUsingGet,
   downloadUserUsingGet,
-  listUserByPageUsingPost,
+  listUserByPageUsingPost
 } from '@/services/stephen-backend/userController';
 import { UserRoleEnum } from '@/enums/UserRoleEnum';
 import { UserGender, UserGenderEnum } from '@/enums/UserGenderEnum';
@@ -67,6 +67,32 @@ const UserList: React.FC = () => {
       const link = document.createElement('a');
       link.href = url;
       link.setAttribute('download', '用户信息.xlsx');
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      // 释放对象 URL
+      window.URL.revokeObjectURL(url);
+    } catch (error: any) {
+      message.error('导出失败: ' + error.message);
+    }
+  };
+
+  /**
+   * 下载用户示例数据
+   */
+  const downloadUserExample = async () => {
+    try {
+      const res = await downloadUserExampleUsingGet({
+        responseType: 'blob',
+      });
+
+      // 创建 Blob 对象
+      // @ts-ignore
+      const url = window.URL.createObjectURL(new Blob([res]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', '导入用户示例数据.xlsx');
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -233,6 +259,15 @@ const UserList: React.FC = () => {
               }}
             >
               <PlusOutlined /> 新建
+            </Button>
+            <Button
+              key={'export-example'}
+              onClick={async () => {
+                await downloadUserExample();
+              }}
+            >
+              <DownloadOutlined />
+              下载导出用户示例数据
             </Button>
             <Button
               key={'upload'}

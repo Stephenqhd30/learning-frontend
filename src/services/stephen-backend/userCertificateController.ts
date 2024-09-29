@@ -17,6 +17,14 @@ export async function deleteUserCertificateUsingPost(
   });
 }
 
+/** downloadUserCertificate GET /api/userCertificate/download */
+export async function downloadUserCertificateUsingGet(options?: { [key: string]: any }) {
+  return request<any>('/api/userCertificate/download', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
 /** getUserCertificateVOById GET /api/userCertificate/get/vo */
 export async function getUserCertificateVoByIdUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

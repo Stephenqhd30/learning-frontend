@@ -1,11 +1,15 @@
 import React, { useRef, useState } from 'react';
 import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
-import { message, Space, Typography } from 'antd';
-import { listUserCertificateByPageUsingPost } from '@/services/stephen-backend/userCertificateController';
-import CertificateDetailsModal from '@/pages/Admin/UserCertificateList/components/CertificateDetailsModal';
+import { Button, message, Space, Typography } from 'antd';
+import {
+  downloadUserCertificateUsingGet,
+  listUserCertificateByPageUsingPost,
+} from '@/services/stephen-backend/userCertificateController';
 import UserInfoCard from '@/pages/IndexPage/compoents/UserInfoCard';
 import { getUserVoByIdUsingGet } from '@/services/stephen-backend/userController';
 import { getCertificateVoByIdUsingGet } from '@/services/stephen-backend/certificateController';
+import { DownloadOutlined } from '@ant-design/icons';
+import { CertificateDetailsModal } from '@/pages/Admin/UserCertificateList/components';
 
 const UserCertificateList: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -52,6 +56,32 @@ const UserCertificateList: React.FC = () => {
       }
     } catch (error: any) {
       message.error('获取用户信息失败：' + error.message);
+    }
+  };
+
+  /**
+   * 下载用户证书信息
+   */
+  const downloadUserCertificateInfo = async () => {
+    try {
+      const res = await downloadUserCertificateUsingGet({
+        responseType: 'blob',
+      });
+
+      // 创建 Blob 对象
+      // @ts-ignore
+      const url = window.URL.createObjectURL(new Blob([res]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', '用户证书信息.xlsx');
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      // 释放对象 URL
+      window.URL.revokeObjectURL(url);
+    } catch (error: any) {
+      message.error('导出失败: ' + error.message);
     }
   };
 
@@ -160,6 +190,19 @@ const UserCertificateList: React.FC = () => {
             total: data?.total || 0,
           };
         }}
+        toolBarRender={() => [
+          <Space key={'space'} wrap size={'small'}>
+            <Button
+              key={'export'}
+              onClick={async () => {
+                await downloadUserCertificateInfo();
+              }}
+            >
+              <DownloadOutlined />
+              导出证书信息
+            </Button>
+          </Space>,
+        ]}
         columns={columns}
       />
       {certificateDetails && (
