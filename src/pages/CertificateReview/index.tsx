@@ -16,6 +16,9 @@ const CertificateReview: React.FC = () => {
   const [currentRow, setCurrentRow] = useState<API.Certificate>({});
   // 获得者用户信息
   const [userInfo, setUserInfo] = useState<API.User>({});
+  // 批量操作的key
+  const [selectedRowKeys, setSelectedRowKeys] = useState<API.Certificate[]>([]);
+
   /**
    * 获得者用户信息
    * @param userId 获得者用户id

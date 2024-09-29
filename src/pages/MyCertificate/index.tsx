@@ -5,8 +5,6 @@ import {listMyCertificateVoByPageUsingPost} from '@/services/stephen-backend/cer
 import {CertificateSituationEnum} from '@/enums/CertificateSituationEnum';
 import {CertificateTypeEnum} from '@/enums/CertificateTypeEnum';
 import {ReviewStatus} from '@/enums/ReviewStatus';
-import {WaterMark} from '@ant-design/pro-layout';
-import {useModel} from '@@/exports';
 
 /**
  * 用户管理列表
@@ -14,8 +12,6 @@ import {useModel} from '@@/exports';
  */
 const MyCertificateList: React.FC = () => {
   const actionRef = useRef<ActionType>();
-  const {initialState} = useModel('@@initialState');
-  const currentUser = initialState?.currentUser;
   /**
    * 表格列数据
    */
@@ -67,7 +63,6 @@ const MyCertificateList: React.FC = () => {
     },
   ];
   return (
-    <WaterMark content={currentUser?.userName + ' - 河南开封科技传媒学院'}>
       <ProTable<API.Certificate, API.PageParams>
         headerTitle={'我的证书列表'}
         actionRef={actionRef}
@@ -94,7 +89,6 @@ const MyCertificateList: React.FC = () => {
         }}
         columns={columns}
       />
-    </WaterMark>
   );
 };
 export default MyCertificateList;

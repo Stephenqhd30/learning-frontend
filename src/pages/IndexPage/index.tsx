@@ -107,7 +107,7 @@ const IndexPage: React.FC = () => {
     },
   ];
   return (
-    <WaterMark content={currentUser?.userName + ' - 河南开封科技传媒学院'}>
+    <WaterMark content={currentUser?.userName + " - " + INDEX_PAGE_TITLE}>
       <PageContainer title={INDEX_PAGE_TITLE}>
         <ProTable<API.Certificate, API.PageParams>
           headerTitle={'证书列表'}
