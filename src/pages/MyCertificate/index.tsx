@@ -1,10 +1,12 @@
-import {ActionType, ProColumns, ProTable} from '@ant-design/pro-components';
+import { ActionType, PageContainer, ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
-import React, {useRef} from 'react';
+import React, { useRef, useState } from 'react';
 import {listMyCertificateVoByPageUsingPost} from '@/services/stephen-backend/certificateController';
 import {CertificateSituationEnum} from '@/enums/CertificateSituationEnum';
 import {CertificateTypeEnum} from '@/enums/CertificateTypeEnum';
-import {ReviewStatus} from '@/enums/ReviewStatus';
+import { ReviewStatus } from '@/enums/ReviewStatus';
+import { Space, Typography } from 'antd';
+import { MY_CERTIFICATE_TITLE } from '@/constants';
 
 /**
  * 用户管理列表
@@ -12,22 +14,14 @@ import {ReviewStatus} from '@/enums/ReviewStatus';
  */
 const MyCertificateList: React.FC = () => {
   const actionRef = useRef<ActionType>();
+  // 当前行数据
+  const [currentRow, setCurrentRow] = useState<API.Certificate>({});
+  // 证书信息 Modal 框
+  const [certificateModal, setCertificateModal] = useState<boolean>(false);
   /**
    * 表格列数据
    */
   const columns: ProColumns<API.Certificate>[] = [
-    {
-      title: 'id',
-      dataIndex: 'id',
-      valueType: 'text',
-      hideInSearch: true,
-    },
-    {
-      title: '创建人id',
-      dataIndex: 'userId',
-      valueType: 'text',
-      hideInSearch: true,
-    },
     {
       title: '证书编号',
       dataIndex: 'certificateNumber',
@@ -56,19 +50,36 @@ const MyCertificateList: React.FC = () => {
       valueEnum: CertificateTypeEnum,
     },
     {
-      title: '证书下载地址',
-      dataIndex: 'certificateUrl',
-      valueType: 'text',
-      hideInSearch: true,
+      title: '操作',
+      dataIndex: 'option',
+      valueType: 'option',
+      render: (_, record) => (
+        <Space size={'middle'}>
+          <Typography.Link
+            key={'review'}
+            onClick={async () => {
+              setCertificateModal(true);
+              setCurrentRow(record);
+            }}
+          >
+            查看下载证书
+          </Typography.Link>
+        </Space>
+      ),
     },
   ];
   return (
+    <PageContainer
+      header={{
+        title: MY_CERTIFICATE_TITLE,
+      }}
+    >
       <ProTable<API.Certificate, API.PageParams>
         headerTitle={'我的证书列表'}
         actionRef={actionRef}
         rowKey={'key'}
         search={{
-          labelWidth: 120,
+          labelWidth: 12,
         }}
         request={async (params, sort, filter) => {
           const sortField = Object.keys(sort)?.[0];
@@ -78,7 +89,7 @@ const MyCertificateList: React.FC = () => {
             ...filter,
             sortField,
             sortOrder,
-            reviewStatus: ReviewStatus.PASS
+            reviewStatus: ReviewStatus.PASS,
           } as API.CertificateQueryRequest);
 
           return {
@@ -89,6 +100,7 @@ const MyCertificateList: React.FC = () => {
         }}
         columns={columns}
       />
+    </PageContainer>
   );
 };
 export default MyCertificateList;

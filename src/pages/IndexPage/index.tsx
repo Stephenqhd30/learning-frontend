@@ -1,32 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { PageContainer, ProColumns, ProTable } from '@ant-design/pro-components';
 import { listCertificateVoByPageUsingPost } from '@/services/stephen-backend/certificateController';
 import { CertificateTypeEnum } from '@/enums/CertificateTypeEnum';
 import { CertificateSituationEnum } from '@/enums/CertificateSituationEnum';
-import { message, Space, Typography } from 'antd';
-import { getUserVoByIdUsingGet } from '@/services/stephen-backend/userController';
 import { INDEX_PAGE_TITLE } from '@/constants';
 import { ReviewStatus } from '@/enums/ReviewStatus';
-import UserInfoCard from '@/pages/IndexPage/compoents/UserInfoCard';
 
 const IndexPage: React.FC = () => {
-  // 查看用户信息
-  const [userDetails, setUserDetails] = useState<boolean>(false);
-  // 下载证书
-  const [downloadCertificate, setDownloadCertificate] = useState<boolean>(false);
-  // 当前用户的所点击的数据
-  const [currentRow, setCurrentRow] = useState<API.CertificateVO>({});
-  const [userInfo, setUserInfo] = useState<API.User>({});
-  const getCurrentUserInfo = async (userId: any) => {
-    try {
-      const res = await getUserVoByIdUsingGet({ id: userId });
-      if (res.code === 0 && res.data) {
-        setUserInfo(res.data);
-      }
-    } catch (error: any) {
-      message.error('获取用户数据失败' + error.message);
-    }
-  };
   /**
    * 表格列数据
    */
@@ -72,34 +52,6 @@ const IndexPage: React.FC = () => {
       valueType: 'select',
       valueEnum: CertificateTypeEnum,
     },
-    {
-      title: '操作',
-      dataIndex: 'option',
-      valueType: 'option',
-      render: (_, record) => (
-        <Space size={'middle'}>
-          <Typography.Link
-            key={'user-details'}
-            onClick={async () => {
-              setUserDetails(true);
-              await getCurrentUserInfo(record?.gainUserId);
-              setCurrentRow(record);
-            }}
-          >
-            查看获得者信息
-          </Typography.Link>
-          <Typography.Link
-            key={'download-certificate'}
-            onClick={async () => {
-              setDownloadCertificate(true);
-              setCurrentRow(record);
-            }}
-          >
-            下载证书
-          </Typography.Link>
-        </Space>
-      ),
-    },
   ];
   return (
     <PageContainer title={INDEX_PAGE_TITLE}>
@@ -128,20 +80,6 @@ const IndexPage: React.FC = () => {
         }}
         columns={columns}
       />
-      {userDetails && (
-        <UserInfoCard
-          visible={userDetails}
-          onCancel={() => setUserDetails(false)}
-          user={userInfo ?? {}}
-        />
-      )}
-      {downloadCertificate && (
-        <UserInfoCard
-          visible={downloadCertificate}
-          onCancel={() => setDownloadCertificate(false)}
-          user={currentRow?.userVO ?? {}}
-        />
-      )}
     </PageContainer>
   );
 };

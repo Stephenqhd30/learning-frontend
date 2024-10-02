@@ -291,6 +291,7 @@ declare namespace API {
 
   type ReviewRequest = {
     id?: number;
+    idList?: string;
     reviewMessage?: string;
     reviewStatus?: number;
   };

@@ -2,22 +2,34 @@ import React, { useRef, useState } from 'react';
 import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import { CertificateSituationEnum } from '@/enums/CertificateSituationEnum';
 import { CertificateTypeEnum } from '@/enums/CertificateTypeEnum';
-import {Button, message, Space, Typography} from 'antd';
-import { getUserByIdUsingGet } from '@/services/stephen-backend/userController';
-import { listCertificateByPageUsingPost } from '@/services/stephen-backend/certificateController';
+import { Button, message, Space, Typography } from 'antd';
+import {
+  getUserByIdUsingGet,
+} from '@/services/stephen-backend/userController';
+import {
+  listCertificateVoByPageUsingPost
+} from '@/services/stephen-backend/certificateController';
 import { ReviewStatus, ReviewStatusEnum } from '@/enums/ReviewStatus';
-import ReviewModal from '@/pages/CertificateReview/components/ReviewModal';
-import UserInfoCard from '@/pages/IndexPage/compoents/UserInfoCard';
+import {
+  BatchReviewModal,
+  ReviewModal,
+  UserDetailsModal,
+} from '@/pages/CertificateReview/components';
 
 const CertificateReview: React.FC = () => {
   const actionRef = useRef<ActionType>();
-  const [userDetails, setUserDetails] = useState<boolean>(false);
-  const [review, setReview] = useState<boolean>(false);
+  // 用户详细 Modal 框
+  const [userDetailsModal, setUserDetailsModal] = useState<boolean>(false);
+  // 审核信息 Modal 框
+  const [reviewModal, setReviewModal] = useState<boolean>(false);
+  // 批量审核信息 Modal 框
+  const [batchReviewModal, setBatchReviewModal] = useState<boolean>(false);
+  // 当前行数据
   const [currentRow, setCurrentRow] = useState<API.Certificate>({});
   // 获得者用户信息
   const [userInfo, setUserInfo] = useState<API.User>({});
-  // 批量操作的key
-  const [selectedCertificates, setSelectedCertificates] = useState<API.Certificate[]>([]);
+  // 选中行数据
+  const [selectedRowKeys, setSelectedRowKeys] = useState<any[]>([]);
 
   /**
    * 获得者用户信息
@@ -94,7 +106,7 @@ const CertificateReview: React.FC = () => {
       hideInSearch: true,
     },
     {
-      title: '审核人id',
+      title: '审核人Id',
       dataIndex: 'reviewerId',
       valueType: 'text',
       hideInForm: true,
@@ -108,7 +120,7 @@ const CertificateReview: React.FC = () => {
           <Typography.Link
             key={'user-details'}
             onClick={async () => {
-              setUserDetails(true);
+              setUserDetailsModal(true);
               await getCurrentUserInfo(record?.gainUserId);
               setCurrentRow(record);
             }}
@@ -118,7 +130,7 @@ const CertificateReview: React.FC = () => {
           <Typography.Link
             key={'review'}
             onClick={async () => {
-              setReview(true);
+              setReviewModal(true);
               setCurrentRow(record);
             }}
           >
@@ -140,7 +152,7 @@ const CertificateReview: React.FC = () => {
         request={async (params, sort, filter) => {
           const sortField = Object.keys(sort)?.[0];
           const sortOrder = sort?.[sortField] ?? undefined;
-          const { data, code } = await listCertificateByPageUsingPost({
+          const { data, code } = await listCertificateVoByPageUsingPost({
             ...params,
             ...filter,
             sortField,
@@ -156,40 +168,59 @@ const CertificateReview: React.FC = () => {
         }}
         columns={columns}
         rowSelection={{
-          onChange: (selectedCertificates, selectedRows) => {
-            // 当选中的行发生变化时，更新状态
-            setSelectedCertificates(selectedRows);
-          },
-          // 初始化时选中的行
-          // @ts-ignore
-          selectedRowKeys: selectedCertificates.map(item => item.id),
+          selectedRowKeys: selectedRowKeys,
+          onChange: setSelectedRowKeys,
         }}
         tableAlertOptionRender={() => {
           return (
-            <Space wrap>
-              <Button type={'link'}>批量审核数据</Button>
-              <Button type={'link'}>一键审核数据</Button>
+            <Space>
+              <Button
+                type="primary"
+                onClick={async () => {
+                  setBatchReviewModal(true);
+                  actionRef.current?.reload();
+                }}
+              >
+                批量审核
+              </Button>
             </Space>
           );
         }}
       />
-      {/*获得者信息*/}
-      {userDetails && (
-        <UserInfoCard
-          visible={userDetails}
-          onCancel={() => setUserDetails(false)}
-          user={userInfo ?? {}}
+      {/*查看获得者信息*/}
+      {userDetailsModal && (
+        <UserDetailsModal
+          onCancel={() => setUserDetailsModal(false)}
+          onSubmit={async () => {
+            setUserDetailsModal(false);
+            actionRef.current?.reload();
+          }}
+          userInfo={userInfo}
+          visible={userDetailsModal}
         />
       )}
       {/*审核*/}
-      {review && (
+      {reviewModal && (
         <ReviewModal
-          visible={review}
-          onCancel={() => setReview(false)}
+          visible={reviewModal}
+          onCancel={() => setReviewModal(false)}
           certificate={currentRow ?? {}}
           columns={columns}
           onSubmit={async () => {
-            setReview(false);
+            setReviewModal(false);
+            actionRef.current?.reload();
+          }}
+        />
+      )}
+      {/*批量审核*/}
+      {batchReviewModal && (
+        <BatchReviewModal
+          visible={batchReviewModal}
+          onCancel={() => setBatchReviewModal(false)}
+          selectedRowKeys={selectedRowKeys ?? []}
+          columns={columns}
+          onSubmit={async () => {
+            setReviewModal(false);
             actionRef.current?.reload();
           }}
         />

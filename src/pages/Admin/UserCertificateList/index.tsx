@@ -5,11 +5,11 @@ import {
   downloadUserCertificateUsingGet,
   listUserCertificateByPageUsingPost,
 } from '@/services/stephen-backend/userCertificateController';
-import UserInfoCard from '@/pages/IndexPage/compoents/UserInfoCard';
 import { getUserVoByIdUsingGet } from '@/services/stephen-backend/userController';
 import { getCertificateVoByIdUsingGet } from '@/services/stephen-backend/certificateController';
 import { DownloadOutlined } from '@ant-design/icons';
 import { CertificateDetailsModal } from '@/pages/Admin/UserCertificateList/components';
+import { UserInfoCard } from '@/pages/IndexPage/compoents';
 
 const UserCertificateList: React.FC = () => {
   const actionRef = useRef<ActionType>();

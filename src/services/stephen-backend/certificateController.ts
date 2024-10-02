@@ -159,6 +159,21 @@ export async function doCertificateReviewUsingPost(
   });
 }
 
+/** doCertificateReviewByBatch POST /api/certificate/review/batch */
+export async function doCertificateReviewByBatchUsingPost(
+  body: API.ReviewRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseBoolean_>('/api/certificate/review/batch', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** updateCertificate POST /api/certificate/update */
 export async function updateCertificateUsingPost(
   body: API.CertificateUpdateRequest,
