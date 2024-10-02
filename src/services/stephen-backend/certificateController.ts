@@ -129,6 +129,21 @@ export async function listCertificateVoByPageUsingPost(
   });
 }
 
+/** listCertificateForUserVOByPage POST /api/certificate/list/page/vo/user */
+export async function listCertificateForUserVoByPageUsingPost(
+  body: API.CertificateQueryRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponsePageCertificateForUserVO_>('/api/certificate/list/page/vo/user', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** listMyCertificateVOByPage POST /api/certificate/my/list/page/vo */
 export async function listMyCertificateVoByPageUsingPost(
   body: API.CertificateQueryRequest,
@@ -142,6 +157,24 @@ export async function listMyCertificateVoByPageUsingPost(
     data: body,
     ...(options || {}),
   });
+}
+
+/** listMyCertificateForUserVOByPage POST /api/certificate/my/list/page/vo/user */
+export async function listMyCertificateForUserVoByPageUsingPost(
+  body: API.CertificateQueryRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponsePageCertificateForUserVO_>(
+    '/api/certificate/my/list/page/vo/user',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: body,
+      ...(options || {}),
+    },
+  );
 }
 
 /** doCertificateReview POST /api/certificate/review */

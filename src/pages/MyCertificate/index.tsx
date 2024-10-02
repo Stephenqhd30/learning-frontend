@@ -1,12 +1,14 @@
 import { ActionType, PageContainer, ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
 import React, { useRef, useState } from 'react';
-import {listMyCertificateVoByPageUsingPost} from '@/services/stephen-backend/certificateController';
+import {
+  listMyCertificateForUserVoByPageUsingPost,
+} from '@/services/stephen-backend/certificateController';
 import {CertificateSituationEnum} from '@/enums/CertificateSituationEnum';
-import {CertificateTypeEnum} from '@/enums/CertificateTypeEnum';
-import { ReviewStatus } from '@/enums/ReviewStatus';
+import { CertificateTypeEnum } from '@/enums/CertificateTypeEnum';
 import { Space, Typography } from 'antd';
 import { MY_CERTIFICATE_TITLE } from '@/constants';
+import { DownloadCertificateModal } from '@/pages/MyCertificate/components';
 
 /**
  * 用户管理列表
@@ -17,11 +19,11 @@ const MyCertificateList: React.FC = () => {
   // 当前行数据
   const [currentRow, setCurrentRow] = useState<API.Certificate>({});
   // 证书信息 Modal 框
-  const [certificateModal, setCertificateModal] = useState<boolean>(false);
+  const [certificateModalVisible, setCertificateModalVisible] = useState<boolean>(false);
   /**
    * 表格列数据
    */
-  const columns: ProColumns<API.Certificate>[] = [
+  const columns: ProColumns<API.CertificateForUserVO>[] = [
     {
       title: '证书编号',
       dataIndex: 'certificateNumber',
@@ -58,7 +60,7 @@ const MyCertificateList: React.FC = () => {
           <Typography.Link
             key={'review'}
             onClick={async () => {
-              setCertificateModal(true);
+              setCertificateModalVisible(true);
               setCurrentRow(record);
             }}
           >
@@ -79,17 +81,16 @@ const MyCertificateList: React.FC = () => {
         actionRef={actionRef}
         rowKey={'key'}
         search={{
-          labelWidth: 12,
+          labelWidth: 120,
         }}
         request={async (params, sort, filter) => {
           const sortField = Object.keys(sort)?.[0];
           const sortOrder = sort?.[sortField] ?? undefined;
-          const { data, code } = await listMyCertificateVoByPageUsingPost({
+          const { data, code } = await listMyCertificateForUserVoByPageUsingPost({
             ...params,
             ...filter,
             sortField,
             sortOrder,
-            reviewStatus: ReviewStatus.PASS,
           } as API.CertificateQueryRequest);
 
           return {
@@ -100,6 +101,19 @@ const MyCertificateList: React.FC = () => {
         }}
         columns={columns}
       />
+      {certificateModalVisible && (
+        <DownloadCertificateModal
+          visible={certificateModalVisible}
+          certificateInfo={currentRow}
+          onSubmit={async () => {
+            setCertificateModalVisible(false);
+            actionRef.current?.reload();
+          }}
+          onCancel={() => {
+            setCertificateModalVisible(false);
+          }}
+        />
+      )}
     </PageContainer>
   );
 };

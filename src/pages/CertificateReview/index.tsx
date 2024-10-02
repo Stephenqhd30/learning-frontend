@@ -48,7 +48,7 @@ const CertificateReview: React.FC = () => {
   /**
    * 表格列数据
    */
-  const columns: ProColumns<API.Certificate>[] = [
+  const columns: ProColumns<API.CertificateVO>[] = [
     {
       title: '证书编号',
       dataIndex: 'certificateNumber',
@@ -72,6 +72,13 @@ const CertificateReview: React.FC = () => {
       dataIndex: 'certificateSituation',
       valueType: 'select',
       valueEnum: CertificateSituationEnum,
+      hideInForm: true,
+    },
+    {
+      title: '证书地址',
+      dataIndex: 'certificateUrl',
+      valueType: 'image',
+      hideInSearch: true,
       hideInForm: true,
     },
     {
@@ -106,10 +113,12 @@ const CertificateReview: React.FC = () => {
       hideInSearch: true,
     },
     {
-      title: '审核人Id',
+      title: '审核人',
       dataIndex: 'reviewerId',
       valueType: 'text',
       hideInForm: true,
+      hideInSearch: true,
+      render: (_, record) => (<div>{record.userVO?.userName}</div>)
     },
     {
       title: '操作',

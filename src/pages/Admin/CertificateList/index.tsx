@@ -6,8 +6,7 @@ import React, {useRef, useState} from 'react';
 import {
   deleteCertificateUsingPost,
   downloadCertificateExampleUsingGet,
-  downloadCertificateUsingGet,
-  listCertificateByPageUsingPost,
+  downloadCertificateUsingGet, listCertificateVoByPageUsingPost
 } from '@/services/stephen-backend/certificateController';
 import { CertificateSituation, CertificateSituationEnum } from '@/enums/CertificateSituationEnum';
 import { CertificateType, CertificateTypeEnum } from '@/enums/CertificateTypeEnum';
@@ -36,6 +35,32 @@ const handleDelete = async (row: API.DeleteRequest) => {
   } catch (error: any) {
     hide();
     message.error(`删除失败${error.message}, 请重试!`);
+  }
+};
+
+/**
+ * 下载证书信息
+ */
+const downloadCertificateInfo = async () => {
+  try {
+    const res = await downloadCertificateUsingGet({
+      responseType: 'blob',
+    });
+
+    // 创建 Blob 对象
+    // @ts-ignore
+    const url = window.URL.createObjectURL(new Blob([res]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', '证书信息.xlsx');
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    // 释放对象 URL
+    window.URL.revokeObjectURL(url);
+  } catch (error: any) {
+    message.error('导出失败: ' + error.message);
   }
 };
 
@@ -81,32 +106,6 @@ const CertificateList: React.FC = () => {
   const [currentRow, setCurrentRow] = useState<API.Certificate>();
 
   /**
-   * 下载证书信息
-   */
-  const downloadCertificateInfo = async () => {
-    try {
-      const res = await downloadCertificateUsingGet({
-        responseType: 'blob',
-      });
-
-      // 创建 Blob 对象
-      // @ts-ignore
-      const url = window.URL.createObjectURL(new Blob([res]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', '证书信息.xlsx');
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-
-      // 释放对象 URL
-      window.URL.revokeObjectURL(url);
-    } catch (error: any) {
-      message.error('导出失败: ' + error.message);
-    }
-  };
-
-  /**
    * 去审核信息页
    */
   const goDoReviewPage = () => {
@@ -116,13 +115,12 @@ const CertificateList: React.FC = () => {
   /**
    * 表格列数据
    */
-  const columns: ProColumns<API.Certificate>[] = [
+  const columns: ProColumns<API.CertificateVO>[] = [
     {
       title: 'id',
       dataIndex: 'id',
       valueType: 'text',
       hideInForm: true,
-      hideInTable: true,
     },
     {
       title: '证书编号',
@@ -181,9 +179,9 @@ const CertificateList: React.FC = () => {
       },
     },
     {
-      title: '证书下载地址',
+      title: '证书地址',
       dataIndex: 'certificateUrl',
-      valueType: 'text',
+      valueType: 'image',
       hideInSearch: true,
     },
     {
@@ -215,10 +213,12 @@ const CertificateList: React.FC = () => {
       hideInForm: true,
     },
     {
-      title: '审核人信息',
+      title: '审核人',
       dataIndex: 'reviewerId',
       valueType: 'text',
       hideInForm: true,
+      hideInSearch: true,
+      render: (_, record) => (<div>{record?.userVO?.userName}</div>)
     },
     {
       title: '审核时间',
@@ -243,6 +243,7 @@ const CertificateList: React.FC = () => {
       valueType: 'dateTime',
       hideInSearch: true,
       hideInForm: true,
+      hideInTable: true,
     },
     {
       title: '操作',
@@ -344,7 +345,7 @@ const CertificateList: React.FC = () => {
         request={async (params, sort, filter) => {
           const sortField = Object.keys(sort)?.[0];
           const sortOrder = sort?.[sortField] ?? undefined;
-          const { data, code } = await listCertificateByPageUsingPost({
+          const { data, code } = await listCertificateVoByPageUsingPost({
             ...params,
             ...filter,
             sortField,

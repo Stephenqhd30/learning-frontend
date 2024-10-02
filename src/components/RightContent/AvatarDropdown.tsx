@@ -7,6 +7,7 @@ import React, { useCallback } from 'react';
 import { flushSync } from 'react-dom';
 import HeaderDropdown from '../HeaderDropdown';
 import { userLogoutUsingPost } from '@/services/stephen-backend/userController';
+import UserAvatarCard from '@/components/ReUser/UserAvatarCard';
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
@@ -112,11 +113,10 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     >
       <Space>
         {currentUser?.userAvatar ? (
-          <Avatar src={currentUser?.userAvatar} />
+          <UserAvatarCard user={currentUser} />
         ) : (
           <Avatar icon={<UserOutlined />} />
         )}
-        <span>{currentUser?.userName}</span>
       </Space>
     </HeaderDropdown>
   );

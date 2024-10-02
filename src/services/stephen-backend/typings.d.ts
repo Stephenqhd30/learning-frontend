@@ -35,6 +35,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponsePageCertificateForUserVO_ = {
+    code?: number;
+    data?: PageCertificateForUserVO_;
+    message?: string;
+  };
+
   type BaseResponsePageCertificateVO_ = {
     code?: number;
     data?: PageCertificateVO_;
@@ -116,6 +122,16 @@ declare namespace API {
     certificateUrl?: string;
     certificateYear?: string;
     gainUserId?: number;
+  };
+
+  type CertificateForUserVO = {
+    certificateName?: string;
+    certificateNumber?: string;
+    certificateSituation?: number;
+    certificateType?: number;
+    certificateUrl?: string;
+    certificateYear?: string;
+    id?: number;
   };
 
   type CertificateQueryRequest = {
@@ -219,6 +235,19 @@ declare namespace API {
     orders?: OrderItem[];
     pages?: number;
     records?: Certificate[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
+  type PageCertificateForUserVO_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: CertificateForUserVO[];
     searchCount?: boolean;
     size?: number;
     total?: number;

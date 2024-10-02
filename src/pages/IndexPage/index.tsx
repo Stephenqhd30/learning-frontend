@@ -1,29 +1,21 @@
 import React from 'react';
 import { PageContainer, ProColumns, ProTable } from '@ant-design/pro-components';
-import { listCertificateVoByPageUsingPost } from '@/services/stephen-backend/certificateController';
+import {
+  listCertificateForUserVoByPageUsingPost,
+} from '@/services/stephen-backend/certificateController';
 import { CertificateTypeEnum } from '@/enums/CertificateTypeEnum';
 import { CertificateSituationEnum } from '@/enums/CertificateSituationEnum';
 import { INDEX_PAGE_TITLE } from '@/constants';
-import { ReviewStatus } from '@/enums/ReviewStatus';
 
 const IndexPage: React.FC = () => {
   /**
    * 表格列数据
    */
-  const columns: ProColumns<API.CertificateVO>[] = [
+  const columns: ProColumns<API.CertificateForUserVO>[] = [
     {
-      title: '证书id',
-      dataIndex: 'id',
+      title: '证书名称',
+      dataIndex: 'certificateName',
       valueType: 'text',
-      hideInTable: true,
-      hideInSearch: true,
-    },
-    {
-      title: '创建人id',
-      dataIndex: 'userId',
-      valueType: 'text',
-      hideInTable: true,
-      hideInSearch: true,
     },
     {
       title: '证书编号',
@@ -34,11 +26,6 @@ const IndexPage: React.FC = () => {
       title: '证书获得时间',
       dataIndex: 'certificateYear',
       valueType: 'dateYear',
-    },
-    {
-      title: '证书名称',
-      dataIndex: 'certificateName',
-      valueType: 'text',
     },
     {
       title: '证书获得情况',
@@ -64,12 +51,11 @@ const IndexPage: React.FC = () => {
         request={async (params, sort, filter) => {
           const sortField = Object.keys(sort)?.[0];
           const sortOrder = sort?.[sortField] ?? undefined;
-          const { data, code } = await listCertificateVoByPageUsingPost({
+          const { data, code } = await listCertificateForUserVoByPageUsingPost({
             ...params,
             ...filter,
             sortField,
             sortOrder,
-            reviewStatus: ReviewStatus.PASS,
           } as API.CertificateQueryRequest);
 
           return {

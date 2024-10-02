@@ -17,6 +17,7 @@ const CertificateDetailsModal: React.FC<CertificateDetailsProps> = (props) => {
       <Modal title={'证书详细'} destroyOnClose onCancel={onCancel} open={visible} onOk={onCancel} width={800}>
         <ProCard>
           <ProDescriptions<API.CertificateVO>
+            column={1}
             title={
               <>
                 <Typography.Title level={3}>{certificate?.certificateName}</Typography.Title>

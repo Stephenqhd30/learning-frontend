@@ -3,6 +3,7 @@ import React from 'react';
 import { ProCard, ProDescriptions } from '@ant-design/pro-components';
 import { Typography } from 'antd';
 import {UserRoleEnum} from '@/enums/UserRoleEnum';
+import UserAvatarCard from '@/components/ReUser/UserAvatarCard';
 
 interface UserProps {
   user: API.User;
@@ -16,11 +17,7 @@ const UserDetailsCard: React.FC<UserProps> = (props) => {
       <ProCard>
         <ProDescriptions<API.User>
           column={1}
-          title={
-            <>
-              <Typography.Title level={3}>{user?.userName}</Typography.Title>
-            </>
-          }
+          title={<UserAvatarCard user={user} />}
           dataSource={user}
           emptyText={'该用户比较懒 还没有设置'}
           columns={[
