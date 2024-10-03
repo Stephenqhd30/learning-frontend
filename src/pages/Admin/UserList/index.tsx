@@ -117,7 +117,7 @@ const UserList: React.FC = () => {
     {
       title: '身份证号',
       dataIndex: 'userIdCard',
-      valueType: 'text',
+      valueType: 'password',
     },
     {
       title: '姓名',
@@ -141,7 +141,7 @@ const UserList: React.FC = () => {
     {
       title: '电话',
       dataIndex: 'userPhone',
-      valueType: 'text',
+      valueType: 'password',
     },
     {
       title: '邮箱',

@@ -1,4 +1,9 @@
-import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  LogoutOutlined,
+  SafetyCertificateOutlined,
+  SettingOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import { history, Link, useModel } from '@umijs/max';
 import { Avatar, Button, Space } from 'antd';
 import { stringify } from 'querystring';
@@ -52,7 +57,11 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
         loginOut();
         return;
       }
+      if (key === 'my_certificate') {
+        history.push(`/myCertificate`);
+      }
       history.push(`/account/${key}`);
+
     },
     [setInitialState],
   );
@@ -95,6 +104,11 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       key: 'settings',
       icon: <SettingOutlined />,
       label: '个人设置',
+    },
+    {
+      key: 'my_certificate',
+      icon: <SafetyCertificateOutlined />,
+      label: '我的证书',
     },
     {
       key: 'logout',
