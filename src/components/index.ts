@@ -7,7 +7,7 @@
  */
 import Footer from './Footer';
 import { AvatarDropdown, AvatarName } from './RightContent/AvatarDropdown';
-import UserAvatarCard from '@/components/ReUser/UserAvatarCard';
+import { UserAvatarCard } from '@/components/ReUser';
 import { UserCard, UserDetailsCard } from '@/components/ReAccount';
 
 export { Footer, AvatarDropdown, AvatarName, UserAvatarCard, UserDetailsCard, UserCard };

@@ -11,6 +11,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseCourseVO_ = {
+    code?: number;
+    data?: CourseVO;
+    message?: string;
+  };
+
   type BaseResponseLoginUserVO_ = {
     code?: number;
     data?: LoginUserVO;
@@ -44,6 +50,18 @@ declare namespace API {
   type BaseResponsePageCertificateVO_ = {
     code?: number;
     data?: PageCertificateVO_;
+    message?: string;
+  };
+
+  type BaseResponsePageCourse_ = {
+    code?: number;
+    data?: PageCourse_;
+    message?: string;
+  };
+
+  type BaseResponsePageCourseVO_ = {
+    code?: number;
+    data?: PageCourseVO_;
     message?: string;
   };
 
@@ -184,11 +202,59 @@ declare namespace API {
     userVO?: UserVO;
   };
 
+  type Course = {
+    courseName?: string;
+    courseNumber?: number;
+    createTime?: string;
+    id?: number;
+    idDelete?: number;
+    updateTime?: string;
+    userId?: number;
+  };
+
+  type CourseAddRequest = {
+    courseName?: string;
+    courseNumber?: number;
+  };
+
+  type CourseQueryRequest = {
+    courseName?: string;
+    courseNumber?: number;
+    current?: number;
+    id?: number;
+    notId?: number;
+    pageSize?: number;
+    sortField?: string;
+    sortOrder?: string;
+    userId?: number;
+  };
+
+  type CourseUpdateRequest = {
+    courseName?: string;
+    courseNumber?: number;
+    id?: number;
+  };
+
+  type CourseVO = {
+    courseName?: string;
+    courseNumber?: number;
+    createTime?: string;
+    id?: number;
+    updateTime?: string;
+    userId?: number;
+    userVO?: UserVO;
+  };
+
   type DeleteRequest = {
     id?: number;
   };
 
   type getCertificateVOByIdUsingGETParams = {
+    /** id */
+    id?: number;
+  };
+
+  type getCourseVOByIdUsingGETParams = {
     /** id */
     id?: number;
   };
@@ -261,6 +327,32 @@ declare namespace API {
     orders?: OrderItem[];
     pages?: number;
     records?: CertificateVO[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
+  type PageCourse_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: Course[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
+  type PageCourseVO_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: CourseVO[];
     searchCount?: boolean;
     size?: number;
     total?: number;
