@@ -23,6 +23,11 @@ export default [
         path: '/admin/userCertificate',
         component: './Admin/UserCertificateList',
       },
+      {
+        name: '课程管理',
+        path: '/admin/course',
+        component: './Admin/CourseList',
+      },
     ],
   },
   {
