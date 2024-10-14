@@ -4,8 +4,8 @@ import React, { useRef, useState } from 'react';
 import {
   listMyCertificateForUserVoByPageUsingPost,
 } from '@/services/stephen-backend/certificateController';
-import {CertificateSituationEnum} from '@/enums/CertificateSituationEnum';
-import { CertificateTypeEnum } from '@/enums/CertificateTypeEnum';
+import {certificateSituation} from '@/enums/CertificateSituationEnum';
+import { certificateType } from '@/enums/CertificateTypeEnum';
 import { Space, Typography } from 'antd';
 import { MY_CERTIFICATE_TITLE } from '@/constants';
 import { DownloadCertificateModal } from '@/pages/MyCertificate/components';
@@ -43,13 +43,13 @@ const MyCertificateList: React.FC = () => {
       title: '证书获得情况',
       dataIndex: 'certificateSituation',
       valueType: 'select',
-      valueEnum: CertificateSituationEnum,
+      valueEnum: certificateSituation,
     },
     {
       title: '证书类型',
       dataIndex: 'certificateType',
       valueType: 'select',
-      valueEnum: CertificateTypeEnum,
+      valueEnum: certificateType,
     },
     {
       title: '操作',

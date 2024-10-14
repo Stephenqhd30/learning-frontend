@@ -1,15 +1,15 @@
-export enum CertificateSituation {
+export enum CertificateSituationEnum {
   HAVE = 0,
   NO = 1,
 }
 /**
  * 证书获得情况(0-有,1-没有)
  */
-export const CertificateSituationEnum = {
-  [CertificateSituation.HAVE]: {
+export const certificateSituation = {
+  [CertificateSituationEnum.HAVE]: {
     text: '有',
   },
-  [CertificateSituation.NO]: {
+  [CertificateSituationEnum.NO]: {
     text: '没有',
   },
 };

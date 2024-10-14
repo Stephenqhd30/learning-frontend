@@ -4,12 +4,13 @@ import '@umijs/max';
 import { Button, message, Popconfirm, Select, Space, Tag, Typography } from 'antd';
 import React, { useRef, useState } from 'react';
 import {
-  deleteUserUsingPost, downloadUserExampleUsingGet,
+  deleteUserUsingPost,
+  downloadUserExampleUsingGet,
   downloadUserUsingGet,
-  listUserByPageUsingPost
+  listUserByPageUsingPost,
 } from '@/services/stephen-backend/userController';
-import { UserRoleEnum } from '@/enums/UserRoleEnum';
-import { UserGender, UserGenderEnum } from '@/enums/UserGenderEnum';
+import { userRole } from '@/enums/UserRoleEnum';
+import { userGender, UserGenderEnum } from '@/enums/UserGenderEnum';
 import {
   CreateUserModal,
   UpdateUserModal,
@@ -152,18 +153,18 @@ const UserList: React.FC = () => {
       title: '性别',
       dataIndex: 'userGender',
       valueType: 'text',
-      valueEnum: UserGenderEnum,
+      valueEnum: userGender,
       renderFormItem: () => {
         return (
           <Select>
-            <Select.Option value={UserGender.MALE}>
-              {UserGenderEnum[UserGender.MALE].text}
+            <Select.Option value={UserGenderEnum.MALE}>
+              {userGender[UserGenderEnum.MALE].text}
             </Select.Option>
-            <Select.Option value={UserGender.FEMALE}>
-              {UserGenderEnum[UserGender.FEMALE].text}
+            <Select.Option value={UserGenderEnum.FEMALE}>
+              {userGender[UserGenderEnum.FEMALE].text}
             </Select.Option>
-            <Select.Option value={UserGender.SECURITY}>
-              {UserGenderEnum[UserGender.SECURITY].text}
+            <Select.Option value={UserGenderEnum.SECURITY}>
+              {userGender[UserGenderEnum.SECURITY].text}
             </Select.Option>
           </Select>
         );
@@ -177,10 +178,10 @@ const UserList: React.FC = () => {
     {
       title: '权限',
       dataIndex: 'userRole',
-      valueEnum: UserRoleEnum,
+      valueEnum: userRole,
       render: (_, record) => {
         // @ts-ignore
-        const role = UserRoleEnum[record.userRole];
+        const role = userRole[record.userRole];
         return <Tag color={role?.color}>{role.text}</Tag>;
       },
     },
@@ -246,7 +247,7 @@ const UserList: React.FC = () => {
       <ProTable<API.User, API.PageParams>
         headerTitle={'用户查询'}
         actionRef={actionRef}
-        rowKey={'key'}
+        rowKey={'id'}
         search={{
           labelWidth: 120,
         }}
@@ -319,7 +320,6 @@ const UserList: React.FC = () => {
             actionRef.current?.reload();
           }}
           visible={createModalVisible}
-          columns={columns}
         />
       )}
       {/*更新表单的Modal框*/}
@@ -334,7 +334,6 @@ const UserList: React.FC = () => {
             actionRef.current?.reload();
           }}
           visible={updateModalVisible}
-          columns={columns}
           oldData={currentRow}
         />
       )}

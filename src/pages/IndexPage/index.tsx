@@ -3,8 +3,8 @@ import { PageContainer, ProColumns, ProTable } from '@ant-design/pro-components'
 import {
   listCertificateForUserVoByPageUsingPost,
 } from '@/services/stephen-backend/certificateController';
-import { CertificateTypeEnum } from '@/enums/CertificateTypeEnum';
-import { CertificateSituationEnum } from '@/enums/CertificateSituationEnum';
+import { certificateType } from '@/enums/CertificateTypeEnum';
+import { certificateSituation } from '@/enums/CertificateSituationEnum';
 import { INDEX_PAGE_TITLE } from '@/constants';
 
 const IndexPage: React.FC = () => {
@@ -31,13 +31,13 @@ const IndexPage: React.FC = () => {
       title: '证书获得情况',
       dataIndex: 'certificateSituation',
       valueType: 'select',
-      valueEnum: CertificateSituationEnum,
+      valueEnum: certificateSituation,
     },
     {
       title: '证书类型',
       dataIndex: 'certificateType',
       valueType: 'select',
-      valueEnum: CertificateTypeEnum,
+      valueEnum: certificateType,
     },
   ];
   return (

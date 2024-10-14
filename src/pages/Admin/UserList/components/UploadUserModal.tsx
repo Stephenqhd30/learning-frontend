@@ -35,6 +35,9 @@ const UploadUserModal: React.FC<CreateProps> = (props) => {
       if (res.code === 0 && res.data) {
         message.success('用户信息导入成功');
         return true;
+      }else  {
+        message.error('用户信息导入失败请重试');
+
       }
     } catch (error: any) {
       message.error(`用户信息导入失败${error.message}` + '请重试');

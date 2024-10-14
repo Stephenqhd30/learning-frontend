@@ -1,20 +1,16 @@
 import React, { useRef, useState } from 'react';
 import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
-import { CertificateSituationEnum } from '@/enums/CertificateSituationEnum';
-import { CertificateTypeEnum } from '@/enums/CertificateTypeEnum';
+import { certificateSituation } from '@/enums/CertificateSituationEnum';
+import { certificateType } from '@/enums/CertificateTypeEnum';
 import { Button, message, Space, Typography } from 'antd';
-import {
-  getUserByIdUsingGet,
-} from '@/services/stephen-backend/userController';
-import {
-  listCertificateVoByPageUsingPost
-} from '@/services/stephen-backend/certificateController';
-import { ReviewStatus, ReviewStatusEnum } from '@/enums/ReviewStatus';
+import { getUserByIdUsingGet } from '@/services/stephen-backend/userController';
+import { listCertificateVoByPageUsingPost } from '@/services/stephen-backend/certificateController';
 import {
   BatchReviewModal,
   ReviewModal,
   UserDetailsModal,
 } from '@/pages/CertificateReview/components';
+import { reviewStatus, ReviewStatusEnum } from '@/enums/ReviewStatusEnum';
 
 const CertificateReview: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -71,7 +67,7 @@ const CertificateReview: React.FC = () => {
       title: '证书获得情况',
       dataIndex: 'certificateSituation',
       valueType: 'select',
-      valueEnum: CertificateSituationEnum,
+      valueEnum: certificateSituation,
       hideInForm: true,
     },
     {
@@ -85,7 +81,7 @@ const CertificateReview: React.FC = () => {
       title: '证书类型',
       dataIndex: 'certificateType',
       valueType: 'select',
-      valueEnum: CertificateTypeEnum,
+      valueEnum: certificateType,
       hideInForm: true,
     },
     {
@@ -98,7 +94,7 @@ const CertificateReview: React.FC = () => {
       title: '审核状态',
       dataIndex: 'reviewStatus',
       valueType: 'select',
-      valueEnum: ReviewStatusEnum,
+      valueEnum: reviewStatus,
     },
     {
       title: '审核信息',
@@ -118,7 +114,7 @@ const CertificateReview: React.FC = () => {
       valueType: 'text',
       hideInForm: true,
       hideInSearch: true,
-      render: (_, record) => (<div>{record.userVO?.userName}</div>)
+      render: (_, record) => <div>{record.userVO?.userName}</div>,
     },
     {
       title: '操作',
@@ -166,7 +162,7 @@ const CertificateReview: React.FC = () => {
             ...filter,
             sortField,
             sortOrder,
-            noId: ReviewStatus.PASS,
+            noId: ReviewStatusEnum.PASS
           } as API.CertificateQueryRequest);
 
           return {
