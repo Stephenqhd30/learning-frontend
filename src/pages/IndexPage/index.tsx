@@ -2,7 +2,7 @@ import React from 'react';
 import { PageContainer, ProColumns, ProTable } from '@ant-design/pro-components';
 import {
   listCertificateForUserVoByPageUsingPost,
-} from '@/services/stephen-backend/certificateController';
+} from '@/services/learning-backend/certificateController';
 import { certificateType } from '@/enums/CertificateTypeEnum';
 import { certificateSituation } from '@/enums/CertificateSituationEnum';
 import { INDEX_PAGE_TITLE } from '@/constants';

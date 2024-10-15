@@ -32,6 +32,22 @@ export async function deleteCourseUsingPost(
   });
 }
 
+/** downloadCourse GET /api/course/download */
+export async function downloadCourseUsingGet(options?: { [key: string]: any }) {
+  return request<any>('/api/course/download', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
+/** downloadCourseExample GET /api/course/download/example */
+export async function downloadCourseExampleUsingGet(options?: { [key: string]: any }) {
+  return request<any>('/api/course/download/example', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
 /** getCourseVOById GET /api/course/get/vo */
 export async function getCourseVoByIdUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
@@ -43,6 +59,42 @@ export async function getCourseVoByIdUsingGet(
     params: {
       ...params,
     },
+    ...(options || {}),
+  });
+}
+
+/** importCourseDataByExcel POST /api/course/import */
+export async function importCourseDataByExcelUsingPost(
+  body: {},
+  file?: File,
+  options?: { [key: string]: any },
+) {
+  const formData = new FormData();
+
+  if (file) {
+    formData.append('file', file);
+  }
+
+  Object.keys(body).forEach((ele) => {
+    const item = (body as any)[ele];
+
+    if (item !== undefined && item !== null) {
+      if (typeof item === 'object' && !(item instanceof File)) {
+        if (item instanceof Array) {
+          item.forEach((f) => formData.append(ele, f || ''));
+        } else {
+          formData.append(ele, JSON.stringify(item));
+        }
+      } else {
+        formData.append(ele, item);
+      }
+    }
+  });
+
+  return request<API.BaseResponseMapStringObject_>('/api/course/import', {
+    method: 'POST',
+    data: formData,
+    requestType: 'form',
     ...(options || {}),
   });
 }

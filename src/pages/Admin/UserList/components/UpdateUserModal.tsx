@@ -8,8 +8,8 @@ import {
 import '@umijs/max';
 import { message, Modal, Select, UploadProps } from 'antd';
 import React, { useState } from 'react';
-import { updateUserUsingPost } from '@/services/stephen-backend/userController';
-import { uploadFileUsingPost } from '@/services/stephen-backend/fileController';
+import { updateUserUsingPost } from '@/services/learning-backend/userController';
+import { uploadFileUsingPost } from '@/services/learning-backend/fileController';
 import { userRole, UserRoleEnum } from '@/enums/UserRoleEnum';
 import { userGender, UserGenderEnum } from '@/enums/UserGenderEnum';
 

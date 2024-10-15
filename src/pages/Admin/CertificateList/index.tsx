@@ -8,7 +8,7 @@ import {
   downloadCertificateExampleUsingGet,
   downloadCertificateUsingGet,
   listCertificateVoByPageUsingPost,
-} from '@/services/stephen-backend/certificateController';
+} from '@/services/learning-backend/certificateController';
 import { certificateSituation, CertificateSituationEnum } from '@/enums/CertificateSituationEnum';
 import { certificateType, CertificateTypeEnum } from '@/enums/CertificateTypeEnum';
 import {
@@ -321,7 +321,7 @@ const CertificateList: React.FC = () => {
               }}
             >
               <DownloadOutlined />
-              下载导出证书示例数据
+              下载导入证书示例数据
             </Button>
             <Button
               key={'upload'}

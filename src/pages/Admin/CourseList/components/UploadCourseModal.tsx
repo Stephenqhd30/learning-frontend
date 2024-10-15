@@ -2,9 +2,9 @@ import '@umijs/max';
 import { message, Modal } from 'antd';
 import React, { useState } from 'react';
 import { ProForm, ProFormUploadDragger } from '@ant-design/pro-components';
-import {importCertificateDataByExcelUsingPost} from '@/services/learning-backend/certificateController';
+import {importCourseDataByExcelUsingPost} from '@/services/learning-backend/courseController';
 
-interface CreateProps {
+interface Props {
   onCancel: () => void;
   onSubmit: () => Promise<void>;
   visible: boolean;
@@ -15,7 +15,7 @@ interface CreateProps {
  * @param props
  * @constructor
  */
-const UploadCertificateModal: React.FC<CreateProps> = (props) => {
+const UploadCourseModal: React.FC<Props> = (props) => {
   const { visible, onSubmit, onCancel } = props;
   // 是否是提交状态
   const [submitting, setSubmitting] = useState<boolean>(false);
@@ -29,15 +29,15 @@ const UploadCertificateModal: React.FC<CreateProps> = (props) => {
     if (submitting) return;
     setSubmitting(true);
     try {
-      const res = await importCertificateDataByExcelUsingPost({
+      const res = await importCourseDataByExcelUsingPost({
         file: values.file[0].originFileObj,
       });
       if (res.code === 0 && res.data) {
-        message.success('证书信息导入成功');
+        message.success('课程信息导入成功');
         return true;
       }
     } catch (error: any) {
-      message.error(`证书信息导入失败${error.message}` + '请重试');
+      message.error(`课程信息导入失败${error.message}` + '请重试');
       return false;
     } finally {
       setSubmitting(false);
@@ -47,7 +47,7 @@ const UploadCertificateModal: React.FC<CreateProps> = (props) => {
   return (
     <Modal
       destroyOnClose
-      title={'批量导入证书信息'}
+      title={'批量导入课程信息'}
       onCancel={() => onCancel?.()}
       open={visible}
       footer
@@ -76,4 +76,4 @@ const UploadCertificateModal: React.FC<CreateProps> = (props) => {
   );
 };
 
-export default UploadCertificateModal;
+export default UploadCourseModal;

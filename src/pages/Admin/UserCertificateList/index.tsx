@@ -4,9 +4,9 @@ import { Button, message, Space, Typography } from 'antd';
 import {
   downloadUserCertificateUsingGet,
   listUserCertificateByPageUsingPost,
-} from '@/services/stephen-backend/userCertificateController';
-import { getUserVoByIdUsingGet } from '@/services/stephen-backend/userController';
-import { getCertificateVoByIdUsingGet } from '@/services/stephen-backend/certificateController';
+} from '@/services/learning-backend/userCertificateController';
+import { getUserVoByIdUsingGet } from '@/services/learning-backend/userController';
+import { getCertificateVoByIdUsingGet } from '@/services/learning-backend/certificateController';
 import { DownloadOutlined } from '@ant-design/icons';
 import { CertificateDetailsModal } from '@/pages/Admin/UserCertificateList/components';
 import { UserInfoCard } from '@/pages/IndexPage/compoents';

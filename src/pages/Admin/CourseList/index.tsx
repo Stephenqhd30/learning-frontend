@@ -1,13 +1,14 @@
 import React, { useRef, useState } from 'react';
 import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import { Button, message, Popconfirm, Space, Typography } from 'antd';
-import { downloadUserCertificateUsingGet } from '@/services/stephen-backend/userCertificateController';
-import { DownloadOutlined } from '@ant-design/icons';
+import { DownloadOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import {
   deleteCourseUsingPost,
+  downloadCourseExampleUsingGet,
+  downloadCourseUsingGet,
   listCourseVoByPageUsingPost,
-} from '@/services/stephen-backend/courseController';
-import { CreateCourseModal, UpdateCourseModal } from './components';
+} from '@/services/learning-backend/courseController';
+import { CreateCourseModal, UpdateCourseModal, UploadCourseModal } from './components';
 
 /**
  * 删除节点
@@ -34,6 +35,58 @@ const handleDelete = async (row: API.DeleteRequest) => {
 };
 
 /**
+ * 下载用户课程信息
+ */
+const downloadCourseInfo = async () => {
+  try {
+    const res = await downloadCourseUsingGet({
+      responseType: 'blob',
+    });
+
+    // 创建 Blob 对象
+    // @ts-ignore
+    const url = window.URL.createObjectURL(new Blob([res]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', '课程信息.xlsx');
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    // 释放对象 URL
+    window.URL.revokeObjectURL(url);
+  } catch (error: any) {
+    message.error('导出失败: ' + error.message);
+  }
+};
+
+/**
+ * 下载用户示例数据
+ */
+const downloadCourseExample = async () => {
+  try {
+    const res = await downloadCourseExampleUsingGet({
+      responseType: 'blob',
+    });
+
+    // 创建 Blob 对象
+    // @ts-ignore
+    const url = window.URL.createObjectURL(new Blob([res]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', '导入课程示例数据.xlsx');
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    // 释放对象 URL
+    window.URL.revokeObjectURL(url);
+  } catch (error: any) {
+    message.error('导出失败: ' + error.message);
+  }
+};
+
+/**
  * 课程列表
  * @constructor
  */
@@ -45,32 +98,8 @@ const CourseList: React.FC = () => {
   const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
   // 更新课程 Modal 框
   const [updateModalVisible, setUpdateModalVisible] = useState<boolean>(false);
-
-  /**
-   * 下载用户证书信息
-   */
-  const downloadCourseInfo = async () => {
-    try {
-      const res = await downloadUserCertificateUsingGet({
-        responseType: 'blob',
-      });
-
-      // 创建 Blob 对象
-      // @ts-ignore
-      const url = window.URL.createObjectURL(new Blob([res]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', '用户证书信息.xlsx');
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-
-      // 释放对象 URL
-      window.URL.revokeObjectURL(url);
-    } catch (error: any) {
-      message.error('导出失败: ' + error.message);
-    }
-  };
+  // 上传窗口的Modal框
+  const [uploadModalVisible, setUploadModalVisible] = useState<boolean>(false);
 
   /**
    * 表格列数据
@@ -160,7 +189,7 @@ const CourseList: React.FC = () => {
 
   return (
     <>
-      <ProTable<API.UserCertificate, API.PageParams>
+      <ProTable<API.CourseVO, API.PageParams>
         headerTitle={'查看课程信息'}
         actionRef={actionRef}
         rowKey={'id'}
@@ -185,9 +214,26 @@ const CourseList: React.FC = () => {
         }}
         toolBarRender={() => [
           <Space key={'space'} wrap size={'small'}>
-            <Button key={'export'} type={'primary'} onClick={() => setCreateModalVisible(true)}>
+            <Button key={'export'} onClick={() => setCreateModalVisible(true)}>
+              <PlusOutlined /> 新建
+            </Button>
+            <Button
+              key={'export-example'}
+              onClick={async () => {
+                await downloadCourseExample();
+              }}
+            >
               <DownloadOutlined />
-              新建
+              下载导入课程示例数据
+            </Button>
+            <Button
+              key={'upload'}
+              onClick={() => {
+                setUploadModalVisible(true);
+              }}
+            >
+              <UploadOutlined />
+              批量导入课程信息
             </Button>
             <Button
               key={'export'}
@@ -196,7 +242,7 @@ const CourseList: React.FC = () => {
               }}
             >
               <DownloadOutlined />
-              导出证书信息
+              导出课程信息
             </Button>
           </Space>,
         ]}
@@ -227,6 +273,19 @@ const CourseList: React.FC = () => {
           }}
           visible={updateModalVisible}
           columns={columns}
+        />
+      )}
+      {/*上传用户信息的Modal框*/}
+      {uploadModalVisible && (
+        <UploadCourseModal
+          onCancel={() => {
+            setUploadModalVisible(false);
+          }}
+          visible={uploadModalVisible}
+          onSubmit={async () => {
+            setUploadModalVisible(false);
+            actionRef.current?.reload();
+          }}
         />
       )}
     </>

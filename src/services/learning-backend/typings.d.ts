@@ -207,7 +207,7 @@ declare namespace API {
     courseNumber?: number;
     createTime?: string;
     id?: number;
-    idDelete?: number;
+    isDelete?: number;
     updateTime?: string;
     userId?: number;
   };

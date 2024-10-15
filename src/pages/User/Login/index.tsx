@@ -3,7 +3,7 @@ import { LoginForm, ProConfigProvider } from '@ant-design/pro-components';
 import { history, useModel } from '@umijs/max';
 import { Image, message, theme, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { userLoginUsingPost } from '@/services/stephen-backend/userController';
+import { userLoginUsingPost } from '@/services/learning-backend/userController';
 import { LEARNING_SUBTITLE, LEARNING_TITLE } from '@/constants';
 import AccountLoginPage from '@/pages/User/Login/components/AccountLoginPage';
 

@@ -4,7 +4,7 @@ import { history } from '@umijs/max';
 import { Image, message, theme } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { LEARNING_SUBTITLE, LEARNING_TITLE } from '@/constants';
-import { userRegisterUsingPost } from '@/services/stephen-backend/userController';
+import { userRegisterUsingPost } from '@/services/learning-backend/userController';
 import RegisterPage from '@/pages/User/Register/components/RegisterPage';
 
 const Register: React.FC = () => {

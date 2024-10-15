@@ -3,8 +3,8 @@ import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import { certificateSituation } from '@/enums/CertificateSituationEnum';
 import { certificateType } from '@/enums/CertificateTypeEnum';
 import { Button, message, Space, Typography } from 'antd';
-import { getUserByIdUsingGet } from '@/services/stephen-backend/userController';
-import { listCertificateVoByPageUsingPost } from '@/services/stephen-backend/certificateController';
+import { getUserByIdUsingGet } from '@/services/learning-backend/userController';
+import { listCertificateVoByPageUsingPost } from '@/services/learning-backend/certificateController';
 import {
   BatchReviewModal,
   ReviewModal,

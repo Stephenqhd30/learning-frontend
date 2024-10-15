@@ -3,12 +3,15 @@ import React, { useEffect, useState } from 'react';
 
 import { ACCOUNT_TITLE } from '@/constants';
 import BaseView from '@/pages/Account/Settings/components/BaseView';
-import styles from './index.less';
 import { Grid } from 'antd';
 import {useModel} from '@@/exports';
 
 const { useBreakpoint } = Grid;
 
+/**
+ * 个人设置
+ * @constructor
+ */
 const Settings: React.FC = () => {
 
   const { initialState } = useModel("@@initialState");
@@ -27,7 +30,6 @@ const Settings: React.FC = () => {
   return (
     <PageContainer title={ACCOUNT_TITLE}>
       <ProCard
-        className={styles.proCard}
         tabs={{
           tabPosition: isMobile ? 'top' : 'left',
           activeKey: activeKeyTab,
@@ -35,7 +37,7 @@ const Settings: React.FC = () => {
             {
               label: `基本设置`,
               key: 'base',
-              children: <BaseView user={currentUser}/>,
+              children: <BaseView isMobile={isMobile} user={currentUser}/>,
             },
           ],
           onChange: (activeKey) => {

@@ -11,7 +11,7 @@ import type { MenuInfo } from 'rc-menu/lib/interface';
 import React, { useCallback } from 'react';
 import { flushSync } from 'react-dom';
 import HeaderDropdown from '../HeaderDropdown';
-import { userLogoutUsingPost } from '@/services/stephen-backend/userController';
+import { userLogoutUsingPost } from '@/services/learning-backend/userController';
 import UserAvatarCard from '@/components/ReUser/UserAvatarCard';
 
 export type GlobalHeaderRightProps = {

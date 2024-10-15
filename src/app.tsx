@@ -2,7 +2,7 @@ import { AvatarDropdown, Footer } from '@/components';
 import { history, Link, RunTimeLayoutConfig } from '@umijs/max';
 import React from 'react';
 import Settings from '../config/defaultSettings';
-import { getLoginUserUsingGet } from '@/services/stephen-backend/userController';
+import { getLoginUserUsingGet } from '@/services/learning-backend/userController';
 import UnAccessiblePage from '@/pages/Exception/403';
 import { requestConfig } from '@/requestConfig';
 

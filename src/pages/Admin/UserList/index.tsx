@@ -8,7 +8,7 @@ import {
   downloadUserExampleUsingGet,
   downloadUserUsingGet,
   listUserByPageUsingPost,
-} from '@/services/stephen-backend/userController';
+} from '@/services/learning-backend/userController';
 import { userRole } from '@/enums/UserRoleEnum';
 import { userGender, UserGenderEnum } from '@/enums/UserGenderEnum';
 import {

@@ -2,7 +2,7 @@ import { ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
 import { message, Modal } from 'antd';
 import React from 'react';
-import { addCourseUsingPost } from '@/services/stephen-backend/courseController';
+import { addCourseUsingPost } from '@/services/learning-backend/courseController';
 
 interface CreateProps {
   onCancel: () => void;

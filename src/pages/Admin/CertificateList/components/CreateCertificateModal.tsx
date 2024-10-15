@@ -2,7 +2,7 @@ import { ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
 import { message, Modal } from 'antd';
 import React from 'react';
-import { addCertificateUsingPost } from '@/services/stephen-backend/certificateController';
+import { addCertificateUsingPost } from '@/services/learning-backend/certificateController';
 
 interface CreateProps {
   onCancel: () => void;

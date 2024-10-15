@@ -3,7 +3,7 @@ import '@umijs/max';
 import React, { useRef, useState } from 'react';
 import {
   listMyCertificateForUserVoByPageUsingPost,
-} from '@/services/stephen-backend/certificateController';
+} from '@/services/learning-backend/certificateController';
 import {certificateSituation} from '@/enums/CertificateSituationEnum';
 import { certificateType } from '@/enums/CertificateTypeEnum';
 import { Space, Typography } from 'antd';

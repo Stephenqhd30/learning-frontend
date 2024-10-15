@@ -1,7 +1,7 @@
 import { message, Modal } from 'antd';
 import { ProColumns, ProTable } from '@ant-design/pro-components';
 import React from 'react';
-import {doCertificateReviewByBatchUsingPost} from '@/services/stephen-backend/certificateController';
+import {doCertificateReviewByBatchUsingPost} from '@/services/learning-backend/certificateController';
 
 interface ReviewModalProps {
   visible: boolean;
