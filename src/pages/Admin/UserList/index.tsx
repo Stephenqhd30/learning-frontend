@@ -9,8 +9,8 @@ import {
   downloadUserUsingGet,
   listUserByPageUsingPost,
 } from '@/services/learning-backend/userController';
-import { userRole } from '@/enums/UserRoleEnum';
-import { userGender, UserGenderEnum } from '@/enums/UserGenderEnum';
+import { userRoleEnum } from '@/enums/UserRoleEnum';
+import { userGenderEnum, UserGender } from '@/enums/UserGenderEnum';
 import {
   CreateUserModal,
   UpdateUserModal,
@@ -153,18 +153,18 @@ const UserList: React.FC = () => {
       title: '性别',
       dataIndex: 'userGender',
       valueType: 'text',
-      valueEnum: userGender,
+      valueEnum: userGenderEnum,
       renderFormItem: () => {
         return (
           <Select>
-            <Select.Option value={UserGenderEnum.MALE}>
-              {userGender[UserGenderEnum.MALE].text}
+            <Select.Option value={UserGender.MALE}>
+              {userGenderEnum[UserGender.MALE].text}
             </Select.Option>
-            <Select.Option value={UserGenderEnum.FEMALE}>
-              {userGender[UserGenderEnum.FEMALE].text}
+            <Select.Option value={UserGender.FEMALE}>
+              {userGenderEnum[UserGender.FEMALE].text}
             </Select.Option>
-            <Select.Option value={UserGenderEnum.SECURITY}>
-              {userGender[UserGenderEnum.SECURITY].text}
+            <Select.Option value={UserGender.SECURITY}>
+              {userGenderEnum[UserGender.SECURITY].text}
             </Select.Option>
           </Select>
         );
@@ -178,10 +178,10 @@ const UserList: React.FC = () => {
     {
       title: '权限',
       dataIndex: 'userRole',
-      valueEnum: userRole,
+      valueEnum: userRoleEnum,
       render: (_, record) => {
         // @ts-ignore
-        const role = userRole[record.userRole];
+        const role = userRoleEnum[record.userRole];
         return <Tag color={role?.color}>{role.text}</Tag>;
       },
     },

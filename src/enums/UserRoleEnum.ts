@@ -1,23 +1,23 @@
-export enum UserRoleEnum {
+export enum UserRole {
   ADMIN = 'admin',
   USER = 'user',
   BAN = 'ban',
 }
 
-export const userRole = {
-  [UserRoleEnum.ADMIN]: {
+export const userRoleEnum = {
+  [UserRole.ADMIN]: {
     text: '管理员',
-    value: UserRoleEnum.ADMIN,
+    value: UserRole.ADMIN,
     color: 'processing',
   },
-  [UserRoleEnum.USER]: {
+  [UserRole.USER]: {
     text: '普通用户',
-    value: UserRoleEnum.USER,
+    value: UserRole.USER,
     color: 'success',
   },
-  [UserRoleEnum.BAN]: {
+  [UserRole.BAN]: {
     text: '封禁',
-    value: UserRoleEnum.BAN,
+    value: UserRole.BAN,
     color: 'error',
   },
 };

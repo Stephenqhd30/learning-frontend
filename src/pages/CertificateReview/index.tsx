@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
-import { certificateSituation } from '@/enums/CertificateSituationEnum';
-import { certificateType } from '@/enums/CertificateTypeEnum';
+import { certificateSituationEnum } from '@/enums/CertificateSituationEnum';
+import { certificateTypeEnum } from '@/enums/CertificateTypeEnum';
 import { Button, message, Space, Typography } from 'antd';
 import { getUserByIdUsingGet } from '@/services/learning-backend/userController';
 import { listCertificateVoByPageUsingPost } from '@/services/learning-backend/certificateController';
@@ -10,7 +10,7 @@ import {
   ReviewModal,
   UserDetailsModal,
 } from '@/pages/CertificateReview/components';
-import { reviewStatus, ReviewStatusEnum } from '@/enums/ReviewStatusEnum';
+import { reviewStatusEnum, ReviewStatus } from '@/enums/ReviewStatusEnum';
 
 const CertificateReview: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -67,7 +67,7 @@ const CertificateReview: React.FC = () => {
       title: '证书获得情况',
       dataIndex: 'certificateSituation',
       valueType: 'select',
-      valueEnum: certificateSituation,
+      valueEnum: certificateSituationEnum,
       hideInForm: true,
     },
     {
@@ -81,7 +81,7 @@ const CertificateReview: React.FC = () => {
       title: '证书类型',
       dataIndex: 'certificateType',
       valueType: 'select',
-      valueEnum: certificateType,
+      valueEnum: certificateTypeEnum,
       hideInForm: true,
     },
     {
@@ -94,7 +94,7 @@ const CertificateReview: React.FC = () => {
       title: '审核状态',
       dataIndex: 'reviewStatus',
       valueType: 'select',
-      valueEnum: reviewStatus,
+      valueEnum: reviewStatusEnum,
     },
     {
       title: '审核信息',
@@ -162,7 +162,7 @@ const CertificateReview: React.FC = () => {
             ...filter,
             sortField,
             sortOrder,
-            noId: ReviewStatusEnum.PASS
+            noId: ReviewStatus.PASS
           } as API.CertificateQueryRequest);
 
           return {

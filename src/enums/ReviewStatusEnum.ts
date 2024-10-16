@@ -1,4 +1,4 @@
-export enum ReviewStatusEnum {
+export enum ReviewStatus {
   REVIEWING = 0,
   PASS = 1,
   REJECT = 2,
@@ -7,20 +7,20 @@ export enum ReviewStatusEnum {
 /**
  * 证书状态(0-待审核,1-通过,2-拒绝)
  */
-export const reviewStatus = {
-  [ReviewStatusEnum.REVIEWING]: {
+export const reviewStatusEnum = {
+  [ReviewStatus.REVIEWING]: {
     text: '待审核',
-    value: ReviewStatusEnum.REVIEWING,
+    value: ReviewStatus.REVIEWING,
     color: 'yellow',
   },
-  [ReviewStatusEnum.PASS]: {
+  [ReviewStatus.PASS]: {
     text: '通过',
-    value: ReviewStatusEnum.PASS,
+    value: ReviewStatus.PASS,
     color: 'green',
   },
-  [ReviewStatusEnum.REJECT]: {
+  [ReviewStatus.REJECT]: {
     text: '拒绝',
-    value: ReviewStatusEnum.REJECT,
+    value: ReviewStatus.REJECT,
     color: 'red',
   },
 };

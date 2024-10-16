@@ -9,14 +9,14 @@ import {
   downloadCertificateUsingGet,
   listCertificateVoByPageUsingPost,
 } from '@/services/learning-backend/certificateController';
-import { certificateSituation, CertificateSituationEnum } from '@/enums/CertificateSituationEnum';
-import { certificateType, CertificateTypeEnum } from '@/enums/CertificateTypeEnum';
+import { certificateSituationEnum, CertificateSituation } from '@/enums/CertificateSituationEnum';
+import { certificateTypeEnum, CertificateType } from '@/enums/CertificateTypeEnum';
 import {
   CreateCertificateModal,
   UpdateCertificateModal,
   UploadCertificateModal,
 } from '@/pages/Admin/CertificateList/components';
-import { reviewStatus, ReviewStatusEnum } from '@/enums/ReviewStatusEnum';
+import { reviewStatusEnum, ReviewStatus } from '@/enums/ReviewStatusEnum';
 
 
 /**
@@ -147,15 +147,15 @@ const CertificateList: React.FC = () => {
       title: '证书获得情况',
       dataIndex: 'certificateSituation',
       valueType: 'text',
-      valueEnum: certificateSituation,
+      valueEnum: certificateSituationEnum,
       renderFormItem: () => {
         return (
           <Select>
-            <Select.Option value={CertificateSituationEnum.HAVE}>
-              {certificateSituation[CertificateSituationEnum.HAVE].text}
+            <Select.Option value={CertificateSituation.HAVE}>
+              {certificateSituationEnum[CertificateSituation.HAVE].text}
             </Select.Option>
-            <Select.Option value={CertificateSituationEnum.NO}>
-              {certificateSituation[CertificateSituationEnum.NO].text}
+            <Select.Option value={CertificateSituation.NO}>
+              {certificateSituationEnum[CertificateSituation.NO].text}
             </Select.Option>
           </Select>
         );
@@ -165,15 +165,15 @@ const CertificateList: React.FC = () => {
       title: '证书类型',
       dataIndex: 'certificateType',
       valueType: 'select',
-      valueEnum: certificateType,
+      valueEnum: certificateTypeEnum,
       renderFormItem: () => {
         return (
           <Select>
-            <Select.Option value={CertificateTypeEnum.CADRE_TRAINING}>
-              {certificateType[CertificateTypeEnum.CADRE_TRAINING].text}
+            <Select.Option value={CertificateType.CADRE_TRAINING}>
+              {certificateTypeEnum[CertificateType.CADRE_TRAINING].text}
             </Select.Option>
-            <Select.Option value={CertificateTypeEnum.OTHERS}>
-              {certificateType[CertificateTypeEnum.OTHERS].text}
+            <Select.Option value={CertificateType.OTHERS}>
+              {certificateTypeEnum[CertificateType.OTHERS].text}
             </Select.Option>
           </Select>
         );
@@ -189,19 +189,19 @@ const CertificateList: React.FC = () => {
       title: '审核状态',
       dataIndex: 'reviewStatus',
       valueType: 'select',
-      valueEnum: reviewStatus,
+      valueEnum: reviewStatusEnum,
       hideInForm: true,
       renderFormItem: () => {
         return (
           <Select>
-            <Select.Option value={ReviewStatusEnum.REVIEWING}>
-              {reviewStatus[ReviewStatusEnum.REVIEWING].text}
+            <Select.Option value={ReviewStatus.REVIEWING}>
+              {reviewStatusEnum[ReviewStatus.REVIEWING].text}
             </Select.Option>
-            <Select.Option value={ReviewStatusEnum.PASS}>
-              {reviewStatus[ReviewStatusEnum.PASS].text}
+            <Select.Option value={ReviewStatus.PASS}>
+              {reviewStatusEnum[ReviewStatus.PASS].text}
             </Select.Option>
-            <Select.Option value={ReviewStatusEnum.REJECT}>
-              {reviewStatus[ReviewStatusEnum.REJECT].text}
+            <Select.Option value={ReviewStatus.REJECT}>
+              {reviewStatusEnum[ReviewStatus.REJECT].text}
             </Select.Option>
           </Select>
         );

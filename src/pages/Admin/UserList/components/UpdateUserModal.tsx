@@ -10,8 +10,8 @@ import { message, Modal, Select, UploadProps } from 'antd';
 import React, { useState } from 'react';
 import { updateUserUsingPost } from '@/services/learning-backend/userController';
 import { uploadFileUsingPost } from '@/services/learning-backend/fileController';
-import { userRole, UserRoleEnum } from '@/enums/UserRoleEnum';
-import { userGender, UserGenderEnum } from '@/enums/UserGenderEnum';
+import { userRoleEnum, UserRole } from '@/enums/UserRoleEnum';
+import { userGenderEnum, UserGender } from '@/enums/UserGenderEnum';
 
 interface UpdateProps {
   oldData?: API.User;
@@ -123,29 +123,29 @@ const UpdateUserModal: React.FC<UpdateProps> = (props) => {
           }}
           name="pic"
         />
-        <ProFormSelect name={'userGender'} label={'性别'} valueEnum={userGender}>
+        <ProFormSelect name={'userGender'} label={'性别'} valueEnum={userGenderEnum}>
           <Select>
-            <Select.Option value={UserGenderEnum.MALE}>
-              {userGender[UserGenderEnum.MALE].text}
+            <Select.Option value={UserGender.MALE}>
+              {userGenderEnum[UserGender.MALE].text}
             </Select.Option>
-            <Select.Option value={UserGenderEnum.FEMALE}>
-              {userGender[UserGenderEnum.FEMALE].text}
+            <Select.Option value={UserGender.FEMALE}>
+              {userGenderEnum[UserGender.FEMALE].text}
             </Select.Option>
-            <Select.Option value={UserGenderEnum.SECURITY}>
-              {userGender[UserGenderEnum.SECURITY].text}
+            <Select.Option value={UserGender.SECURITY}>
+              {userGenderEnum[UserGender.SECURITY].text}
             </Select.Option>
           </Select>
         </ProFormSelect>
-        <ProFormSelect name={'userRole'} label={'权限'} valueEnum={userRole}>
+        <ProFormSelect name={'userRole'} label={'权限'} valueEnum={userRoleEnum}>
           <Select>
-            <Select.Option value={UserRoleEnum.ADMIN}>
-              {userRole[UserRoleEnum.ADMIN].text}
+            <Select.Option value={UserRole.ADMIN}>
+              {userRoleEnum[UserRole.ADMIN].text}
             </Select.Option>
-            <Select.Option value={UserRoleEnum.USER}>
-              {userRole[UserRoleEnum.USER].text}
+            <Select.Option value={UserRole.USER}>
+              {userRoleEnum[UserRole.USER].text}
             </Select.Option>
-            <Select.Option value={UserRoleEnum.BAN}>
-              {userRole[UserRoleEnum.BAN].text}
+            <Select.Option value={UserRole.BAN}>
+              {userRoleEnum[UserRole.BAN].text}
             </Select.Option>
           </Select>
         </ProFormSelect>

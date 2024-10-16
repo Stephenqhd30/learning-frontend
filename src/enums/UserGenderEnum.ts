@@ -1,21 +1,21 @@
-export enum UserGenderEnum {
+export enum UserGender {
   MALE = 0,
   FEMALE = 1,
   SECURITY = 2,
 }
 
-export const userGender = {
-  [UserGenderEnum.MALE]: {
+export const userGenderEnum = {
+  [UserGender.MALE]: {
     text: '男',
-    value: UserGenderEnum.MALE,
+    value: UserGender.MALE,
   },
 
-  [UserGenderEnum.FEMALE]: {
+  [UserGender.FEMALE]: {
     text: '女',
-    value: UserGenderEnum.FEMALE,
+    value: UserGender.FEMALE,
   },
-  [UserGenderEnum.SECURITY]: {
+  [UserGender.SECURITY]: {
     text: '保密',
-    value: UserGenderEnum.SECURITY,
+    value: UserGender.SECURITY,
   },
 };

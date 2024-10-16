@@ -1,8 +1,8 @@
 import React from 'react';
 import { Modal, Typography } from 'antd';
 import { ProCard, ProDescriptions } from '@ant-design/pro-components';
-import { certificateSituation } from '@/enums/CertificateSituationEnum';
-import { certificateType } from '@/enums/CertificateTypeEnum';
+import { certificateSituationEnum } from '@/enums/CertificateSituationEnum';
+import { certificateTypeEnum } from '@/enums/CertificateTypeEnum';
 
 interface CertificateDetailsProps {
   certificate: API.CertificateVO;
@@ -50,14 +50,14 @@ const CertificateDetailsModal: React.FC<CertificateDetailsProps> = (props) => {
                 key: 'certificateSituation',
                 dataIndex: 'certificateSituation',
                 valueType: 'select',
-                valueEnum: certificateSituation
+                valueEnum: certificateSituationEnum
               },
               {
                 title: '证书类型',
                 key: 'certificateType',
                 dataIndex: 'certificateType',
                 valueType: 'select',
-                valueEnum: certificateType
+                valueEnum: certificateTypeEnum
               },
               {
                 title: '证书获得时间',

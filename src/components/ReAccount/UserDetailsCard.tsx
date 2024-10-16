@@ -1,8 +1,7 @@
 import '@umijs/max';
 import React from 'react';
 import { ProCard, ProDescriptions } from '@ant-design/pro-components';
-import { Typography } from 'antd';
-import {UserRoleEnum} from '@/enums/UserRoleEnum';
+import { userRoleEnum } from '@/enums/UserRoleEnum';
 import UserAvatarCard from '@/components/ReUser/UserAvatarCard';
 
 interface UserProps {
@@ -31,7 +30,7 @@ const UserDetailsCard: React.FC<UserProps> = (props) => {
               key: 'userRole',
               dataIndex: 'userRole',
               valueType: 'select',
-              valueEnum: UserRoleEnum
+              valueEnum: userRoleEnum,
             },
             {
               title: '用户名',
