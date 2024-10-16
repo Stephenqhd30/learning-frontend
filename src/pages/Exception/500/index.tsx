@@ -1,6 +1,9 @@
 import { Link } from '@umijs/max';
 import { Button, Result } from 'antd';
 
+/**
+ * 500页面
+ */
 export default () => (
   <Result
     status="500"

@@ -1,12 +1,14 @@
 import React from 'react';
 import { PageContainer, ProColumns, ProTable } from '@ant-design/pro-components';
-import {
-  listCertificateForUserVoByPageUsingPost,
-} from '@/services/learning-backend/certificateController';
+import { listCertificateForUserVoByPageUsingPost } from '@/services/learning-backend/certificateController';
 import { certificateTypeEnum } from '@/enums/CertificateTypeEnum';
 import { certificateSituationEnum } from '@/enums/CertificateSituationEnum';
 import { INDEX_PAGE_TITLE } from '@/constants';
 
+/**
+ * 主页
+ * @constructor
+ */
 const IndexPage: React.FC = () => {
   /**
    * 表格列数据

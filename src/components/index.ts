@@ -9,5 +9,14 @@ import Footer from './Footer';
 import { AvatarDropdown, AvatarName } from './RightContent/AvatarDropdown';
 import { UserAvatarCard } from '@/components/ReUser';
 import { UserCard, UserDetailsCard } from '@/components/ReAccount';
+import { ShareModal } from '@/components/ReCommon';
 
-export { Footer, AvatarDropdown, AvatarName, UserAvatarCard, UserDetailsCard, UserCard };
+export {
+  Footer,
+  AvatarDropdown,
+  AvatarName,
+  UserAvatarCard,
+  UserDetailsCard,
+  UserCard,
+  ShareModal,
+};

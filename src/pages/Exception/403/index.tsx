@@ -1,6 +1,10 @@
 import { Link } from '@umijs/max';
 import { Button, Result } from 'antd';
 
+/**
+ * 无权限页面
+ * @constructor
+ */
 const UnAccessiblePage = () => (
   <Result
     status="403"

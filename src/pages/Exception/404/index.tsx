@@ -1,6 +1,11 @@
 import { history } from '@umijs/max';
 import { Button, Result } from 'antd';
 import React from 'react';
+
+/**
+ * 404页面
+ * @constructor
+ */
 const NoFoundPage: React.FC = () => (
   <Result
     status="404"

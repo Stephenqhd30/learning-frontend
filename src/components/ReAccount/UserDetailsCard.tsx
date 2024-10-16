@@ -29,7 +29,6 @@ const UserDetailsCard: React.FC<UserProps> = (props) => {
               title: '角色',
               key: 'userRole',
               dataIndex: 'userRole',
-              valueType: 'select',
               valueEnum: userRoleEnum,
             },
             {
