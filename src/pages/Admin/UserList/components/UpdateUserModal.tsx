@@ -108,7 +108,6 @@ const UpdateUserModal: React.FC<UpdateProps> = (props) => {
           }
         }}
       >
-        <ProFormText name={'userAccount'} label={'账号'} />
         <ProFormText name={'userName'} label={'用户名'} />
         <ProFormText name={'userNumber'} label={'学号'} />
         <ProFormTextArea name={'userProfile'} label={'简介'} />
