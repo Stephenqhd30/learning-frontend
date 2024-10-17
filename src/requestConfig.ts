@@ -1,6 +1,6 @@
 ﻿import type { RequestOptions } from '@@/plugin-request/request';
 import type { RequestConfig } from '@umijs/max';
-import { BASE_URL } from '@/constants';
+import {BASE_URL, PRODUCTION_URL} from '@/constants';
 
 
 // 与后端约定的响应数据格式
@@ -16,7 +16,7 @@ interface ResponseStructure {
  * @doc https://umijs.org/docs/max/request#配置
  */
 export const requestConfig: RequestConfig = {
-  baseURL: BASE_URL,
+  baseURL: process.env.NODE_ENV === 'production' ? PRODUCTION_URL : BASE_URL,
   // 开启请求携带cookie
   withCredentials: true,
   // 请求拦截器
