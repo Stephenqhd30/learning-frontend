@@ -300,6 +300,7 @@ const CertificateList: React.FC = () => {
           <Space key={'space'} wrap size={'small'}>
             <Button
               key="create"
+              type={'primary'}
               onClick={() => {
                 setCreateModalVisible(true);
               }}

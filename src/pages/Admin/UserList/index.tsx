@@ -265,6 +265,7 @@ const UserList: React.FC = () => {
           <Space key={'space'} wrap>
             <Button
               key="create"
+              type={'primary'}
               onClick={() => {
                 setCreateModalVisible(true);
               }}

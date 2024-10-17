@@ -1,4 +1,4 @@
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined, NumberOutlined, UserOutlined } from '@ant-design/icons';
 import React from 'react';
 import { ProFormText } from '@ant-design/pro-components';
 
@@ -30,6 +30,8 @@ const RegisterPage: React.FC = () => (
         {
           required: true,
           message: '身份证号是必填项！',
+          max: 18,
+          min: 18,
         },
       ]}
     />
@@ -43,8 +45,26 @@ const RegisterPage: React.FC = () => (
       rules={[
         {
           required: true,
-          message: '密码是必填项！',
+          message: '身份证号是必填项！',
+          max: 18,
+          min: 18,
         },
+      ]}
+    />
+    <ProFormText
+      name="userNumber"
+      fieldProps={{
+        size: 'large',
+        prefix: <NumberOutlined />,
+      }}
+      placeholder={'请输入您的学号'}
+      rules={[
+        {
+          required: true,
+          message: '学号是必填项',
+          max: 10,
+          min: 10,
+       },
       ]}
     />
   </>

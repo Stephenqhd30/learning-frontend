@@ -2,6 +2,10 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import React from 'react';
 import { ProFormText } from '@ant-design/pro-components';
 
+/**
+ * 登录页面
+ * @constructor
+ */
 const AccountLoginPage: React.FC = () => (
   <>
     {/* 用户注册填写的表单 */}
@@ -30,6 +34,8 @@ const AccountLoginPage: React.FC = () => (
         {
           required: true,
           message: '身份证号是必填项！',
+          max: 18,
+          min: 18,
         },
       ]}
     />

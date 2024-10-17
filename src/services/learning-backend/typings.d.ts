@@ -525,6 +525,7 @@ declare namespace API {
     userCheckIdCard?: string;
     userIdCard?: string;
     userName?: string;
+    userNumber?: string;
   };
 
   type UserUpdateRequest = {

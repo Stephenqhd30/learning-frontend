@@ -9,22 +9,24 @@ import RegisterPage from '@/pages/User/Register/components/RegisterPage';
 
 const Register: React.FC = () => {
   const { token } = theme.useToken();
-  const [redirected, setRedirected] = useState(false); // 控制重定向状态
+  // 控制重定向状态
+  const [redirected, setRedirected] = useState<boolean>(false);
 
   // 用户注册
   const handleRegisterSubmit = async (values: API.UserRegisterRequest) => {
     try {
       // 注册
-      await userRegisterUsingPost({
+      const res = await userRegisterUsingPost({
         ...values,
       });
-      const defaultLoginSuccessMessage = '注册成功！';
-      message.success(defaultLoginSuccessMessage);
-      return;
+      if (res.code === 0 && res.data) {
+        message.success('注册成功！');
+        setRedirected(true);
+      } else {
+        message.error(`注册失败${res.message}，请重试！`);
+      }
     } catch (error: any) {
-      const defaultLoginFailureMessage = `注册失败${error.message}, 请重试！`;
-      console.log(error);
-      message.error(defaultLoginFailureMessage);
+      message.error(`注册失败${error.message}, 请重试！`);
     }
   };
 
@@ -62,7 +64,6 @@ const Register: React.FC = () => {
               subTitle={LEARNING_SUBTITLE}
               onFinish={async (values) => {
                 await handleRegisterSubmit(values as API.UserRegisterRequest);
-                setRedirected(true);
               }}
             >
               <RegisterPage key={'register'} />

@@ -18,13 +18,17 @@ const Login: React.FC = () => {
       const res = await userLoginUsingPost({
         ...values,
       });
-      // 保存已登录的用户信息
-      setInitialState({
-        ...initialState,
-        currentUser: res?.data,
-      });
-      setRedirected(true); // 设置重定向状态为 true
-      message.success('登录成功！');
+      if (res.code === 0 && res.data) {
+        // 保存已登录的用户信息
+        setInitialState({
+          ...initialState,
+          currentUser: res?.data,
+        });
+        setRedirected(true); // 设置重定向状态为 true
+        message.success('登录成功！');
+      } else {
+        message.error(`登录失败${res.message}, 请重试！`);
+      }
     } catch (error: any) {
       message.error(`登录失败${error.message}, 请重试！`);
     }
@@ -54,7 +58,7 @@ const Login: React.FC = () => {
         <ProConfigProvider hashed={false}>
           <div style={{ backgroundColor: token.colorBgContainer }}>
             <LoginForm
-              logo={<Image src={'/logo.svg'} preview={false} />}
+              logo={<Image src={'/logo.svg'} preview={false} width={56}/>}
               title={LEARNING_TITLE}
               subTitle={LEARNING_SUBTITLE}
               onFinish={async (values) => {

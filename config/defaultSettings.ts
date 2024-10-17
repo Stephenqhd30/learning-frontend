@@ -17,9 +17,9 @@ const Settings: ProLayoutProps & {
   colorWeak: false,
   splitMenus: false,
   siderMenuType: 'sub',
-  title: '河南开封科技传媒学院',
+  title: '继续教育学院',
   pwa: false,
-  logo: 'https://p2.itc.cn/mpbp/pro/20210826/04f6286d386f46e6b05c48693e8e02e4.jpeg',
+  logo: 'https://butterfly-1318299170.cos.ap-shanghai.myqcloud.com/logo/learning/logo.svg',
   iconfontUrl: '',
   token: {
     // 参见ts声明，demo 见文档，通过token 修改样式
