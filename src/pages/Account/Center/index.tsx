@@ -3,8 +3,8 @@ import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { ACCOUNT_TITLE } from '@/constants';
 import { Col, Row } from 'antd';
 import { useModel } from '@@/exports';
-import UserCard from '@/components/ReAccount/UserCard';
-import UserDetailsCard from '@/components/ReAccount/UserDetailsCard';
+import UserCard from '@/components/ReUser/UserCard';
+import UserDetailsCard from '@/components/ReUser/UserDetailsCard';
 
 const UserCenter: React.FC = () => {
   const { initialState } = useModel('@@initialState');

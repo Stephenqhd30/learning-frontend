@@ -6,6 +6,11 @@ interface UserAvatarCardProps {
   user: API.User;
 }
 
+/**
+ * 用户头像
+ * @param props
+ * @constructor
+ */
 const UserAvatarCard: React.FC<UserAvatarCardProps> = (props) => {
   const { user } = props;
   return (

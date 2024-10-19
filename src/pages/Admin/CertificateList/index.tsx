@@ -374,7 +374,6 @@ const CertificateList: React.FC = () => {
             actionRef.current?.reload();
           }}
           visible={createModalVisible}
-          columns={columns}
         />
       )}
       {/*更新表单的Modal框*/}
@@ -389,7 +388,6 @@ const CertificateList: React.FC = () => {
             actionRef.current?.reload();
           }}
           visible={updateModalVisible}
-          columns={columns}
           oldData={currentRow}
         />
       )}

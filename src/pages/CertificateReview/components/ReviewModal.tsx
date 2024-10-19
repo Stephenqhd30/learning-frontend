@@ -24,6 +24,10 @@ const ReviewModal: React.FC<ReviewModalProps> = (props) => {
       <ProTable
         type={'form'}
         columns={columns}
+        rowKey="id"
+        form={{
+          initialValues: certificate,
+        }}
         onSubmit={async (values: API.ReviewRequest) => {
           try {
             const success = await doCertificateReviewUsingPost({

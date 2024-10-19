@@ -7,8 +7,7 @@
  */
 import Footer from './Footer';
 import { AvatarDropdown, AvatarName } from './RightContent/AvatarDropdown';
-import { UserAvatarCard } from '@/components/ReUser';
-import { UserCard, UserDetailsCard } from '@/components/ReAccount';
+import { UserAvatarCard, UserCard, UserDetailsCard, UserDetailsModal } from '@/components/ReUser';
 import { ShareModal } from '@/components/ReCommon';
 
 export {
@@ -19,4 +18,5 @@ export {
   UserDetailsCard,
   UserCard,
   ShareModal,
+  UserDetailsModal,
 };

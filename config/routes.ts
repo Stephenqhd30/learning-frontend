@@ -20,13 +20,18 @@ export default [
       { name: '证书管理', path: '/admin/certificate', component: './Admin/CertificateList' },
       {
         name: '用户证书管理',
-        path: '/admin/userCertificate',
+        path: '/admin/user/certificate',
         component: './Admin/UserCertificateList',
       },
       {
         name: '课程管理',
         path: '/admin/course',
         component: './Admin/CourseList',
+      },
+      {
+        name: '用户课程管理',
+        path: '/admin/user/course',
+        component: './Admin/UserCourseList',
       },
     ],
   },
@@ -45,6 +50,12 @@ export default [
     name: '我的证书',
     icon: 'SafetyCertificateOutlined',
     component: './MyCertificate',
+  },
+  {
+    path: '/create/certificate',
+    name: '制作证书',
+    icon: 'DiffOutlined',
+    component: './CreateCertificate',
   },
   {
     path: '/account',

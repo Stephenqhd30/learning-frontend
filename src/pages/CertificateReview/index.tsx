@@ -5,12 +5,9 @@ import { certificateTypeEnum } from '@/enums/CertificateTypeEnum';
 import { Button, message, Space, Typography } from 'antd';
 import { getUserByIdUsingGet } from '@/services/learning-backend/userController';
 import { listCertificateVoByPageUsingPost } from '@/services/learning-backend/certificateController';
-import {
-  BatchReviewModal,
-  ReviewModal,
-  UserDetailsModal,
-} from '@/pages/CertificateReview/components';
-import { reviewStatusEnum, ReviewStatus } from '@/enums/ReviewStatusEnum';
+import { BatchReviewModal, ReviewModal } from '@/pages/CertificateReview/components';
+import { ReviewStatus, reviewStatusEnum } from '@/enums/ReviewStatusEnum';
+import UserDetailsModal from '@/components/ReUser/UserDetailsModal';
 
 const CertificateReview: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -162,7 +159,7 @@ const CertificateReview: React.FC = () => {
             ...filter,
             sortField,
             sortOrder,
-            noId: ReviewStatus.PASS
+            noId: ReviewStatus.PASS,
           } as API.CertificateQueryRequest);
 
           return {

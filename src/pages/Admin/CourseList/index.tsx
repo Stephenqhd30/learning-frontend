@@ -35,7 +35,7 @@ const handleDelete = async (row: API.DeleteRequest) => {
 };
 
 /**
- * 下载用户课程信息
+ * 下载课程课程信息
  */
 const downloadCourseInfo = async () => {
   try {
@@ -61,7 +61,7 @@ const downloadCourseInfo = async () => {
 };
 
 /**
- * 下载用户示例数据
+ * 下载课程示例数据
  */
 const downloadCourseExample = async () => {
   try {
@@ -92,13 +92,13 @@ const downloadCourseExample = async () => {
  */
 const CourseList: React.FC = () => {
   const actionRef = useRef<ActionType>();
-  // 当前用户的所点击的数据
+  // 当前课程的所点击的数据
   const [currentRow, setCurrentRow] = useState<API.CourseVO>();
   // 创建课程 Modal 框
   const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
   // 更新课程 Modal 框
   const [updateModalVisible, setUpdateModalVisible] = useState<boolean>(false);
-  // 上传窗口的Modal框
+  // 上传窗口 Modal 框
   const [uploadModalVisible, setUploadModalVisible] = useState<boolean>(false);
 
   /**
@@ -161,7 +161,7 @@ const CourseList: React.FC = () => {
           >
             修改
           </Typography.Link>
-          {/*删除表单用户的PopConfirm框*/}
+          {/*删除表单课程的PopConfirm框*/}
           <Popconfirm
             title="确定删除？"
             description="删除后将无法恢复?"
@@ -275,7 +275,7 @@ const CourseList: React.FC = () => {
           columns={columns}
         />
       )}
-      {/*上传用户信息的Modal框*/}
+      {/*上传课程信息*/}
       {uploadModalVisible && (
         <UploadCourseModal
           onCancel={() => {

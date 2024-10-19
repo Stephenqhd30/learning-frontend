@@ -114,6 +114,21 @@ export async function listCertificateByPageUsingPost(
   });
 }
 
+/** listPrintCertificateVOByPage POST /api/certificate/list/page/print/vo */
+export async function listPrintCertificateVoByPageUsingPost(
+  body: API.CertificateQueryRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponsePageCertificateVO_>('/api/certificate/list/page/print/vo', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** listCertificateVOByPage POST /api/certificate/list/page/vo */
 export async function listCertificateVoByPageUsingPost(
   body: API.CertificateQueryRequest,

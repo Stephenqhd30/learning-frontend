@@ -83,6 +83,18 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponsePageUserCourse_ = {
+    code?: number;
+    data?: PageUserCourse_;
+    message?: string;
+  };
+
+  type BaseResponsePageUserCourseVO_ = {
+    code?: number;
+    data?: PageUserCourseVO_;
+    message?: string;
+  };
+
   type BaseResponsePageUserVO_ = {
     code?: number;
     data?: PageUserVO_;
@@ -104,6 +116,12 @@ declare namespace API {
   type BaseResponseUserCertificateVO_ = {
     code?: number;
     data?: UserCertificateVO;
+    message?: string;
+  };
+
+  type BaseResponseUserCourseVO_ = {
+    code?: number;
+    data?: UserCourseVO;
     message?: string;
   };
 
@@ -269,6 +287,11 @@ declare namespace API {
     id?: number;
   };
 
+  type getUserCourseVOByIdUsingGETParams = {
+    /** id */
+    id?: number;
+  };
+
   type getUserVOByIdUsingGETParams = {
     /** id */
     id?: number;
@@ -397,6 +420,32 @@ declare namespace API {
     total?: number;
   };
 
+  type PageUserCourse_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: UserCourse[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
+  type PageUserCourseVO_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: UserCourseVO[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
   type PageUserVO_ = {
     countId?: string;
     current?: number;
@@ -483,6 +532,40 @@ declare namespace API {
     createTime?: string;
     gainTime?: string;
     gainUserName?: string;
+    id?: number;
+    updateTime?: string;
+    userId?: number;
+    userVO?: UserVO;
+  };
+
+  type UserCourse = {
+    courseId?: number;
+    createTime?: string;
+    id?: number;
+    updateTime?: string;
+    userId?: number;
+  };
+
+  type UserCourseAddRequest = {
+    courseId?: number;
+    userId?: number;
+  };
+
+  type UserCourseQueryRequest = {
+    courseId?: number;
+    current?: number;
+    id?: number;
+    notId?: number;
+    pageSize?: number;
+    sortField?: string;
+    sortOrder?: string;
+    userId?: number;
+  };
+
+  type UserCourseVO = {
+    courseId?: number;
+    courseVO?: CourseVO;
+    createTime?: string;
     id?: number;
     updateTime?: string;
     userId?: number;
