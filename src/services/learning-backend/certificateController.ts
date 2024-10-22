@@ -116,10 +116,10 @@ export async function listCertificateByPageUsingPost(
 
 /** listPrintCertificateVOByPage POST /api/certificate/list/page/print/vo */
 export async function listPrintCertificateVoByPageUsingPost(
-  body: API.CertificateQueryRequest,
+  body: API.CertificatePrintRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponsePageCertificateVO_>('/api/certificate/list/page/print/vo', {
+  return request<API.BaseResponsePageCertificatePrintVO_>('/api/certificate/list/page/print/vo', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

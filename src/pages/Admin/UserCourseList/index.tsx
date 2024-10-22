@@ -4,7 +4,7 @@ import { Space, Typography } from 'antd';
 import { listUserCourseVoByPageUsingPost } from '@/services/learning-backend/userCourseController';
 import { UserDetailsModal } from '@/components';
 import { CourseDetailsModal } from '@/pages/Admin/UserCourseList/components';
-
+import moment from 'moment';
 /**
  * 用户课程列表
  * @constructor
@@ -57,6 +57,34 @@ const UserCourseList: React.FC = () => {
       },
     },
     {
+      title: '开课时间',
+      dataIndex: 'courseVO',
+      valueType: 'date',
+      hideInForm: true,
+      hideInSearch: true,
+      render: (_, record) => {
+        return (
+          <Typography.Text>
+            {moment(record?.courseVO?.acquisitionTime).format("YYYY-MM-DD")}
+          </Typography.Text>
+        );
+      },
+    },
+    {
+      title: '结课时间',
+      dataIndex: 'courseVO',
+      valueType: 'date',
+      hideInForm: true,
+      hideInSearch: true,
+      render: (_, record) => {
+        return (
+          <Typography.Text>
+            {moment(record?.courseVO?.finishTime).format("YYYY-MM-DD")}
+          </Typography.Text>
+        );
+      },
+    },
+    {
       title: '创建时间',
       dataIndex: 'createTime',
       valueType: 'date',
@@ -83,7 +111,7 @@ const UserCourseList: React.FC = () => {
               setCurrentRow(record);
             }}
           >
-            查看获得者信息
+            查看学生信息
           </Typography.Link>
           <Typography.Link
             key={'course-details'}

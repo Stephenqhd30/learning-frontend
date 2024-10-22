@@ -47,6 +47,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponsePageCertificatePrintVO_ = {
+    code?: number;
+    data?: PageCertificatePrintVO_;
+    message?: string;
+  };
+
   type BaseResponsePageCertificateVO_ = {
     code?: number;
     data?: PageCertificateVO_;
@@ -170,6 +176,27 @@ declare namespace API {
     id?: number;
   };
 
+  type CertificatePrintRequest = {
+    acquisitionTime?: string;
+    certificateId?: number;
+    current?: number;
+    finishTime?: string;
+    pageSize?: number;
+    sortField?: string;
+    sortOrder?: string;
+    userCourseId?: number;
+  };
+
+  type CertificatePrintVO = {
+    acquisitionTime?: string;
+    certificateNumber?: string;
+    courseName?: string;
+    finishTime?: string;
+    userGender?: string;
+    userIdCard?: string;
+    userName?: string;
+  };
+
   type CertificateQueryRequest = {
     certificateName?: string;
     certificateNumber?: string;
@@ -221,9 +248,11 @@ declare namespace API {
   };
 
   type Course = {
+    acquisitionTime?: string;
     courseName?: string;
     courseNumber?: number;
     createTime?: string;
+    finishTime?: string;
     id?: number;
     isDelete?: number;
     updateTime?: string;
@@ -231,14 +260,18 @@ declare namespace API {
   };
 
   type CourseAddRequest = {
+    acquisitionTime?: string;
     courseName?: string;
     courseNumber?: number;
+    finishTime?: string;
   };
 
   type CourseQueryRequest = {
+    acquisitionTime?: string;
     courseName?: string;
     courseNumber?: number;
     current?: number;
+    finishTime?: string;
     id?: number;
     notId?: number;
     pageSize?: number;
@@ -248,15 +281,19 @@ declare namespace API {
   };
 
   type CourseUpdateRequest = {
+    acquisitionTime?: string;
     courseName?: string;
     courseNumber?: number;
+    finishTime?: string;
     id?: number;
   };
 
   type CourseVO = {
+    acquisitionTime?: string;
     courseName?: string;
     courseNumber?: number;
     createTime?: string;
+    finishTime?: string;
     id?: number;
     updateTime?: string;
     userId?: number;
@@ -337,6 +374,19 @@ declare namespace API {
     orders?: OrderItem[];
     pages?: number;
     records?: CertificateForUserVO[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
+  type PageCertificatePrintVO_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: CertificatePrintVO[];
     searchCount?: boolean;
     size?: number;
     total?: number;

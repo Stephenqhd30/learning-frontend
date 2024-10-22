@@ -132,6 +132,16 @@ const CourseList: React.FC = () => {
       hideInForm: true,
     },
     {
+      title: '开课时间',
+      dataIndex: 'acquisitionTime',
+      valueType: 'date',
+    },
+    {
+      title: '结课时间',
+      dataIndex: 'finishTime',
+      valueType: 'date',
+    },
+    {
       title: '创建时间',
       dataIndex: 'createTime',
       valueType: 'date',
