@@ -5,6 +5,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseCertificatePrintVO_ = {
+    code?: number;
+    data?: CertificatePrintVO;
+    message?: string;
+  };
+
   type BaseResponseCertificateVO_ = {
     code?: number;
     data?: CertificateVO;
@@ -44,12 +50,6 @@ declare namespace API {
   type BaseResponsePageCertificateForUserVO_ = {
     code?: number;
     data?: PageCertificateForUserVO_;
-    message?: string;
-  };
-
-  type BaseResponsePageCertificatePrintVO_ = {
-    code?: number;
-    data?: PageCertificatePrintVO_;
     message?: string;
   };
 
@@ -177,10 +177,8 @@ declare namespace API {
   };
 
   type CertificatePrintRequest = {
-    acquisitionTime?: string;
     certificateId?: number;
     current?: number;
-    finishTime?: string;
     pageSize?: number;
     sortField?: string;
     sortOrder?: string;
@@ -192,7 +190,7 @@ declare namespace API {
     certificateNumber?: string;
     courseName?: string;
     finishTime?: string;
-    userGender?: string;
+    userGender?: number;
     userIdCard?: string;
     userName?: string;
   };
@@ -379,19 +377,6 @@ declare namespace API {
     total?: number;
   };
 
-  type PageCertificatePrintVO_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
-    records?: CertificatePrintVO[];
-    searchCount?: boolean;
-    size?: number;
-    total?: number;
-  };
-
   type PageCertificateVO_ = {
     countId?: string;
     current?: number;
@@ -556,7 +541,6 @@ declare namespace API {
     gainTime?: string;
     gainUserName?: string;
     id?: number;
-    updateTime?: string;
     userId?: number;
   };
 
@@ -583,7 +567,6 @@ declare namespace API {
     gainTime?: string;
     gainUserName?: string;
     id?: number;
-    updateTime?: string;
     userId?: number;
     userVO?: UserVO;
   };

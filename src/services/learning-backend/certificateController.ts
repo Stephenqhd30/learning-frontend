@@ -48,6 +48,36 @@ export async function downloadCertificateExampleUsingGet(options?: { [key: strin
   });
 }
 
+/** downloadCertificatePrintVO POST /api/certificate/download/print/vo */
+export async function downloadCertificatePrintVoUsingPost(
+  body: API.CertificatePrintRequest,
+  options?: { [key: string]: any },
+) {
+  return request<any>('/api/certificate/download/print/vo', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** getCertificatePrintVO POST /api/certificate/get/print/vo */
+export async function getCertificatePrintVoUsingPost(
+  body: API.CertificatePrintRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseCertificatePrintVO_>('/api/certificate/get/print/vo', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** getCertificateVOById GET /api/certificate/get/vo */
 export async function getCertificateVoByIdUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
@@ -105,21 +135,6 @@ export async function listCertificateByPageUsingPost(
   options?: { [key: string]: any },
 ) {
   return request<API.BaseResponsePageCertificate_>('/api/certificate/list/page', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data: body,
-    ...(options || {}),
-  });
-}
-
-/** listPrintCertificateVOByPage POST /api/certificate/list/page/print/vo */
-export async function listPrintCertificateVoByPageUsingPost(
-  body: API.CertificatePrintRequest,
-  options?: { [key: string]: any },
-) {
-  return request<API.BaseResponsePageCertificatePrintVO_>('/api/certificate/list/page/print/vo', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
