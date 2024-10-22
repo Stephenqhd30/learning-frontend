@@ -575,7 +575,6 @@ declare namespace API {
     courseId?: number;
     createTime?: string;
     id?: number;
-    updateTime?: string;
     userId?: number;
   };
 
@@ -600,7 +599,6 @@ declare namespace API {
     courseVO?: CourseVO;
     createTime?: string;
     id?: number;
-    updateTime?: string;
     userId?: number;
     userVO?: UserVO;
   };
