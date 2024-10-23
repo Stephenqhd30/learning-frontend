@@ -1,5 +1,4 @@
 import { Modal, QRCode } from 'antd';
-import { ProCard } from '@ant-design/pro-components';
 import React from 'react';
 
 interface Props {
@@ -12,14 +11,12 @@ interface Props {
 const ShareModal: React.FC<Props> = (props) => {
   const { visible, link, title, onCancel } = props;
   return (
-    <Modal footer={false} open={visible} title={'分享'} onCancel={() => onCancel?.()}>
-      <ProCard title={title}>
-        <QRCode
-          errorLevel="H"
-          value={link}
-          icon="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-        />
-      </ProCard>
+    <Modal footer={false} open={visible} title={title} onCancel={() => onCancel?.()}>
+      <QRCode
+        errorLevel="H"
+        value={link}
+        icon="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+      />
     </Modal>
   );
 };

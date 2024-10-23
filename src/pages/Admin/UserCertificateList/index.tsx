@@ -10,6 +10,10 @@ import {
 } from '@/services/learning-backend/userCertificateController';
 import {USER_CERTIFICATE_EXCEL} from '@/constants';
 
+/**
+ * 用户证书列表
+ * @constructor
+ */
 const UserCertificateList: React.FC = () => {
   const actionRef = useRef<ActionType>();
   // 查看证书信息Modal

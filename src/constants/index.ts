@@ -11,6 +11,7 @@ export const MY_CERTIFICATE_TITLE = "河南开封科技传媒学院继续教育�
 export const CERTIFICATE_EXCEL = "证书信息.xlsx";
 export const CERTIFICATE_EXAMPLE_EXCEL = "导入证书示例数据.xlsx";
 export const COURSE_EXCEL = "课程信息.xlsx";
+export const USER_COURSE_EXCEL = "用户课程信息.xlsx";
 export const USER_CERTIFICATE_EXCEL = "用户证书信息.xlsx";
 export const USER_EXCEL = "用户信息.xlsx";
 export const USER_EXAMPLE_EXCEL = "导入用户示例数据.xlsx";

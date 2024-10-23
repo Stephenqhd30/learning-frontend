@@ -17,7 +17,7 @@ const CourseDetailsModal: React.FC<Props> = (props) => {
   const { courseInfo, visible, onCancel } = props;
   return (
     <Modal
-      title={'证书详细'}
+      title={'课程详细'}
       destroyOnClose
       onCancel={() => onCancel?.()}
       open={visible}
@@ -60,16 +60,6 @@ const CourseDetailsModal: React.FC<Props> = (props) => {
             {
               title: '结课时间',
               dataIndex: 'finishTime',
-              valueType: 'date',
-            },
-            {
-              title: '创建时间',
-              dataIndex: 'createTime',
-              valueType: 'date',
-            },
-            {
-              title: '更新时间',
-              dataIndex: 'updateTime',
               valueType: 'date',
             },
           ]}
