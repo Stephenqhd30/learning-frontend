@@ -1,9 +1,9 @@
-import { ProColumns, ProForm, ProFormText } from '@ant-design/pro-components';
+import { ProColumns, ProForm } from '@ant-design/pro-components';
 import '@umijs/max';
 import { message, Modal } from 'antd';
 import React from 'react';
 import { addUserCourseUsingPost } from '@/services/learning-backend/userCourseController';
-import { CourseSelect } from '@/components';
+import { CourseSelect, UserSelect } from '@/components';
 
 interface CreateProps {
   onCancel: () => void;
@@ -28,6 +28,8 @@ const handleAdd = async (fields: API.UserCourseAddRequest) => {
       message.success('添加成功');
       return true;
     } else {
+      hide();
+      message.error(`添加失败${res.message}, 请重试!`);
       return false;
     }
   } catch (error: any) {
@@ -61,7 +63,7 @@ const CreateUserCourseModal: React.FC<CreateProps> = (props) => {
         }}
       >
         <CourseSelect name={'courseId'} label={'课程'} />
-        <ProFormText name="userId" label="用户id" />
+        <UserSelect name={'userId'} label={'用户id'} />
       </ProForm>
     </Modal>
   );

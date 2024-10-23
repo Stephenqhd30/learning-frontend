@@ -1,29 +1,29 @@
 import { useState } from 'react';
-import { listCourseByPageUsingPost } from '@/services/learning-backend/courseController';
 import { message } from 'antd';
+import { listUserByPageUsingPost } from '@/services/learning-backend/userController';
 
 /**
  * 课程
  */
 export default () => {
-  const [courseList, setCourseList] = useState<API.CourseVO[]>([]);
+  const [userList, setUserList] = useState<API.User[]>([]);
 
   const loadData = async () => {
     try {
-      const res = await listCourseByPageUsingPost({
+      const res = await listUserByPageUsingPost({
         pageSize: 20,
         sortField: 'createTime',
         sortOrder: 'desc',
       });
       if (res.code === 0 && res?.data?.records) {
-        setCourseList(res?.data?.records);
+        setUserList(res?.data?.records);
       } else {
-        setCourseList([]);
+        setUserList([]);
       }
     } catch (error: any) {
       message.error(`获取课程列表失败${error.message}`);
     }
   };
 
-  return { courseList, loadData };
+  return { userList, loadData };
 };

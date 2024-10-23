@@ -276,7 +276,7 @@ const UserCourseList: React.FC = () => {
             setCreateModalVisible(false);
           }}
           onSubmit={async () => {
-            setCourseDetailsModal(false);
+            setCreateModalVisible(false);
             actionRef.current?.reload();
           }}
           visible={createModalVisible}

@@ -9,13 +9,13 @@ interface Props {
 }
 
 /**
- * 课程选择器
+ * 用户选择器
  * @param props
  * @constructor
  */
-const CourseSelect: React.FC<Props> = (props) => {
+const UserSelect: React.FC<Props> = (props) => {
   const { name, label = '', initialValue = '' } = props;
-  const { courseList, loadData } = useModel('courseSelect');
+  const { userList, loadData } = useModel('userSelect');
   const [value, setValue] = useState<string>(initialValue);
 
   useEffect(() => {
@@ -26,8 +26,9 @@ const CourseSelect: React.FC<Props> = (props) => {
     <ProFormSelect
       name={name}
       label={label}
-      options={courseList.map((item) => ({
-        label: item.courseName,
+      options={userList.map((item) => ({
+        // @ts-ignore
+        label: item.userName + item.userNumber,
         value: item.id,
       }))}
       placeholder="请选择"
@@ -43,4 +44,4 @@ const CourseSelect: React.FC<Props> = (props) => {
   );
 };
 
-export default CourseSelect;
+export default UserSelect;
