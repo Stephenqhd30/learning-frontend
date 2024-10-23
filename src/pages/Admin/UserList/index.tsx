@@ -22,6 +22,7 @@ import {
   UploadUserModal,
 } from '@/pages/Admin/UserList/components';
 import { ShareModal } from '@/components';
+import {USER_EXAMPLE_EXCEL, USER_EXCEL} from '@/constants';
 
 
 /**
@@ -77,7 +78,7 @@ const UserList: React.FC = () => {
       const url = window.URL.createObjectURL(new Blob([res]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', '用户信息.xlsx');
+      link.setAttribute('download', USER_EXCEL);
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -103,7 +104,7 @@ const UserList: React.FC = () => {
       const url = window.URL.createObjectURL(new Blob([res]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', '导入用户示例数据.xlsx');
+      link.setAttribute('download', USER_EXAMPLE_EXCEL);
       document.body.appendChild(link);
       link.click();
       link.remove();

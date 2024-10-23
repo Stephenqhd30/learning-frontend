@@ -92,13 +92,6 @@ const UserCourseList: React.FC = () => {
       hideInForm: true,
     },
     {
-      title: '更新时间',
-      dataIndex: 'updateTime',
-      valueType: 'date',
-      hideInSearch: true,
-      hideInForm: true,
-    },
-    {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',

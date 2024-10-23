@@ -9,6 +9,7 @@ import {
   listCourseVoByPageUsingPost,
 } from '@/services/learning-backend/courseController';
 import { CreateCourseModal, UpdateCourseModal, UploadCourseModal } from './components';
+import {COURSE_EXCEL} from '@/constants';
 
 /**
  * 删除节点
@@ -48,7 +49,7 @@ const downloadCourseInfo = async () => {
     const url = window.URL.createObjectURL(new Blob([res]));
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', '课程信息.xlsx');
+    link.setAttribute('download', COURSE_EXCEL);
     document.body.appendChild(link);
     link.click();
     link.remove();

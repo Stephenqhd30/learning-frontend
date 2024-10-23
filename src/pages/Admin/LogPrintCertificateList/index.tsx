@@ -1,16 +1,21 @@
-import React, {useRef, useState} from 'react';
-import {ActionType, ProColumns, ProTable} from '@ant-design/pro-components';
-import {Button, message, Space, Typography} from 'antd';
-import {DownloadOutlined} from '@ant-design/icons';
-import {CertificateDetailsModal} from '@/pages/Admin/UserCertificateList/components';
-import {UserInfoCard} from '@/pages/IndexPage/compoents';
+import React, { useRef, useState } from 'react';
+import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
+import { Button, message, Select, Space, Typography } from 'antd';
+import { DownloadOutlined } from '@ant-design/icons';
+import { CertificateDetailsModal } from '@/pages/Admin/UserCertificateList/components';
+import { UserInfoCard } from '@/pages/IndexPage/compoents';
+import { UserGender, userGenderEnum } from '@/enums/UserGenderEnum';
 import {
-  downloadUserCertificateUsingGet,
-  listUserCertificateVoByPageUsingPost
-} from '@/services/learning-backend/userCertificateController';
-import {USER_CERTIFICATE_EXCEL} from '@/constants';
+  downloadLogPrintCertificateUsingGet,
+  listLogPrintCertificateByPageUsingPost, listLogPrintCertificateVoByPageUsingPost
+} from '@/services/learning-backend/logPrintCertificateController';
+import { LOG_PRINT_CERTIFICATE_EXCEL } from '@/constants';
 
-const UserCertificateList: React.FC = () => {
+/**
+ * 打印证书日志表
+ * @constructor
+ */
+const LogPrintCertificateList: React.FC = () => {
   const actionRef = useRef<ActionType>();
   // 查看证书信息Modal
   const [certificateDetails, setCertificateDetails] = useState<boolean>(false);
@@ -24,7 +29,7 @@ const UserCertificateList: React.FC = () => {
    */
   const downloadUserCertificateInfo = async () => {
     try {
-      const res = await downloadUserCertificateUsingGet({
+      const res = await downloadLogPrintCertificateUsingGet({
         responseType: 'blob',
       });
 
@@ -33,7 +38,7 @@ const UserCertificateList: React.FC = () => {
       const url = window.URL.createObjectURL(new Blob([res]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', USER_CERTIFICATE_EXCEL);
+      link.setAttribute('download', LOG_PRINT_CERTIFICATE_EXCEL);
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -48,23 +53,36 @@ const UserCertificateList: React.FC = () => {
   /**
    * 表格列数据
    */
-  const columns: ProColumns<API.UserCertificateVO>[] = [
+  const columns: ProColumns<API.LogPrintCertificate>[] = [
     {
       title: 'id',
       dataIndex: 'id',
       valueType: 'text',
       hideInForm: true,
-    },
-    {
-      title: '证书id',
-      dataIndex: 'certificateId',
-      valueType: 'text',
+      hideInTable: true,
     },
     {
       title: '获得人Id',
       dataIndex: 'userId',
       valueType: 'text',
+      hideInForm: true,
+      hideInTable: true,
     },
+    {
+      title: '证书id',
+      dataIndex: 'certificateId',
+      valueType: 'text',
+      hideInForm: true,
+      hideInTable: true,
+    },
+    {
+      title: '课程id',
+      dataIndex: 'courseId',
+      valueType: 'text',
+      hideInForm: true,
+      hideInTable: true,
+    },
+
     {
       title: '证书编号',
       dataIndex: 'certificateNumber',
@@ -72,13 +90,51 @@ const UserCertificateList: React.FC = () => {
     },
     {
       title: '获得人姓名',
-      dataIndex: 'gainUserName',
+      dataIndex: 'userName',
       valueType: 'text',
     },
     {
-      title: '证书获得时间',
-      dataIndex: 'gainTime',
-      valueType: 'dateYear',
+      title: '身份证号',
+      dataIndex: 'userIdCard',
+      valueType: 'text',
+      hideInForm: true,
+      hideInTable: true,
+    },
+    {
+      title: '性别',
+      dataIndex: 'userGender',
+      valueType: 'text',
+      valueEnum: userGenderEnum,
+      renderFormItem: () => {
+        return (
+          <Select>
+            <Select.Option value={UserGender.MALE}>
+              {userGenderEnum[UserGender.MALE].text}
+            </Select.Option>
+            <Select.Option value={UserGender.FEMALE}>
+              {userGenderEnum[UserGender.FEMALE].text}
+            </Select.Option>
+            <Select.Option value={UserGender.SECURITY}>
+              {userGenderEnum[UserGender.SECURITY].text}
+            </Select.Option>
+          </Select>
+        );
+      },
+    },
+    {
+      title: '课程名称',
+      dataIndex: 'courseName',
+      valueType: 'text',
+    },
+    {
+      title: '开课时间',
+      dataIndex: 'acquisitionTime',
+      valueType: 'date',
+    },
+    {
+      title: '结课时间',
+      dataIndex: 'finishTime',
+      valueType: 'date',
     },
     {
       title: '创建时间',
@@ -128,12 +184,12 @@ const UserCertificateList: React.FC = () => {
         request={async (params, sort, filter) => {
           const sortField = Object.keys(sort)?.[0];
           const sortOrder = sort?.[sortField] ?? undefined;
-          const {data, code} = await listUserCertificateVoByPageUsingPost({
+          const { data, code } = await listLogPrintCertificateVoByPageUsingPost({
             ...params,
             ...filter,
             sortField,
             sortOrder,
-          } as API.UserCertificateQueryRequest);
+          } as API.LogPrintCertificateQueryRequest);
 
           return {
             success: code === 0,
@@ -173,5 +229,4 @@ const UserCertificateList: React.FC = () => {
     </>
   );
 };
-
-export default UserCertificateList;
+export default LogPrintCertificateList;

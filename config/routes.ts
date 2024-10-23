@@ -33,6 +33,11 @@ export default [
         path: '/admin/user/course',
         component: './Admin/UserCourseList',
       },
+      {
+        name: '打印证书日志',
+        path: '/admin/print/certificate',
+        component: './Admin/LogPrintCertificateList',
+      },
     ],
   },
   {

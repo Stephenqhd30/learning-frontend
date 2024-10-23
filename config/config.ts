@@ -75,7 +75,7 @@ export default defineConfig({
    * @name layout 插件
    * @doc https://umijs.org/docs/max/layout-menu
    */
-  title: 'Ant Design Pro',
+  title: '继续教育学院证书查询系统',
   layout: {
     locale: true,
     ...defaultSettings,

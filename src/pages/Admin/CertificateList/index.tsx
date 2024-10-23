@@ -17,6 +17,7 @@ import {
   UploadCertificateModal,
 } from '@/pages/Admin/CertificateList/components';
 import { reviewStatusEnum, ReviewStatus } from '@/enums/ReviewStatusEnum';
+import {CERTIFICATE_EXAMPLE_EXCEL, CERTIFICATE_EXCEL} from '@/constants';
 
 
 /**
@@ -53,7 +54,7 @@ const downloadCertificateInfo = async () => {
     const url = window.URL.createObjectURL(new Blob([res]));
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', '证书信息.xlsx');
+    link.setAttribute('download', CERTIFICATE_EXCEL);
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -79,7 +80,7 @@ const downloadCertificateExample = async () => {
     const url = window.URL.createObjectURL(new Blob([res]));
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', '导入证书示例数据.xlsx');
+    link.setAttribute('download', CERTIFICATE_EXAMPLE_EXCEL);
     document.body.appendChild(link);
     link.click();
     link.remove();

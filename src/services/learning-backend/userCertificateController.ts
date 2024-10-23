@@ -26,9 +26,9 @@ export async function downloadUserCertificateUsingGet(options?: { [key: string]:
 }
 
 /** getUserCertificateVOById GET /api/userCertificate/get/vo */
-export async function getUserCertificateVoByIdUsingGet(
+export async function getUserCertificateVoByIdUsingGet1(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.getUserCertificateVOByIdUsingGETParams,
+  params: API.getUserCertificateVOByIdUsingGET1Params,
   options?: { [key: string]: any },
 ) {
   return request<API.BaseResponseUserCertificateVO_>('/api/userCertificate/get/vo', {

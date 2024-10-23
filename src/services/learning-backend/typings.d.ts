@@ -5,12 +5,6 @@ declare namespace API {
     message?: string;
   };
 
-  type BaseResponseCertificatePrintVO_ = {
-    code?: number;
-    data?: CertificatePrintVO;
-    message?: string;
-  };
-
   type BaseResponseCertificateVO_ = {
     code?: number;
     data?: CertificateVO;
@@ -26,6 +20,12 @@ declare namespace API {
   type BaseResponseLoginUserVO_ = {
     code?: number;
     data?: LoginUserVO;
+    message?: string;
+  };
+
+  type BaseResponseLogPrintCertificateVO_ = {
+    code?: number;
+    data?: LogPrintCertificateVO;
     message?: string;
   };
 
@@ -68,6 +68,18 @@ declare namespace API {
   type BaseResponsePageCourseVO_ = {
     code?: number;
     data?: PageCourseVO_;
+    message?: string;
+  };
+
+  type BaseResponsePageLogPrintCertificate_ = {
+    code?: number;
+    data?: PageLogPrintCertificate_;
+    message?: string;
+  };
+
+  type BaseResponsePageLogPrintCertificateVO_ = {
+    code?: number;
+    data?: PageLogPrintCertificateVO_;
     message?: string;
   };
 
@@ -174,25 +186,6 @@ declare namespace API {
     certificateUrl?: string;
     certificateYear?: string;
     id?: number;
-  };
-
-  type CertificatePrintRequest = {
-    certificateId?: number;
-    current?: number;
-    pageSize?: number;
-    sortField?: string;
-    sortOrder?: string;
-    userCourseId?: number;
-  };
-
-  type CertificatePrintVO = {
-    acquisitionTime?: string;
-    certificateNumber?: string;
-    courseName?: string;
-    finishTime?: string;
-    userGender?: number;
-    userIdCard?: string;
-    userName?: string;
   };
 
   type CertificateQueryRequest = {
@@ -317,6 +310,11 @@ declare namespace API {
     id?: number;
   };
 
+  type getUserCertificateVOByIdUsingGET1Params = {
+    /** id */
+    id?: number;
+  };
+
   type getUserCertificateVOByIdUsingGETParams = {
     /** id */
     id?: number;
@@ -344,6 +342,71 @@ declare namespace API {
     userPhone?: string;
     userProfile?: string;
     userRole?: string;
+  };
+
+  type LogPrintCertificate = {
+    acquisitionTime?: string;
+    certificateId?: number;
+    certificateNumber?: string;
+    courseId?: number;
+    courseName?: string;
+    createTime?: string;
+    finishTime?: string;
+    id?: number;
+    userGender?: number;
+    userId?: number;
+    userIdCard?: string;
+    userName?: string;
+  };
+
+  type LogPrintCertificateAddRequest = {
+    acquisitionTime?: string;
+    certificateId?: number;
+    certificateNumber?: string;
+    courseId?: number;
+    courseName?: string;
+    finishTime?: string;
+    userGender?: number;
+    userId?: number;
+    userIdCard?: string;
+    userName?: string;
+  };
+
+  type LogPrintCertificateQueryRequest = {
+    acquisitionTime?: string;
+    certificateId?: number;
+    certificateNumber?: string;
+    courseId?: number;
+    courseName?: string;
+    createTime?: string;
+    current?: number;
+    finishTime?: string;
+    id?: number;
+    notId?: number;
+    pageSize?: number;
+    sortField?: string;
+    sortOrder?: string;
+    userGender?: number;
+    userId?: number;
+    userName?: string;
+  };
+
+  type LogPrintCertificateVO = {
+    acquisitionTime?: string;
+    certificateId?: number;
+    certificateNumber?: string;
+    certificateVO?: CertificateVO;
+    courseId?: number;
+    courseName?: string;
+    courseVO?: CourseVO;
+    createTime?: string;
+    finishTime?: string;
+    id?: number;
+    userGender?: number;
+    userId?: number;
+    userIdCard?: string;
+    userName?: string;
+    userVO?: UserVO;
   };
 
   type OrderItem = {
@@ -411,6 +474,32 @@ declare namespace API {
     orders?: OrderItem[];
     pages?: number;
     records?: CourseVO[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
+  type PageLogPrintCertificate_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: LogPrintCertificate[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
+  type PageLogPrintCertificateVO_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: LogPrintCertificateVO[];
     searchCount?: boolean;
     size?: number;
     total?: number;

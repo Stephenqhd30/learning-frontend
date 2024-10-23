@@ -5,6 +5,7 @@
 import * as certificateController from './certificateController';
 import * as courseController from './courseController';
 import * as fileController from './fileController';
+import * as logPrintCertificateController from './logPrintCertificateController';
 import * as userController from './userController';
 import * as userCertificateController from './userCertificateController';
 import * as userCourseController from './userCourseController';
@@ -12,6 +13,7 @@ export default {
   certificateController,
   courseController,
   fileController,
+  logPrintCertificateController,
   userController,
   userCertificateController,
   userCourseController,
