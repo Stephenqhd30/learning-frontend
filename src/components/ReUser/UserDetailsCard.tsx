@@ -4,7 +4,7 @@ import { ProCard, ProDescriptions } from '@ant-design/pro-components';
 import { userRoleEnum } from '@/enums/UserRoleEnum';
 import UserAvatarCard from '@/components/ReUser/UserAvatarCard';
 
-interface UserProps {
+interface Props {
   user: API.User;
 }
 
@@ -13,7 +13,7 @@ interface UserProps {
  * @param props
  * @constructor
  */
-const UserDetailsCard: React.FC<UserProps> = (props) => {
+const UserDetailsCard: React.FC<Props> = (props) => {
   const { user } = props;
 
   return (
@@ -66,24 +66,6 @@ const UserDetailsCard: React.FC<UserProps> = (props) => {
               key: 'userPhone',
               dataIndex: 'userPhone',
               valueType: 'text',
-            },
-            {
-              title: '创建时间',
-              key: 'createTime',
-              dataIndex: 'createTime',
-              valueType: 'date',
-              fieldProps: {
-                format: 'YYYY.MM.DD',
-              },
-            },
-            {
-              title: '更新时间',
-              key: 'updateTime',
-              dataIndex: 'updateTime',
-              valueType: 'date',
-              fieldProps: {
-                format: 'YYYY.MM.DD',
-              },
             },
           ]}
         />

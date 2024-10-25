@@ -172,21 +172,6 @@ export async function userLogoutUsingPost(options?: { [key: string]: any }) {
   });
 }
 
-/** userRegister POST /api/user/register */
-export async function userRegisterUsingPost(
-  body: API.UserRegisterRequest,
-  options?: { [key: string]: any },
-) {
-  return request<API.BaseResponseLong_>('/api/user/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data: body,
-    ...(options || {}),
-  });
-}
-
 /** updateUser POST /api/user/update */
 export async function updateUserUsingPost(
   body: API.UserUpdateRequest,

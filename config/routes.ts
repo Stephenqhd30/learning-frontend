@@ -1,12 +1,16 @@
 export default [
-  { path: '/', redirect: '/welcome' },
-  { path: '/welcome', name: '证书查询', icon: 'FileSearchOutlined', component: './IndexPage' },
+  { path: '/', redirect: '/my/certificate' },
+  {
+    path: '/my/certificate',
+    name: '我的证书',
+    icon: 'SafetyCertificateOutlined',
+    component: './MyCertificate',
+  },
   {
     path: '/user',
     layout: false,
     routes: [
       { name: '用户登录', path: '/user/login', component: './User/Login' },
-      { name: '用户注册', path: '/user/register', component: './User/Register' },
     ],
   },
   {
@@ -51,12 +55,6 @@ export default [
     ],
   },
   {
-    path: '/myCertificate',
-    name: '我的证书',
-    icon: 'SafetyCertificateOutlined',
-    component: './MyCertificate',
-  },
-  {
     path: '/create/certificate',
     name: '制作证书',
     icon: 'DiffOutlined',
@@ -84,19 +82,16 @@ export default [
       },
       {
         name: '403',
-        icon: 'smile',
         path: '/exception/403',
         component: './Exception/403',
       },
       {
         name: '404',
-        icon: 'smile',
         path: '/exception/404',
         component: './Exception/404',
       },
       {
         name: '500',
-        icon: 'smile',
         path: '/exception/500',
         component: './Exception/500',
       },

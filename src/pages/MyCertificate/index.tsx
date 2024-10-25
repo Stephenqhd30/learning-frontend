@@ -80,9 +80,7 @@ const MyCertificateList: React.FC = () => {
         headerTitle={'我的证书列表'}
         actionRef={actionRef}
         rowKey={'key'}
-        search={{
-          labelWidth: 120,
-        }}
+        search={false}
         request={async (params, sort, filter) => {
           const sortField = Object.keys(sort)?.[0];
           const sortOrder = sort?.[sortField] ?? undefined;

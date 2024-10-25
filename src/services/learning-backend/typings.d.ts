@@ -724,13 +724,6 @@ declare namespace API {
     userRole?: string;
   };
 
-  type UserRegisterRequest = {
-    userCheckIdCard?: string;
-    userIdCard?: string;
-    userName?: string;
-    userNumber?: string;
-  };
-
   type UserUpdateRequest = {
     id?: number;
     userAvatar?: string;

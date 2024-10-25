@@ -1,7 +1,7 @@
 import { Footer } from '@/components';
 import { LoginForm, ProConfigProvider } from '@ant-design/pro-components';
 import { history, useModel } from '@umijs/max';
-import { Image, message, theme, Typography } from 'antd';
+import { Image, message, theme } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { userLoginUsingPost } from '@/services/learning-backend/userController';
 import { LEARNING_SUBTITLE, LEARNING_TITLE } from '@/constants';
@@ -67,14 +67,6 @@ const Login: React.FC = () => {
               }}
             >
               <AccountLoginPage key={'account'} />
-              <Typography.Link
-                href={'/user/register'}
-                style={{
-                  float: 'right',
-                }}
-              >
-                去注册
-              </Typography.Link>
             </LoginForm>
           </div>
         </ProConfigProvider>

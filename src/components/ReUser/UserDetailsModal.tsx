@@ -1,6 +1,5 @@
 import React from 'react';
 import { Modal } from 'antd';
-import { ProCard } from '@ant-design/pro-components';
 import UserDetailsCard from '@/components/ReUser/UserDetailsCard';
 
 interface Props {
@@ -26,11 +25,12 @@ const UserDetailsModal: React.FC<Props> = (props) => {
       onCancel={() => {
         onCancel?.();
       }}
+      onOk={() => {
+        onSubmit?.();
+      }}
       footer
     >
-      <ProCard onSubmit={() => onSubmit?.()}>
-        <UserDetailsCard user={userInfo} />
-      </ProCard>
+      <UserDetailsCard user={userInfo} />
     </Modal>
   );
 };
