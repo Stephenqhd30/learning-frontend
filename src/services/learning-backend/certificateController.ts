@@ -221,3 +221,18 @@ export async function updateCertificateUsingPost(
     ...(options || {}),
   });
 }
+
+/** listWaitPrintCertificateVOByPage POST /api/certificate/wait/print/list/page/vo */
+export async function listWaitPrintCertificateVoByPageUsingPost(
+  body: API.CertificateQueryRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponsePageCertificateVO_>('/api/certificate/wait/print/list/page/vo', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}

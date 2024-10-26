@@ -9,6 +9,11 @@ interface CertificateDetailsProps {
   onCancel: () => void;
 }
 
+/**
+ * 用户信息卡片
+ * @param props
+ * @constructor
+ */
 const UserInfoCard: React.FC<CertificateDetailsProps> = (props) => {
   const { user, visible, onCancel } = props;
   return (
@@ -69,7 +74,6 @@ const UserInfoCard: React.FC<CertificateDetailsProps> = (props) => {
         <ProCard bordered={false} >
           <Image src={user?.userAvatar} width={296} height={296}/>
         </ProCard>
-
     </Modal>
   );
 };

@@ -280,7 +280,7 @@ const UserList: React.FC = () => {
               }}
             >
               <DownloadOutlined />
-              下载导出用户示例数据
+              下载导入用户示例数据
             </Button>
             <Button
               key={'upload'}

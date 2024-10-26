@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import { certificateSituationEnum } from '@/enums/CertificateSituationEnum';
 import { certificateTypeEnum } from '@/enums/CertificateTypeEnum';
-import { Button, message, Space, Typography } from 'antd';
+import {Button, message, Select, Space, Typography} from 'antd';
 import { getUserByIdUsingGet } from '@/services/learning-backend/userController';
 import { listCertificateVoByPageUsingPost } from '@/services/learning-backend/certificateController';
 import { BatchReviewModal, ReviewModal } from '@/pages/CertificateReview/components';
@@ -92,6 +92,21 @@ const CertificateReview: React.FC = () => {
       dataIndex: 'reviewStatus',
       valueType: 'select',
       valueEnum: reviewStatusEnum,
+      renderFormItem: () => {
+        return (
+          <Select>
+            <Select.Option value={ReviewStatus.REVIEWING}>
+              {reviewStatusEnum[ReviewStatus.REVIEWING].text}
+            </Select.Option>
+            <Select.Option value={ReviewStatus.PASS}>
+              {reviewStatusEnum[ReviewStatus.PASS].text}
+            </Select.Option>
+            <Select.Option value={ReviewStatus.REJECT}>
+              {reviewStatusEnum[ReviewStatus.REJECT].text}
+            </Select.Option>
+          </Select>
+        );
+      },
     },
     {
       title: '审核信息',

@@ -28,18 +28,24 @@ const UploadCertificateModal: React.FC<CreateProps> = (props) => {
     // 避免重复提交
     if (submitting) return;
     setSubmitting(true);
+    const hide = message.loading("正在导入证书信息，请稍候...")
     try {
       const res = await importCertificateDataByExcelUsingPost({
         file: values.file[0].originFileObj,
       });
-      if (res.code === 0 && res.data) {
+      if (res.code === 0 && res?.data?.errorRecords.length === 0) {
+        hide();
         message.success('证书信息导入成功');
         return true;
+      } else {
+        hide();
+        message.error(`证书信息导入失败${res?.data?.errorRecords?.errorMessage}` + '请重试');
       }
     } catch (error: any) {
       message.error(`证书信息导入失败${error.message}` + '请重试');
       return false;
     } finally {
+      hide();
       setSubmitting(false);
     }
   };

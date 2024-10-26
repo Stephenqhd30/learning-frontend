@@ -3,13 +3,13 @@ import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import { Button, message, Select, Space, Typography } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
 import { CertificateDetailsModal } from '@/pages/Admin/UserCertificateList/components';
-import { UserInfoCard } from '@/pages/IndexPage/compoents';
 import { UserGender, userGenderEnum } from '@/enums/UserGenderEnum';
 import {
   downloadLogPrintCertificateUsingGet,
-  listLogPrintCertificateByPageUsingPost, listLogPrintCertificateVoByPageUsingPost
+  listLogPrintCertificateVoByPageUsingPost
 } from '@/services/learning-backend/logPrintCertificateController';
 import { LOG_PRINT_CERTIFICATE_EXCEL } from '@/constants';
+import { UserInfoCard } from '@/components';
 
 /**
  * 打印证书日志表
@@ -175,7 +175,7 @@ const LogPrintCertificateList: React.FC = () => {
   return (
     <>
       <ProTable<API.UserCertificate, API.PageParams>
-        headerTitle={'查看证书信息'}
+        headerTitle={'打印证书日志'}
         actionRef={actionRef}
         rowKey={'id'}
         search={{
@@ -206,7 +206,7 @@ const LogPrintCertificateList: React.FC = () => {
               }}
             >
               <DownloadOutlined />
-              导出证书信息
+              导出打印证书日志信息
             </Button>
           </Space>,
         ]}

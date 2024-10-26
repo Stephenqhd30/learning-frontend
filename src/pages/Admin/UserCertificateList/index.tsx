@@ -3,12 +3,12 @@ import {ActionType, ProColumns, ProTable} from '@ant-design/pro-components';
 import {Button, message, Space, Typography} from 'antd';
 import {DownloadOutlined} from '@ant-design/icons';
 import {CertificateDetailsModal} from '@/pages/Admin/UserCertificateList/components';
-import {UserInfoCard} from '@/pages/IndexPage/compoents';
 import {
   downloadUserCertificateUsingGet,
   listUserCertificateVoByPageUsingPost
 } from '@/services/learning-backend/userCertificateController';
 import {USER_CERTIFICATE_EXCEL} from '@/constants';
+import {UserInfoCard} from '@/components';
 
 /**
  * 用户证书列表

@@ -165,7 +165,7 @@ const CertificateList: React.FC = () => {
     {
       title: '证书类型',
       dataIndex: 'certificateType',
-      valueType: 'select',
+      valueType: 'text',
       valueEnum: certificateTypeEnum,
       renderFormItem: () => {
         return (
