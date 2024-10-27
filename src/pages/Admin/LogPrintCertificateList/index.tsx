@@ -2,14 +2,13 @@ import React, { useRef, useState } from 'react';
 import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import { Button, message, Select, Space, Typography } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
-import { CertificateDetailsModal } from '@/pages/Admin/UserCertificateList/components';
 import { UserGender, userGenderEnum } from '@/enums/UserGenderEnum';
 import {
   downloadLogPrintCertificateUsingGet,
   listLogPrintCertificateVoByPageUsingPost
 } from '@/services/learning-backend/logPrintCertificateController';
 import { LOG_PRINT_CERTIFICATE_EXCEL } from '@/constants';
-import { UserInfoCard } from '@/components';
+import {CertificateDetailsModal, UserInfoCard} from '@/components';
 
 /**
  * 打印证书日志表

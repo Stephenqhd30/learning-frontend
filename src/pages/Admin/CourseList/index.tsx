@@ -111,6 +111,7 @@ const CourseList: React.FC = () => {
       dataIndex: 'id',
       valueType: 'text',
       hideInForm: true,
+      hideInTable: true,
     },
     {
       title: '课程号',

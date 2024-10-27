@@ -125,16 +125,17 @@ const UserList: React.FC = () => {
       dataIndex: 'id',
       valueType: 'text',
       hideInForm: true,
-    },
-    {
-      title: '身份证号',
-      dataIndex: 'userIdCard',
-      valueType: 'password',
+      hideInTable: true,
     },
     {
       title: '姓名',
       dataIndex: 'userName',
       valueType: 'text',
+    },
+    {
+      title: '身份证号',
+      dataIndex: 'userIdCard',
+      valueType: 'password',
     },
     {
       title: '头像',
@@ -197,22 +198,6 @@ const UserList: React.FC = () => {
       },
     },
     {
-      title: '创建时间',
-      sorter: true,
-      dataIndex: 'createTime',
-      valueType: 'dateTime',
-      hideInSearch: true,
-      hideInForm: true,
-    },
-    {
-      title: '更新时间',
-      sorter: true,
-      dataIndex: 'updateTime',
-      valueType: 'dateTime',
-      hideInSearch: true,
-      hideInForm: true,
-    },
-    {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
@@ -261,6 +246,9 @@ const UserList: React.FC = () => {
         rowKey={'id'}
         search={{
           labelWidth: 120,
+        }}
+        pagination={{
+          pageSize: 10,
         }}
         toolBarRender={() => [
           <Space key={'space'} wrap>

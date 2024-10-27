@@ -7,7 +7,7 @@ import { getUserByIdUsingGet } from '@/services/learning-backend/userController'
 import { listCertificateVoByPageUsingPost } from '@/services/learning-backend/certificateController';
 import { BatchReviewModal, ReviewModal } from '@/pages/CertificateReview/components';
 import { ReviewStatus, reviewStatusEnum } from '@/enums/ReviewStatusEnum';
-import UserDetailsModal from '@/components/ReUser/UserDetailsModal';
+import {UserDetailsModal} from '@/components';
 
 const CertificateReview: React.FC = () => {
   const actionRef = useRef<ActionType>();

@@ -1,13 +1,14 @@
-import { ActionType, PageContainer, ProColumns, ProTable } from '@ant-design/pro-components';
+import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
 import React, { useRef, useState } from 'react';
-import {
-  listCertificateVoByPageUsingPost,
-} from '@/services/learning-backend/certificateController';
-import {CertificateSituation, certificateSituationEnum} from '@/enums/CertificateSituationEnum';
-import { certificateTypeEnum } from '@/enums/CertificateTypeEnum';
-import { Space, Typography } from 'antd';
-import { MY_CERTIFICATE_TITLE } from '@/constants';
+import { listCertificateVoByPageUsingPost } from '@/services/learning-backend/certificateController';
+import { CertificateSituation, certificateSituationEnum } from '@/enums/CertificateSituationEnum';
+import { CertificateType, certificateTypeEnum } from '@/enums/CertificateTypeEnum';
+import { Button, Select, Space, Typography } from 'antd';
+import { ReviewStatus, reviewStatusEnum } from '@/enums/ReviewStatusEnum';
+import { UserDetailsModal } from '@/components';
+import {BatchReviewModal} from '@/pages/CertificateReview/components';
+
 
 /**
  * 证书制作
@@ -16,13 +17,26 @@ import { MY_CERTIFICATE_TITLE } from '@/constants';
 const CreateCertificatePage: React.FC = () => {
   const actionRef = useRef<ActionType>();
   // 当前行数据
-  const [currentRow, setCurrentRow] = useState<API.Certificate>({});
+  const [currentRow, setCurrentRow] = useState<API.CertificateVO>({});
   // 证书信息 Modal 框
-  const [certificateModalVisible, setCertificateModalVisible] = useState<boolean>(false);
+  const [userDetailsModalVisible, setUserDetailsModalVisible] = useState<boolean>(false);
+  // 打印证书信息 Modal 框
+  const [printCertificateModalVisible, setPrintCertificateModalVisible] = useState<boolean>(false);
+  // 批量打印证书信息 Modal 框
+  const [batchPrintModalVisible, setBatchPrintModalVisible] = useState<boolean>(false);
+  // 选中行数据
+  const [selectedRowKeys, setSelectedRowKeys] = useState<any[]>([]);
   /**
    * 表格列数据
    */
-  const columns: ProColumns<API.CertificateForUserVO>[] = [
+  const columns: ProColumns<API.CertificateVO>[] = [
+    {
+      title: 'id',
+      dataIndex: 'id',
+      valueType: 'text',
+      hideInForm: true,
+      hideInTable: true,
+    },
     {
       title: '证书编号',
       dataIndex: 'certificateNumber',
@@ -34,6 +48,12 @@ const CreateCertificatePage: React.FC = () => {
       valueType: 'text',
     },
     {
+      title: '获得人id',
+      dataIndex: 'gainUserId',
+      valueType: 'text',
+      hideInTable: true,
+    },
+    {
       title: '证书获得时间',
       dataIndex: 'certificateYear',
       valueType: 'dateYear',
@@ -41,14 +61,89 @@ const CreateCertificatePage: React.FC = () => {
     {
       title: '证书获得情况',
       dataIndex: 'certificateSituation',
-      valueType: 'select',
+      valueType: 'text',
       valueEnum: certificateSituationEnum,
+      renderFormItem: () => {
+        return (
+          <Select>
+            <Select.Option value={CertificateSituation.HAVE}>
+              {certificateSituationEnum[CertificateSituation.HAVE].text}
+            </Select.Option>
+            <Select.Option value={CertificateSituation.NO}>
+              {certificateSituationEnum[CertificateSituation.NO].text}
+            </Select.Option>
+          </Select>
+        );
+      }
     },
     {
       title: '证书类型',
       dataIndex: 'certificateType',
-      valueType: 'select',
+      valueType: 'text',
       valueEnum: certificateTypeEnum,
+      renderFormItem: () => {
+        return (
+          <Select>
+            <Select.Option value={CertificateType.CADRE_TRAINING}>
+              {certificateTypeEnum[CertificateType.CADRE_TRAINING].text}
+            </Select.Option>
+            <Select.Option value={CertificateType.OTHERS}>
+              {certificateTypeEnum[CertificateType.OTHERS].text}
+            </Select.Option>
+          </Select>
+        );
+      }
+    },
+    {
+      title: '证书地址',
+      dataIndex: 'certificateUrl',
+      valueType: 'image',
+      hideInSearch: true
+    },
+    {
+      title: '审核状态',
+      dataIndex: 'reviewStatus',
+      valueType: 'select',
+      valueEnum: reviewStatusEnum,
+      hideInForm: true,
+      renderFormItem: () => {
+        return (
+          <Select>
+            <Select.Option value={ReviewStatus.REVIEWING}>
+              {reviewStatusEnum[ReviewStatus.REVIEWING].text}
+            </Select.Option>
+            <Select.Option value={ReviewStatus.PASS}>
+              {reviewStatusEnum[ReviewStatus.PASS].text}
+            </Select.Option>
+            <Select.Option value={ReviewStatus.REJECT}>
+              {reviewStatusEnum[ReviewStatus.REJECT].text}
+            </Select.Option>
+          </Select>
+        );
+      }
+    },
+    {
+      title: '审核信息',
+      dataIndex: 'reviewMessage',
+      valueType: 'text',
+      hideInForm: true,
+      hideInSearch: true
+    },
+    {
+      title: '审核人',
+      dataIndex: 'reviewerId',
+      valueType: 'text',
+      hideInForm: true,
+      hideInSearch: true,
+      render: (_, record) => <div>{record?.userVO?.userName}</div>
+    },
+    {
+      title: '审核时间',
+      sorter: true,
+      dataIndex: 'reviewTime',
+      valueType: 'dateTime',
+      hideInSearch: true,
+      hideInForm: true
     },
     {
       title: '操作',
@@ -57,29 +152,57 @@ const CreateCertificatePage: React.FC = () => {
       render: (_, record) => (
         <Space size={'middle'}>
           <Typography.Link
-            key={'review'}
-            onClick={async () => {
-              setCertificateModalVisible(true);
+            key="certificate"
+            onClick={() => {
+              setUserDetailsModalVisible(true);
               setCurrentRow(record);
+              actionRef.current?.reload();
             }}
           >
-            查看下载证书
+            获得人信息
+          </Typography.Link>
+          <Typography.Link
+            key="print"
+            onClick={() => {
+              setPrintCertificateModalVisible(true);
+              setCurrentRow(record);
+              actionRef.current?.reload();
+            }}
+          >
+            制作证书
           </Typography.Link>
         </Space>
       ),
     },
   ];
   return (
-    <PageContainer
-      header={{
-        title: MY_CERTIFICATE_TITLE,
-      }}
-    >
-      <ProTable<API.Certificate, API.PageParams>
-        headerTitle={'我的证书列表'}
+    <>
+      <ProTable<API.CertificateVO, API.PageParams>
+        headerTitle={'待制作证书列表'}
         actionRef={actionRef}
         rowKey={'key'}
-        search={false}
+        search={{
+          labelWidth: 120
+        }}
+        rowSelection={{
+          selectedRowKeys: selectedRowKeys,
+          onChange: setSelectedRowKeys
+        }}
+        tableAlertOptionRender={() => {
+          return (
+            <Space>
+              <Button
+                type="primary"
+                onClick={async () => {
+                  setBatchPrintModalVisible(true);
+                  actionRef.current?.reload();
+                }}
+              >
+                批量审核
+              </Button>
+            </Space>
+          );
+        }}
         request={async (params, sort, filter) => {
           const sortField = Object.keys(sort)?.[0];
           const sortOrder = sort?.[sortField] ?? undefined;
@@ -99,7 +222,32 @@ const CreateCertificatePage: React.FC = () => {
         }}
         columns={columns}
       />
-    </PageContainer>
+      {/*获得人信息*/}
+      {userDetailsModalVisible && (
+        <UserDetailsModal
+          visible={userDetailsModalVisible}
+          onCancel={() => setUserDetailsModalVisible(false)}
+          userInfo={currentRow?.userVO ?? {}}
+          onSubmit={async () => {
+            setUserDetailsModalVisible(false);
+            actionRef.current?.reload();
+          }}
+        />
+      )}
+      {/*批量审核*/}
+      {batchPrintModalVisible && (
+        <BatchReviewModal
+          visible={batchPrintModalVisible}
+          onCancel={() => setBatchPrintModalVisible(false)}
+          selectedRowKeys={selectedRowKeys ?? []}
+          columns={columns}
+          onSubmit={async () => {
+            setBatchPrintModalVisible(false);
+            actionRef.current?.reload();
+          }}
+        />
+      )}
+    </>
   );
 };
 export default CreateCertificatePage;

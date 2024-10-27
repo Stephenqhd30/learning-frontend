@@ -123,6 +123,7 @@ const CertificateList: React.FC = () => {
       dataIndex: 'id',
       valueType: 'text',
       hideInForm: true,
+      hideInTable: true,
     },
     {
       title: '证书编号',
@@ -213,6 +214,7 @@ const CertificateList: React.FC = () => {
       dataIndex: 'reviewMessage',
       valueType: 'text',
       hideInForm: true,
+      hideInSearch: true,
     },
     {
       title: '审核人',

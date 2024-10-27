@@ -86,6 +86,7 @@ const UserCourseList: React.FC = () => {
       dataIndex: 'id',
       valueType: 'text',
       hideInForm: true,
+      hideInTable: true,
     },
     {
       title: '课程id',
