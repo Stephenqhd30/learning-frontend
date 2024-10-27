@@ -1,16 +1,23 @@
 import { Footer } from '@/components';
-import { LoginForm, ProConfigProvider } from '@ant-design/pro-components';
+import { LoginForm, ProCard, ProConfigProvider } from '@ant-design/pro-components';
 import { history, useModel } from '@umijs/max';
-import { Image, message, theme } from 'antd';
+import { Grid, Image, message, theme } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { userLoginUsingPost } from '@/services/learning-backend/userController';
 import { LEARNING_SUBTITLE, LEARNING_TITLE } from '@/constants';
 import AccountLoginPage from '@/pages/User/Login/components/AccountLoginPage';
 
+const {useBreakpoint} = Grid;
+/**
+ * 登录信息页
+ * @constructor
+ */
 const Login: React.FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
   const [redirected, setRedirected] = useState(false); // 控制重定向状态
   const { token } = theme.useToken();
+  const scene = useBreakpoint();
+  const isMobile = !scene.md;
   // 用户登录
   const handleLoginSubmit = async (values: API.UserLoginRequest) => {
     try {
@@ -57,17 +64,22 @@ const Login: React.FC = () => {
       >
         <ProConfigProvider hashed={false}>
           <div style={{ backgroundColor: token.colorBgContainer }}>
-            <LoginForm
-              logo={<Image src={'/logo.svg'} preview={false} width={56}/>}
-              title={LEARNING_TITLE}
-              subTitle={LEARNING_SUBTITLE}
-              onFinish={async (values) => {
-                await handleLoginSubmit(values as API.UserLoginRequest);
-                setRedirected(true);
-              }}
-            >
-              <AccountLoginPage key={'account'} />
-            </LoginForm>
+            <ProCard boxShadow={!isMobile} bodyStyle={{ padding: isMobile ? 0 : 24 }}>
+              <LoginForm
+                logo={<Image src={'/logo.svg'} preview={false} width={56} />}
+                title={LEARNING_TITLE}
+                subTitle={LEARNING_SUBTITLE}
+                containerStyle={{
+                  padding: isMobile ? 0 : 24,
+                }}
+                onFinish={async (values) => {
+                  await handleLoginSubmit(values as API.UserLoginRequest);
+                  setRedirected(true);
+                }}
+              >
+                <AccountLoginPage key={'account'} />
+              </LoginForm>
+            </ProCard>
           </div>
         </ProConfigProvider>
       </div>
