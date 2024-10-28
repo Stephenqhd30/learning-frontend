@@ -15,7 +15,7 @@ import {
   UserInfoCard,
   UserSelect,
 } from '@/components/ReUser';
-import { CertificateDetailsModal } from '@/components/ReCertificate';
+import { CertificateCard, CertificateDetailsModal } from '@/components/ReCertificate';
 import { ShareModal } from '@/components/ReCommon';
 import { CourseSelect } from '@/components/ReCourse';
 
@@ -32,4 +32,5 @@ export {
   UserSelect,
   UserInfoCard,
   CertificateDetailsModal,
+  CertificateCard,
 };

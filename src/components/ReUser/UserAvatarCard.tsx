@@ -3,7 +3,7 @@ import { Avatar, Space } from 'antd';
 import React from 'react';
 
 interface UserAvatarCardProps {
-  user: API.User;
+  user: API.UserVO;
 }
 
 /**

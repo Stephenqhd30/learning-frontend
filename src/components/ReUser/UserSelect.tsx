@@ -14,9 +14,8 @@ interface Props {
  * @constructor
  */
 const UserSelect: React.FC<Props> = (props) => {
-  const { name, label = '', initialValue = '' } = props;
+  const { name, label = null, initialValue = null } = props;
   const { userList, loadData } = useModel('userSelect');
-  const [value, setValue] = useState<string>(initialValue);
 
   useEffect(() => {
     loadData();
@@ -28,18 +27,13 @@ const UserSelect: React.FC<Props> = (props) => {
       label={label}
       options={userList.map((item) => ({
         // @ts-ignore
-        label: item.userName + item.userNumber,
+        label: item.userNumber + item.userName,
         value: item.id,
       }))}
-      placeholder="请选择"
+      placeholder="请选择用户"
       allowClear
       showSearch
-      fieldProps={{
-        value: value,
-        onChange: (newValue) => {
-          setValue(newValue);
-        },
-      }}
+      initialValue={initialValue}
     />
   );
 };

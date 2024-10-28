@@ -11,9 +11,7 @@ export default () => {
   const loadData = async () => {
     try {
       const res = await listUserByPageUsingPost({
-        pageSize: 20,
-        sortField: 'createTime',
-        sortOrder: 'desc',
+        pageSize: 50,
       });
       if (res.code === 0 && res?.data?.records) {
         setUserList(res?.data?.records);

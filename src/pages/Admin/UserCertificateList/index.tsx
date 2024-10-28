@@ -85,13 +85,6 @@ const UserCertificateList: React.FC = () => {
       valueType: 'dateYear',
     },
     {
-      title: '创建时间',
-      dataIndex: 'createTime',
-      valueType: 'date',
-      hideInSearch: true,
-      hideInForm: true,
-    },
-    {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',

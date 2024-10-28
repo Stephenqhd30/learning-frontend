@@ -1,5 +1,5 @@
 import { ProFormSelect } from '@ant-design/pro-components';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useModel } from '@umijs/max';
 
 interface Props {
@@ -14,9 +14,8 @@ interface Props {
  * @constructor
  */
 const CourseSelect: React.FC<Props> = (props) => {
-  const { name, label = '', initialValue = '' } = props;
+  const { name, label = null, initialValue = null } = props;
   const { courseList, loadData } = useModel('courseSelect');
-  const [value, setValue] = useState<string>(initialValue);
 
   useEffect(() => {
     loadData();
@@ -30,15 +29,10 @@ const CourseSelect: React.FC<Props> = (props) => {
         label: item.courseName,
         value: item.id,
       }))}
-      placeholder="请选择"
+      placeholder="请选择课程"
       allowClear
       showSearch
-      fieldProps={{
-        value: value,
-        onChange: (newValue) => {
-          setValue(newValue);
-        },
-      }}
+      initialValue={initialValue}
     />
   );
 };
