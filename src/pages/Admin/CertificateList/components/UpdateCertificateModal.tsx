@@ -7,13 +7,12 @@ import {
   ProFormUploadDragger,
 } from '@ant-design/pro-components';
 import '@umijs/max';
-import { Button, message, Select, UploadProps } from 'antd';
+import { message, Select, UploadProps } from 'antd';
 import React, { useState } from 'react';
 import { updateCertificateUsingPost } from '@/services/learning-backend/certificateController';
 import { CertificateSituation, certificateSituationEnum } from '@/enums/CertificateSituationEnum';
 import { CertificateType, certificateTypeEnum } from '@/enums/CertificateTypeEnum';
 import { uploadFileUsingPost } from '@/services/learning-backend/fileController';
-import { UploadOutlined } from '@ant-design/icons';
 
 interface UpdateProps {
   oldData?: API.Certificate;
@@ -107,6 +106,7 @@ const UpdateCertificateModal: React.FC<UpdateProps> = (props) => {
           await onSubmit?.(values);
         }
       }}
+      autoFocusFirstInput
       modalProps={{
         destroyOnClose: true,
         onCancel: () => {

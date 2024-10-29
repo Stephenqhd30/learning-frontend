@@ -2,7 +2,7 @@ import { ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
 import { message, Modal } from 'antd';
 import React from 'react';
-import {updateCourseUsingPost} from '@/services/learning-backend/courseController';
+import { updateCourseUsingPost } from '@/services/learning-backend/courseController';
 
 interface UpdateProps {
   oldData?: API.CourseVO;

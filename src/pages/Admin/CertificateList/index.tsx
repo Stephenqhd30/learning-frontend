@@ -1,4 +1,4 @@
-import { DownloadOutlined, EditOutlined } from '@ant-design/icons';
+import { DownloadOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import {ActionType, ProColumns, ProTable} from '@ant-design/pro-components';
 import '@umijs/max';
 import { Button, message, Popconfirm, Select, Space, Typography } from 'antd';
@@ -304,52 +304,41 @@ const CertificateList: React.FC = () => {
         toolBarRender={() => [
           <Space key={'space'} wrap size={'small'}>
             {/*新建证书表单*/}
-            <CreateCertificateModal
-              onCancel={() => {
-                setCreateModalVisible(false);
-              }}
-              onSubmit={async () => {
-                setCreateModalVisible(false);
-                actionRef.current?.reload();
-              }}
-              visible={createModalVisible}
-            />
             <Button
-              key="text"
+              icon={<PlusOutlined />}
               onClick={() => {
-                goDoReviewPage();
+                setCreateModalVisible(true);
               }}
+              type={'primary'}
             >
-              <EditOutlined /> 审核信息
+              新建证书
             </Button>
             <Button
               key={'export-example'}
               onClick={async () => {
                 await downloadCertificateExample();
               }}
+              icon={<DownloadOutlined />}
             >
-              <DownloadOutlined />
               下载导入证书示例数据
             </Button>
-            {/*上传用户信息的Modal框*/}
-            <UploadCertificateModal
-              onCancel={() => {
-                setUploadModalVisible(false);
-              }}
-              visible={uploadModalVisible}
-              onSubmit={async () => {
-                setUploadModalVisible(false);
-                actionRef.current?.reload();
-              }}
-            />
             <Button
               key={'export'}
               onClick={async () => {
                 await downloadCertificateInfo();
               }}
+              icon={<DownloadOutlined />}
             >
-              <DownloadOutlined />
               导出证书信息
+            </Button>
+            <Button
+              key="text"
+              onClick={() => {
+                goDoReviewPage();
+              }}
+              icon={<EditOutlined />}
+            >
+              审核信息
             </Button>
           </Space>,
         ]}
@@ -371,6 +360,19 @@ const CertificateList: React.FC = () => {
         }}
         columns={columns}
       />
+      {/*新建证书表单*/}
+      {createModalVisible && (
+        <CreateCertificateModal
+          onCancel={() => {
+            setCreateModalVisible(false);
+          }}
+          onSubmit={async () => {
+            setCreateModalVisible(false);
+            actionRef.current?.reload();
+          }}
+          visible={createModalVisible}
+        />
+      )}
       {/*更新表单的Modal框*/}
       {updateModalVisible && (
         <UpdateCertificateModal
@@ -384,6 +386,19 @@ const CertificateList: React.FC = () => {
           }}
           visible={updateModalVisible}
           oldData={currentRow}
+        />
+      )}
+      {/*上传用户信息的Modal框*/}
+      {uploadModalVisible && (
+        <UploadCertificateModal
+          onCancel={() => {
+            setUploadModalVisible(false);
+          }}
+          visible={uploadModalVisible}
+          onSubmit={async () => {
+            setUploadModalVisible(false);
+            actionRef.current?.reload();
+          }}
         />
       )}
     </>

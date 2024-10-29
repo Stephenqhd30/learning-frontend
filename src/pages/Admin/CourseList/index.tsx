@@ -229,7 +229,7 @@ const CourseList: React.FC = () => {
         toolBarRender={() => [
           <Space key={'space'} wrap size={'small'}>
             <Button key={'export'} type={'primary'} onClick={() => setCreateModalVisible(true)}>
-              <PlusOutlined /> 新建
+              <PlusOutlined /> 新建课程
             </Button>
             <Button
               key={'export-example'}

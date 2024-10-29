@@ -34,18 +34,17 @@ const handleAdd = async (fields: API.CertificateAddRequest) => {
       ...fields,
     });
     if (res.code === 0 && res.data) {
-      hide();
       message.success('添加成功');
       return true;
     } else {
-      hide();
-      message.error(`添加失败${res.message}`);
+      message.error(`添加失败${res.message}, 请重试!`);
       return false;
     }
   } catch (error: any) {
-    hide();
     message.error(`添加失败${error.message}, 请重试!`);
     return false;
+  } finally {
+    hide();
   }
 };
 
@@ -87,21 +86,16 @@ const CreateCertificateModal: React.FC<Props> = (props) => {
       title={'新建证书'}
       open={visible}
       form={form}
-      trigger={
-        <Button icon={<PlusOutlined />} type={'primary'}>
-          新建证书
-        </Button>
-      }
       onFinish={async (values: API.CertificateAddRequest) => {
         const success = await handleAdd({
           ...values,
           certificateUrl,
         });
         if (success) {
-          await onSubmit?.(values);
-          form.resetFields();
+          onSubmit?.(values);
         }
       }}
+      autoFocusFirstInput
       modalProps={{
         destroyOnClose: true,
         onCancel: () => {

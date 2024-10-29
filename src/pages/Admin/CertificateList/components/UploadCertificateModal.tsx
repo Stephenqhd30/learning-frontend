@@ -5,7 +5,7 @@ import { ModalForm, ProForm, ProFormUploadDragger } from '@ant-design/pro-compon
 import { importCertificateDataByExcelUsingPost } from '@/services/learning-backend/excelController';
 import { UploadOutlined } from '@ant-design/icons';
 
-interface CreateProps {
+interface Props {
   onCancel: () => void;
   onSubmit: () => Promise<void>;
   visible: boolean;
@@ -16,7 +16,7 @@ interface CreateProps {
  * @param props
  * @constructor
  */
-const UploadCertificateModal: React.FC<CreateProps> = (props) => {
+const UploadCertificateModal: React.FC<Props> = (props) => {
   const { visible, onSubmit, onCancel } = props;
   // 是否是提交状态
   const [submitting, setSubmitting] = useState<boolean>(false);
@@ -43,13 +43,12 @@ const UploadCertificateModal: React.FC<CreateProps> = (props) => {
             file: values.file[0].originFileObj,
           });
           if (res.code === 0 && res?.data?.errorRecords.length === 0) {
-            hide();
             message.success('证书信息导入成功');
-            await onSubmit?.();
+            onSubmit?.();
             return true;
           } else {
-            hide();
             message.error(`证书信息导入失败${res?.data?.errorRecords?.errorMessage}` + '请重试');
+            return false;
           }
         } catch (error: any) {
           message.error(`证书信息导入失败${error.message}` + '请重试');

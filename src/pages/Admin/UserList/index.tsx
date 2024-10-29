@@ -1,8 +1,4 @@
-import {
-  DownloadOutlined,
-  PlusOutlined,
-  UploadOutlined,
-} from '@ant-design/icons';
+import { DownloadOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import {ActionType, ProColumns, ProTable} from '@ant-design/pro-components';
 import '@umijs/max';
 import { Button, message, Popconfirm, Select, Space, Tag, Typography } from 'antd';
@@ -251,14 +247,15 @@ const UserList: React.FC = () => {
         toolBarRender={() => [
           <Space key={'space'} wrap>
             <Button
-              key="create"
-              type={'primary'}
+              icon={<PlusOutlined />}
               onClick={() => {
                 setCreateModalVisible(true);
               }}
+              type={'primary'}
             >
-              <PlusOutlined /> 新建
+              新建用户
             </Button>
+
             <Button
               key={'export-example'}
               onClick={async () => {
@@ -306,7 +303,6 @@ const UserList: React.FC = () => {
         }}
         columns={columns}
       />
-
       {/*新建表单的Modal框*/}
       {createModalVisible && (
         <CreateUserModal

@@ -27,12 +27,14 @@ const handleAdd = async (fields: API.CourseAddRequest) => {
       message.success('添加成功');
       return true;
     } else {
+      message.error(`添加失败${res.message}, 请重试!`);
       return false;
     }
   } catch (error: any) {
-    hide();
     message.error(`添加失败${error.message}, 请重试!`);
     return false;
+  } finally {
+    hide();
   }
 };
 
