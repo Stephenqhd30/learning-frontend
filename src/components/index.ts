@@ -13,7 +13,6 @@ import {
   UserDetailsCard,
   UserDetailsModal,
   UserInfoCard,
-  UserSelect,
 } from '@/components/ReUser';
 import { CertificateCard, CertificateDetailsModal } from '@/components/ReCertificate';
 import { ShareModal } from '@/components/ReCommon';
@@ -29,7 +28,6 @@ export {
   ShareModal,
   UserDetailsModal,
   CourseSelect,
-  UserSelect,
   UserInfoCard,
   CertificateDetailsModal,
   CertificateCard,

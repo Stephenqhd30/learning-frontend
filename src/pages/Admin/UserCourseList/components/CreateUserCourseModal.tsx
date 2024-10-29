@@ -1,9 +1,9 @@
-import { ProColumns, ProForm } from '@ant-design/pro-components';
+import { ProColumns, ProForm, ProFormDigit, ProFormText } from '@ant-design/pro-components';
 import '@umijs/max';
 import { message, Modal } from 'antd';
 import React from 'react';
 import { addUserCourseUsingPost } from '@/services/learning-backend/userCourseController';
-import { CourseSelect, UserSelect } from '@/components';
+import { CourseSelect } from '@/components';
 
 interface CreateProps {
   onCancel: () => void;
@@ -63,7 +63,8 @@ const CreateUserCourseModal: React.FC<CreateProps> = (props) => {
         }}
       >
         <CourseSelect name={'courseId'} label={'课程'} />
-        <UserSelect name={'userId'} label={'用户id'} />
+        <ProFormDigit name={'userName'} label={'姓名'} />
+        <ProFormText name={'userNumber'} label={'学号'} />
       </ProForm>
     </Modal>
   );

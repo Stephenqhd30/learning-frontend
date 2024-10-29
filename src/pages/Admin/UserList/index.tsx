@@ -1,7 +1,6 @@
 import {
   DownloadOutlined,
   PlusOutlined,
-  ShareAltOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
 import {ActionType, ProColumns, ProTable} from '@ant-design/pro-components';
@@ -10,8 +9,6 @@ import { Button, message, Popconfirm, Select, Space, Tag, Typography } from 'ant
 import React, { useRef, useState } from 'react';
 import {
   deleteUserUsingPost,
-  downloadUserExampleUsingGet,
-  downloadUserUsingGet,
   listUserByPageUsingPost,
 } from '@/services/learning-backend/userController';
 import { userRoleEnum } from '@/enums/UserRoleEnum';
@@ -21,8 +18,11 @@ import {
   UpdateUserModal,
   UploadUserModal,
 } from '@/pages/Admin/UserList/components';
-import { ShareModal } from '@/components';
-import {USER_EXAMPLE_EXCEL, USER_EXCEL} from '@/constants';
+import { USER_EXAMPLE_EXCEL, USER_EXCEL } from '@/constants';
+import {
+  downloadUserExampleUsingGet,
+  downloadUserUsingGet,
+} from '@/services/learning-backend/excelController';
 
 
 /**
@@ -56,8 +56,6 @@ const UserList: React.FC = () => {
   const [updateModalVisible, setUpdateModalVisible] = useState<boolean>(false);
   // 上传窗口的Modal框
   const [uploadModalVisible, setUploadModalVisible] = useState<boolean>(false);
-  // 分享窗口的Modal框
-  const [shareModalVisible, setShareModalVisible] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   // 当前用户的所点击的数据
   const [currentRow, setCurrentRow] = useState<API.User>();
@@ -288,15 +286,6 @@ const UserList: React.FC = () => {
               <DownloadOutlined />
               导出用户信息
             </Button>
-            <Button
-              key={'share'}
-              onClick={() => {
-                setShareModalVisible(true);
-              }}
-            >
-              <ShareAltOutlined />
-              分享
-            </Button>
           </Space>,
         ]}
         request={async (params, sort, filter) => {
@@ -356,16 +345,6 @@ const UserList: React.FC = () => {
           onSubmit={async () => {
             setUploadModalVisible(false);
             actionRef.current?.reload();
-          }}
-        />
-      )}
-      {shareModalVisible && (
-        <ShareModal
-          visible={shareModalVisible}
-          title={'分享用户管理'}
-          link={'https://ant-design.antgroup.com/components/icon-cn'}
-          onCancel={() => {
-            setShareModalVisible(false);
           }}
         />
       )}

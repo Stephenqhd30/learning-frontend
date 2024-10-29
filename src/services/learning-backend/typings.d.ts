@@ -669,7 +669,8 @@ declare namespace API {
 
   type UserCourseAddRequest = {
     courseId?: number;
-    userId?: number;
+    userName?: string;
+    userNumber?: string;
   };
 
   type UserCourseQueryRequest = {

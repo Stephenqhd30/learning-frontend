@@ -3,7 +3,6 @@ import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import { Button, message, Popconfirm, Space, Typography } from 'antd';
 import {
   deleteUserCourseUsingPost,
-  downloadUserCourseUsingGet,
   listUserCourseVoByPageUsingPost,
 } from '@/services/learning-backend/userCourseController';
 import { UserDetailsModal } from '@/components';
@@ -12,6 +11,7 @@ import moment from 'moment';
 import { DownloadOutlined, PlusOutlined } from '@ant-design/icons';
 import CreateUserCourseModal from '@/pages/Admin/UserCourseList/components/CreateUserCourseModal';
 import { USER_COURSE_EXCEL } from '@/constants';
+import { downloadUserCourseUsingGet } from '@/services/learning-backend/excelController';
 
 /**
  * 删除节点
@@ -28,6 +28,9 @@ const handleDelete = async (row: API.DeleteRequest) => {
     if (res.code === 0 && res.data) {
       hide();
       message.success('删除成功');
+    } else {
+      hide();
+      message.error(`删除失败,${res.message} 请重试!`);
     }
   } catch (error: any) {
     hide();

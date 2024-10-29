@@ -3,12 +3,10 @@ import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import { Button, message, Select, Space, Typography } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
 import { UserGender, userGenderEnum } from '@/enums/UserGenderEnum';
-import {
-  downloadLogPrintCertificateUsingGet,
-  listLogPrintCertificateVoByPageUsingPost
-} from '@/services/learning-backend/logPrintCertificateController';
+import { listLogPrintCertificateVoByPageUsingPost } from '@/services/learning-backend/logPrintCertificateController';
 import { LOG_PRINT_CERTIFICATE_EXCEL } from '@/constants';
-import {CertificateDetailsModal, UserInfoCard} from '@/components';
+import { CertificateDetailsModal, UserInfoCard } from '@/components';
+import { downloadLogPrintCertificateUsingGet } from '@/services/learning-backend/excelController';
 
 /**
  * 打印证书日志表

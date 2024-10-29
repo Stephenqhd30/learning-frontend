@@ -5,19 +5,21 @@ import { Button, message, Popconfirm, Select, Space, Typography } from 'antd';
 import React, {useRef, useState} from 'react';
 import {
   deleteCertificateUsingPost,
-  downloadCertificateExampleUsingGet,
-  downloadCertificateUsingGet,
   listCertificateVoByPageUsingPost,
 } from '@/services/learning-backend/certificateController';
-import { certificateSituationEnum, CertificateSituation } from '@/enums/CertificateSituationEnum';
-import { certificateTypeEnum, CertificateType } from '@/enums/CertificateTypeEnum';
+import { CertificateSituation, certificateSituationEnum } from '@/enums/CertificateSituationEnum';
+import { CertificateType, certificateTypeEnum } from '@/enums/CertificateTypeEnum';
 import {
   CreateCertificateModal,
   UpdateCertificateModal,
   UploadCertificateModal,
 } from '@/pages/Admin/CertificateList/components';
-import { reviewStatusEnum, ReviewStatus } from '@/enums/ReviewStatusEnum';
-import {CERTIFICATE_EXAMPLE_EXCEL, CERTIFICATE_EXCEL} from '@/constants';
+import { ReviewStatus, reviewStatusEnum } from '@/enums/ReviewStatusEnum';
+import { CERTIFICATE_EXAMPLE_EXCEL, CERTIFICATE_EXCEL } from '@/constants';
+import {
+  downloadCertificateExampleUsingGet,
+  downloadCertificateUsingGet,
+} from '@/services/learning-backend/excelController';
 
 
 /**

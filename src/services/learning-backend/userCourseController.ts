@@ -32,14 +32,6 @@ export async function deleteUserCourseUsingPost(
   });
 }
 
-/** downloadUserCourse GET /api/userCourse/download */
-export async function downloadUserCourseUsingGet(options?: { [key: string]: any }) {
-  return request<any>('/api/userCourse/download', {
-    method: 'GET',
-    ...(options || {}),
-  });
-}
-
 /** getUserCourseVOById GET /api/userCourse/get/vo */
 export async function getUserCourseVoByIdUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

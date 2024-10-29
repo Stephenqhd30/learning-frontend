@@ -2,7 +2,7 @@ import '@umijs/max';
 import { message, Modal } from 'antd';
 import React, { useState } from 'react';
 import { ProForm, ProFormUploadDragger } from '@ant-design/pro-components';
-import {importCourseDataByExcelUsingPost} from '@/services/learning-backend/courseController';
+import { importCourseDataByExcelUsingPost } from '@/services/learning-backend/excelController';
 
 interface Props {
   onCancel: () => void;

@@ -4,12 +4,14 @@ import { Button, message, Popconfirm, Space, Typography } from 'antd';
 import { DownloadOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import {
   deleteCourseUsingPost,
-  downloadCourseExampleUsingGet,
-  downloadCourseUsingGet,
   listCourseVoByPageUsingPost,
 } from '@/services/learning-backend/courseController';
 import { CreateCourseModal, UpdateCourseModal, UploadCourseModal } from './components';
-import {COURSE_EXCEL} from '@/constants';
+import { COURSE_EXCEL } from '@/constants';
+import {
+  downloadCourseExampleUsingGet,
+  downloadCourseUsingGet,
+} from '@/services/learning-backend/excelController';
 
 /**
  * 删除节点
