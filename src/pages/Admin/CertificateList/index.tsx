@@ -1,4 +1,4 @@
-import { DownloadOutlined, EditOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import { DownloadOutlined, EditOutlined } from '@ant-design/icons';
 import {ActionType, ProColumns, ProTable} from '@ant-design/pro-components';
 import '@umijs/max';
 import { Button, message, Popconfirm, Select, Space, Typography } from 'antd';
@@ -303,15 +303,17 @@ const CertificateList: React.FC = () => {
         }}
         toolBarRender={() => [
           <Space key={'space'} wrap size={'small'}>
-            <Button
-              key="create"
-              type={'primary'}
-              onClick={() => {
-                setCreateModalVisible(true);
+            {/*新建证书表单*/}
+            <CreateCertificateModal
+              onCancel={() => {
+                setCreateModalVisible(false);
               }}
-            >
-              <PlusOutlined /> 新建
-            </Button>
+              onSubmit={async () => {
+                setCreateModalVisible(false);
+                actionRef.current?.reload();
+              }}
+              visible={createModalVisible}
+            />
             <Button
               key="text"
               onClick={() => {
@@ -329,15 +331,17 @@ const CertificateList: React.FC = () => {
               <DownloadOutlined />
               下载导入证书示例数据
             </Button>
-            <Button
-              key={'upload'}
-              onClick={() => {
-                setUploadModalVisible(true);
+            {/*上传用户信息的Modal框*/}
+            <UploadCertificateModal
+              onCancel={() => {
+                setUploadModalVisible(false);
               }}
-            >
-              <UploadOutlined />
-              批量导入证书信息
-            </Button>
+              visible={uploadModalVisible}
+              onSubmit={async () => {
+                setUploadModalVisible(false);
+                actionRef.current?.reload();
+              }}
+            />
             <Button
               key={'export'}
               onClick={async () => {
@@ -367,20 +371,6 @@ const CertificateList: React.FC = () => {
         }}
         columns={columns}
       />
-
-      {/*新建表单的Modal框*/}
-      {createModalVisible && (
-        <CreateCertificateModal
-          onCancel={() => {
-            setCreateModalVisible(false);
-          }}
-          onSubmit={async () => {
-            setCreateModalVisible(false);
-            actionRef.current?.reload();
-          }}
-          visible={createModalVisible}
-        />
-      )}
       {/*更新表单的Modal框*/}
       {updateModalVisible && (
         <UpdateCertificateModal
@@ -394,19 +384,6 @@ const CertificateList: React.FC = () => {
           }}
           visible={updateModalVisible}
           oldData={currentRow}
-        />
-      )}
-      {/*上传用户信息的Modal框*/}
-      {uploadModalVisible && (
-        <UploadCertificateModal
-          onCancel={() => {
-            setUploadModalVisible(false);
-          }}
-          visible={uploadModalVisible}
-          onSubmit={async () => {
-            setUploadModalVisible(false);
-            actionRef.current?.reload();
-          }}
         />
       )}
     </>

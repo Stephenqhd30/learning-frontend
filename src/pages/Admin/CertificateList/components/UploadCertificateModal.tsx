@@ -1,8 +1,9 @@
 import '@umijs/max';
-import { message, Modal } from 'antd';
+import { Button, message } from 'antd';
 import React, { useState } from 'react';
-import { ProForm, ProFormUploadDragger } from '@ant-design/pro-components';
+import { ModalForm, ProForm, ProFormUploadDragger } from '@ant-design/pro-components';
 import { importCertificateDataByExcelUsingPost } from '@/services/learning-backend/excelController';
+import { UploadOutlined } from '@ant-design/icons';
 
 interface CreateProps {
   onCancel: () => void;
@@ -19,66 +20,69 @@ const UploadCertificateModal: React.FC<CreateProps> = (props) => {
   const { visible, onSubmit, onCancel } = props;
   // 是否是提交状态
   const [submitting, setSubmitting] = useState<boolean>(false);
+  const [form] = ProForm.useForm();
 
-  /**
-   * 表单提交
-   * @param values
-   */
-  const onFinish = async (values: any) => {
-    // 避免重复提交
-    if (submitting) return;
-    setSubmitting(true);
-    const hide = message.loading("正在导入证书信息，请稍候...")
-    try {
-      const res = await importCertificateDataByExcelUsingPost({
-        file: values.file[0].originFileObj,
-      });
-      if (res.code === 0 && res?.data?.errorRecords.length === 0) {
-        hide();
-        message.success('证书信息导入成功');
-        return true;
-      } else {
-        hide();
-        message.error(`证书信息导入失败${res?.data?.errorRecords?.errorMessage}` + '请重试');
-      }
-    } catch (error: any) {
-      message.error(`证书信息导入失败${error.message}` + '请重试');
-      return false;
-    } finally {
-      hide();
-      setSubmitting(false);
-    }
-  };
 
   return (
-    <Modal
-      destroyOnClose
+    <ModalForm
       title={'批量导入证书信息'}
-      onCancel={() => onCancel?.()}
       open={visible}
-      footer
+      form={form}
+      trigger={
+        <Button icon={<UploadOutlined />}>
+          批量导入证书信息
+        </Button>
+      }
+      onFinish={async (values: any) => {
+        // 避免重复提交
+        if (submitting) return;
+        setSubmitting(true);
+        const hide = message.loading("正在导入证书信息，请稍候...")
+        try {
+          const res = await importCertificateDataByExcelUsingPost({
+            file: values.file[0].originFileObj,
+          });
+          if (res.code === 0 && res?.data?.errorRecords.length === 0) {
+            hide();
+            message.success('证书信息导入成功');
+            await onSubmit?.();
+            return true;
+          } else {
+            hide();
+            message.error(`证书信息导入失败${res?.data?.errorRecords?.errorMessage}` + '请重试');
+          }
+        } catch (error: any) {
+          message.error(`证书信息导入失败${error.message}` + '请重试');
+          return false;
+        } finally {
+          hide();
+          setSubmitting(false);
+        }
+      }}
+      modalProps={{
+        destroyOnClose: true,
+        onCancel: () => {
+          onCancel?.();
+        },
+      }}
+      submitter={{
+        searchConfig: {
+          submitText: '上传',
+          resetText: '取消',
+        },
+      }}
     >
-      <ProForm
-        onFinish={async (values) => {
-          const success = await onFinish(values);
-          if (success) {
-            onSubmit?.();
+      <ProFormUploadDragger
+        onChange={async (info) => {
+          const { status } = info.file;
+          if (status === 'error') {
+            message.error(`${info.file.name} 文件上传失败`);
           }
         }}
-      >
-        <ProFormUploadDragger
-          onChange={async (info) => {
-            const { status } = info.file;
-            if (status === 'error') {
-              message.error(`${info.file.name} 文件上传失败`);
-            }
-          }}
-          name={'file'}
-          label="拖拽上传"
-          max={1}
-        />
-      </ProForm>
-    </Modal>
+        name={'file'}
+        max={1}
+      />
+    </ModalForm>
   );
 };
 

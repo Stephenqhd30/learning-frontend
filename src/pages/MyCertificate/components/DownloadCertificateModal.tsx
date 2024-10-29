@@ -1,12 +1,11 @@
-import { Button, Image, message, Modal, Space } from 'antd';
-import { ProCard } from '@ant-design/pro-components';
+import { Image, message } from 'antd';
+import { ModalForm, ProCard } from '@ant-design/pro-components';
 import React from 'react';
-import { DownloadOutlined } from '@ant-design/icons';
 
 interface Props {
   visible: boolean;
   onCancel?: () => void;
-  certificateInfo: API.Certificate;
+  certificateInfo: API.CertificateVO;
   onSubmit: () => Promise<void>;
 }
 
@@ -36,31 +35,29 @@ const DownloadCertificateModal: React.FC<Props> = (props) => {
   };
 
   return (
-    <Modal
-      destroyOnClose
+    <ModalForm
       title={'查看下载证书'}
-      onCancel={() => onCancel?.()}
       open={visible}
-      width={900}
-      footer
+      onFinish={async () => {
+        await handDownload();
+        onSubmit?.();
+        return true;
+      }}
+      modalProps={{
+        destroyOnClose: true,
+        onCancel: () => onCancel?.(),
+      }}
+      submitter={{
+        searchConfig: {
+          submitText: '下载证书',
+          resetText: '取消',
+        },
+      }}
     >
       <ProCard>
-        <Space direction="vertical" size="middle">
-          <Image preview={false} src={certificateInfo.certificateUrl} />
-          <Button
-            type="primary"
-            icon={<DownloadOutlined />}
-            target={'_blank'}
-            onClick={async () => {
-              await handDownload();
-              onSubmit?.();
-            }}
-          >
-            下载证书
-          </Button>
-        </Space>
+        <Image preview={false} src={certificateInfo.certificateUrl} />
       </ProCard>
-    </Modal>
+    </ModalForm>
   );
 };
 

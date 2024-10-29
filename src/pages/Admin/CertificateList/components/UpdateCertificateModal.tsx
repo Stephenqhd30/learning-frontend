@@ -1,16 +1,19 @@
 import {
-  ProForm, ProFormDatePicker,
+  ModalForm,
+  ProForm,
+  ProFormDatePicker,
   ProFormSelect,
   ProFormText,
-  ProFormUploadDragger
+  ProFormUploadDragger,
 } from '@ant-design/pro-components';
 import '@umijs/max';
-import { message, Modal, Select, UploadProps } from 'antd';
+import { Button, message, Select, UploadProps } from 'antd';
 import React, { useState } from 'react';
 import { updateCertificateUsingPost } from '@/services/learning-backend/certificateController';
 import { CertificateSituation, certificateSituationEnum } from '@/enums/CertificateSituationEnum';
 import { CertificateType, certificateTypeEnum } from '@/enums/CertificateTypeEnum';
 import { uploadFileUsingPost } from '@/services/learning-backend/fileController';
+import { UploadOutlined } from '@ant-design/icons';
 
 interface UpdateProps {
   oldData?: API.Certificate;
@@ -50,9 +53,9 @@ const handleUpdate = async (fields: API.CertificateUpdateRequest) => {
  */
 const UpdateCertificateModal: React.FC<UpdateProps> = (props) => {
   const { oldData, visible, onSubmit, onCancel } = props;
-
+  const [form] = ProForm.useForm();
   // 证书
-  const [certificateUrl, setCertificateUrl] = useState<string>(oldData?.certificateUrl as string);
+  const [certificateUrl, setCertificateUrl] = useState<any>(oldData?.certificateUrl);
   /**
    * 证书更新
    */
@@ -73,14 +76,14 @@ const UpdateCertificateModal: React.FC<UpdateProps> = (props) => {
           file,
         );
         onSuccess(res.data);
-        setCertificateUrl(res.data as string);
+        setCertificateUrl(res.data);
       } catch (error: any) {
         onError(error);
         message.error('文件上传失败', error.message);
       }
     },
     onRemove() {
-      setCertificateUrl('');
+      setCertificateUrl(undefined);
     },
   };
 
@@ -89,64 +92,71 @@ const UpdateCertificateModal: React.FC<UpdateProps> = (props) => {
   }
 
   return (
-    <Modal
-      destroyOnClose
+    <ModalForm
       title={'更新证书信息'}
-      onCancel={() => onCancel?.()}
       open={visible}
-      footer
+      form={form}
+      initialValues={oldData}
+      onFinish={async (values: API.CertificateUpdateRequest) => {
+        const success = await handleUpdate({
+          ...values,
+          certificateUrl,
+          id: oldData?.id,
+        });
+        if (success) {
+          await onSubmit?.(values);
+        }
+      }}
+      modalProps={{
+        destroyOnClose: true,
+        onCancel: () => {
+          onCancel?.();
+        },
+      }}
+      submitter={{
+        searchConfig: {
+          submitText: '更新证书信息',
+          resetText: '取消',
+        },
+      }}
     >
-      <ProForm<API.CertificateUpdateRequest>
-        onFinish={async (values: API.CertificateUpdateRequest) => {
-          const success = await handleUpdate({
-            ...values,
-            certificateUrl: certificateUrl,
-            id: oldData?.id,
-          });
-          if (success) {
-            onSubmit?.(values);
-          }
-        }}
-        initialValues={oldData}
+      <ProFormText name={'certificateName'} label={'证书名称'} />
+      <ProFormText name={'gainUserId'} label={'获得者Id'} />
+      <ProFormDatePicker.Year name={'certificateYear'} label={'证书获得年份'} />
+      <ProFormSelect
+        name={'certificateSituation'}
+        label={'证书获得情况'}
+        valueEnum={certificateSituationEnum}
       >
-        <ProFormText name={'certificateName'} label={'证书名称'} />
-        <ProFormText name={'gainUserId'} label={'获得者Id'} />
-        <ProFormDatePicker.Year name={'certificateYear'} label={'证书获得年份'} />
-        <ProFormSelect
-          name={'certificateSituation'}
-          label={'证书获得情况'}
-          valueEnum={certificateSituationEnum}
-        >
-          <Select>
-            <Select.Option value={CertificateSituation.HAVE}>
-              {certificateSituationEnum[CertificateSituation.HAVE].text}
-            </Select.Option>
-            <Select.Option value={CertificateSituation.NO}>
-              {certificateSituationEnum[CertificateSituation.NO].text}
-            </Select.Option>
-          </Select>
-        </ProFormSelect>
-        <ProFormSelect name={'certificateType'} label={'证书类型'} valueEnum={certificateTypeEnum}>
-          <Select>
-            <Select.Option value={CertificateType.CADRE_TRAINING}>
-              {certificateTypeEnum[CertificateType.CADRE_TRAINING].text}
-            </Select.Option>
-            <Select.Option value={CertificateType.OTHERS}>
-              {certificateTypeEnum[CertificateType.OTHERS].text}
-            </Select.Option>
-          </Select>
-        </ProFormSelect>
-        <ProFormUploadDragger
-          title={'上传证书'}
-          label={'证书'}
-          max={1}
-          fieldProps={{
-            ...uploadProps,
-          }}
-          name="pic"
-        />
-      </ProForm>
-    </Modal>
+        <Select>
+          <Select.Option value={CertificateSituation.HAVE}>
+            {certificateSituationEnum[CertificateSituation.HAVE].text}
+          </Select.Option>
+          <Select.Option value={CertificateSituation.NO}>
+            {certificateSituationEnum[CertificateSituation.NO].text}
+          </Select.Option>
+        </Select>
+      </ProFormSelect>
+      <ProFormSelect name={'certificateType'} label={'证书类型'} valueEnum={certificateTypeEnum}>
+        <Select>
+          <Select.Option value={CertificateType.CADRE_TRAINING}>
+            {certificateTypeEnum[CertificateType.CADRE_TRAINING].text}
+          </Select.Option>
+          <Select.Option value={CertificateType.OTHERS}>
+            {certificateTypeEnum[CertificateType.OTHERS].text}
+          </Select.Option>
+        </Select>
+      </ProFormSelect>
+      <ProFormUploadDragger
+        title={'上传证书'}
+        label={'证书'}
+        max={1}
+        fieldProps={{
+          ...uploadProps,
+        }}
+        name="pic"
+      />
+    </ModalForm>
   );
 };
 export default UpdateCertificateModal;

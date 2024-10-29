@@ -1,11 +1,11 @@
-import { ProColumns, ProForm, ProFormDigit, ProFormText } from '@ant-design/pro-components';
+import { ProColumns, ProForm, ProFormText } from '@ant-design/pro-components';
 import '@umijs/max';
 import { message, Modal } from 'antd';
 import React from 'react';
 import { addUserCourseUsingPost } from '@/services/learning-backend/userCourseController';
 import { CourseSelect } from '@/components';
 
-interface CreateProps {
+interface Props {
   onCancel: () => void;
   onSubmit: (values: API.UserCourseAddRequest) => Promise<void>;
   visible: boolean;
@@ -44,7 +44,7 @@ const handleAdd = async (fields: API.UserCourseAddRequest) => {
  * @param props
  * @constructor
  */
-const CreateUserCourseModal: React.FC<CreateProps> = (props) => {
+const CreateUserCourseModal: React.FC<Props> = (props) => {
   const { visible, onSubmit, onCancel } = props;
   return (
     <Modal
@@ -63,7 +63,7 @@ const CreateUserCourseModal: React.FC<CreateProps> = (props) => {
         }}
       >
         <CourseSelect name={'courseId'} label={'课程'} />
-        <ProFormDigit name={'userName'} label={'姓名'} />
+        <ProFormText name={'userName'} label={'姓名'} />
         <ProFormText name={'userNumber'} label={'学号'} />
       </ProForm>
     </Modal>

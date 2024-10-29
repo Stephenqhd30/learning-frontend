@@ -175,7 +175,8 @@ declare namespace API {
     certificateType?: number;
     certificateUrl?: string;
     certificateYear?: string;
-    gainUserId?: number;
+    userName?: string;
+    userNumber?: string;
   };
 
   type CertificateForUserVO = {
