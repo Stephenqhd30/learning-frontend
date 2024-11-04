@@ -7,13 +7,12 @@ import {
   ProFormUploadDragger,
 } from '@ant-design/pro-components';
 import '@umijs/max';
-import { Button, message, Select, UploadProps } from 'antd';
+import { message, Select, UploadProps } from 'antd';
 import React, { useState } from 'react';
 import { addUserUsingPost } from '@/services/learning-backend/userController';
 import { uploadFileUsingPost } from '@/services/learning-backend/fileController';
 import { UserRole, userRoleEnum } from '@/enums/UserRoleEnum';
 import { UserGender, userGenderEnum } from '@/enums/UserGenderEnum';
-import { PlusOutlined } from '@ant-design/icons';
 import { FileUploadBiz } from '@/enums/FileUploadBizEnum';
 
 interface Props {

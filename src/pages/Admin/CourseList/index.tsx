@@ -151,6 +151,7 @@ const CourseList: React.FC = () => {
       valueType: 'date',
       hideInSearch: true,
       hideInForm: true,
+      hideInTable: true,
     },
     {
       title: '更新时间',
@@ -158,6 +159,7 @@ const CourseList: React.FC = () => {
       valueType: 'date',
       hideInSearch: true,
       hideInForm: true,
+      hideInTable: true,
     },
     {
       title: '操作',

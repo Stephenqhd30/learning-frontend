@@ -1,8 +1,7 @@
 import '@umijs/max';
-import { Button, message } from 'antd';
+import { message } from 'antd';
 import React, { useState } from 'react';
 import { ModalForm, ProForm, ProFormUploadDragger } from '@ant-design/pro-components';
-import { UploadOutlined } from '@ant-design/icons';
 import { importUserDataByExcelUsingPost } from '@/services/learning-backend/excelController';
 
 interface Props {

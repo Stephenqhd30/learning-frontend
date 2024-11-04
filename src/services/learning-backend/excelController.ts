@@ -130,6 +130,42 @@ export async function downloadUserCourseUsingGet(options?: { [key: string]: any 
   });
 }
 
+/** importUserCourseDataByExcel POST /api/excel/user/course/import */
+export async function importUserCourseDataByExcelUsingPost(
+  body: {},
+  file?: File,
+  options?: { [key: string]: any },
+) {
+  const formData = new FormData();
+
+  if (file) {
+    formData.append('file', file);
+  }
+
+  Object.keys(body).forEach((ele) => {
+    const item = (body as any)[ele];
+
+    if (item !== undefined && item !== null) {
+      if (typeof item === 'object' && !(item instanceof File)) {
+        if (item instanceof Array) {
+          item.forEach((f) => formData.append(ele, f || ''));
+        } else {
+          formData.append(ele, JSON.stringify(item));
+        }
+      } else {
+        formData.append(ele, item);
+      }
+    }
+  });
+
+  return request<API.BaseResponseMapStringObject_>('/api/excel/user/course/import', {
+    method: 'POST',
+    data: formData,
+    requestType: 'form',
+    ...(options || {}),
+  });
+}
+
 /** downloadUser GET /api/excel/user/download */
 export async function downloadUserUsingGet(options?: { [key: string]: any }) {
   return request<any>('/api/excel/user/download', {

@@ -664,6 +664,7 @@ declare namespace API {
   type UserCourse = {
     courseId?: number;
     createTime?: string;
+    createUserId?: number;
     id?: number;
     userId?: number;
   };
@@ -676,6 +677,7 @@ declare namespace API {
 
   type UserCourseQueryRequest = {
     courseId?: number;
+    createUserId?: number;
     current?: number;
     id?: number;
     notId?: number;
@@ -689,6 +691,7 @@ declare namespace API {
     courseId?: number;
     courseVO?: CourseVO;
     createTime?: string;
+    createUserId?: number;
     id?: number;
     userId?: number;
     userVO?: UserVO;

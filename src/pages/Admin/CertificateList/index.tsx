@@ -241,6 +241,7 @@ const CertificateList: React.FC = () => {
       valueType: 'dateTime',
       hideInSearch: true,
       hideInForm: true,
+      hideInTable: true,
     },
     {
       title: '更新时间',
