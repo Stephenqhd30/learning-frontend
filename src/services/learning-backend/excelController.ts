@@ -114,6 +114,14 @@ export async function downloadLogPrintCertificateUsingGet(options?: { [key: stri
   });
 }
 
+/** downloadUserCourseExample GET /api/excel/uer/course/download/example */
+export async function downloadUserCourseExampleUsingGet(options?: { [key: string]: any }) {
+  return request<any>('/api/excel/uer/course/download/example', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
 /** downloadUserCertificate GET /api/excel/user/certificate/download */
 export async function downloadUserCertificateUsingGet(options?: { [key: string]: any }) {
   return request<any>('/api/excel/user/certificate/download', {

@@ -29,12 +29,12 @@ importers:
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
+      dayjs:
+        specifier: ^1.11.13
+        version: 1.11.13
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
-      moment:
-        specifier: ^2.30.1
-        version: 2.30.1
       omit.js:
         specifier: ^2.0.2
         version: 2.0.2
@@ -13526,7 +13526,7 @@ snapshots:
       '@types/history': 4.7.11
       '@types/react': 18.3.11
       '@types/react-router': 5.1.20
-      redux: 3.7.2
+      redux: 4.2.1
 
   '@types/react-router@5.1.20':
     dependencies:

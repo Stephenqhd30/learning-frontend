@@ -58,7 +58,7 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
         return;
       }
       if (key === 'my_certificate') {
-        history.push(`/myCertificate`);
+        history.push(`/my/certificate`);
         return;
       }
       history.push(`/account/${key}`);

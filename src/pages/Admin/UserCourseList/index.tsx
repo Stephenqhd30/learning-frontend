@@ -6,12 +6,15 @@ import {
   listUserCourseVoByPageUsingPost,
 } from '@/services/learning-backend/userCourseController';
 import { UserDetailsModal } from '@/components';
-import { CourseDetailsModal } from '@/pages/Admin/UserCourseList/components';
-import moment from 'moment';
-import { DownloadOutlined, PlusOutlined } from '@ant-design/icons';
+import { CourseDetailsModal, UploadUserCourseModal } from '@/pages/Admin/UserCourseList/components';
+import { DownloadOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import CreateUserCourseModal from '@/pages/Admin/UserCourseList/components/CreateUserCourseModal';
-import { USER_COURSE_EXCEL } from '@/constants';
-import { downloadUserCourseUsingGet } from '@/services/learning-backend/excelController';
+import {
+  downloadUserCourseExampleUsingGet,
+  downloadUserCourseUsingGet
+} from '@/services/learning-backend/excelController';
+import { USER_COURSE_EXAMPLE_EXCEL, USER_COURSE_EXCEL } from '@/constants';
+import dayjs from 'dayjs';
 
 /**
  * 删除节点
@@ -38,6 +41,58 @@ const handleDelete = async (row: API.DeleteRequest) => {
   }
 };
 
+/**
+ * 下载用户课程信息
+ */
+const downloadUserCourseInfo = async () => {
+  try {
+    const res = await downloadUserCourseUsingGet({
+      responseType: 'blob',
+    });
+
+    // 创建 Blob 对象
+    // @ts-ignore
+    const url = window.URL.createObjectURL(new Blob([res]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', USER_COURSE_EXCEL);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    // 释放对象 URL
+    window.URL.revokeObjectURL(url);
+  } catch (error: any) {
+    message.error('导出失败: ' + error.message);
+  }
+};
+
+/**
+ * 下载课程示例数据
+ */
+const downloadUserCourseExample = async () => {
+  try {
+    const res = await downloadUserCourseExampleUsingGet({
+      responseType: 'blob',
+    });
+
+    // 创建 Blob 对象
+    // @ts-ignore
+    const url = window.URL.createObjectURL(new Blob([res]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', USER_COURSE_EXAMPLE_EXCEL);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    // 释放对象 URL
+    window.URL.revokeObjectURL(url);
+  } catch (error: any) {
+    message.error('导出失败: ' + error.message);
+  }
+};
+
 
 /**
  * 用户课程列表
@@ -51,34 +106,11 @@ const UserCourseList: React.FC = () => {
   const [courseDetailsModal, setCourseDetailsModal] = useState<boolean>(false);
   // 新建窗口的Modal框
   const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
+  // 上传窗口 Modal 框
+  const [uploadModalVisible, setUploadModalVisible] = useState<boolean>(false);
   // 当前行数据
   const [currentRow, setCurrentRow] = useState<API.UserCourseVO>({});
 
-  /**
-   * 下载用户证书信息
-   */
-  const downloadUserCourseInfo = async () => {
-    try {
-      const res = await downloadUserCourseUsingGet({
-        responseType: 'blob',
-      });
-
-      // 创建 Blob 对象
-      // @ts-ignore
-      const url = window.URL.createObjectURL(new Blob([res]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', USER_COURSE_EXCEL);
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-
-      // 释放对象 URL
-      window.URL.revokeObjectURL(url);
-    } catch (error: any) {
-      message.error('导出失败: ' + error.message);
-    }
-  };
 
   /**
    * 表格列数据
@@ -128,7 +160,7 @@ const UserCourseList: React.FC = () => {
       render: (_, record) => {
         return (
           <Typography.Text>
-            {moment(record?.courseVO?.acquisitionTime).format('YYYY-MM-DD')}
+            {dayjs(record?.courseVO?.acquisitionTime).format('YYYY-MM-DD')}
           </Typography.Text>
         );
       },
@@ -140,7 +172,7 @@ const UserCourseList: React.FC = () => {
       render: (_, record) => {
         return (
           <Typography.Text>
-            {moment(record?.courseVO?.finishTime).format('YYYY-MM-DD')}
+            {dayjs(record?.courseVO?.finishTime).format('YYYY-MM-DD')}
           </Typography.Text>
         );
       },
@@ -204,7 +236,7 @@ const UserCourseList: React.FC = () => {
   return (
     <>
       <ProTable<API.UserCourseVO, API.PageParams>
-        headerTitle={'证书审核'}
+        headerTitle={'课程审核'}
         rowKey={'id'}
         actionRef={actionRef}
         search={{
@@ -215,19 +247,39 @@ const UserCourseList: React.FC = () => {
             <Button
               key="create"
               type={'primary'}
+              icon={<PlusOutlined/>}
               onClick={() => {
                 setCreateModalVisible(true);
               }}
             >
-              <PlusOutlined /> 新建
+              新建
+            </Button>
+            <Button
+              icon={<DownloadOutlined/>}
+              key={'export-example'}
+              onClick={async () => {
+                await downloadUserCourseExample();
+              }}
+            >
+              下载导入课程示例数据
+            </Button>
+            <Button
+              key={'upload'}
+              icon={<UploadOutlined/>}
+              onClick={() => {
+                setUploadModalVisible(true);
+              }}
+            >
+
+              批量导入用户课程信息
             </Button>
             <Button
               key={'export'}
+              icon={<DownloadOutlined/>}
               onClick={async () => {
                 await downloadUserCourseInfo();
               }}
             >
-              <DownloadOutlined />
               导出用户课程信息
             </Button>
           </Space>
@@ -284,6 +336,19 @@ const UserCourseList: React.FC = () => {
             actionRef.current?.reload();
           }}
           visible={createModalVisible}
+        />
+      )}
+      {/*上传用户课程信息*/}
+      {uploadModalVisible && (
+        <UploadUserCourseModal
+          onCancel={() => {
+            setUploadModalVisible(false);
+          }}
+          visible={uploadModalVisible}
+          onSubmit={async () => {
+            setUploadModalVisible(false);
+            actionRef.current?.reload();
+          }}
         />
       )}
     </>

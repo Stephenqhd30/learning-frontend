@@ -26,14 +26,14 @@ const handleDelete = async (row: API.DeleteRequest) => {
       id: row.id,
     });
     if (res.code === 0 && res.data) {
-      hide();
       message.success('删除成功');
     } else {
       message.error(`删除失败, 请重试!`);
     }
   } catch (error: any) {
-    hide();
     message.error(`删除失败${error.message}, 请重试!`);
+  } finally {
+    hide();
   }
 };
 
@@ -230,34 +230,39 @@ const CourseList: React.FC = () => {
         }}
         toolBarRender={() => [
           <Space key={'space'} wrap size={'small'}>
-            <Button key={'export'} type={'primary'} onClick={() => setCreateModalVisible(true)}>
-              <PlusOutlined /> 新建课程
+            <Button
+              icon={<PlusOutlined />}
+              key={'export'}
+              type={'primary'}
+              onClick={() => setCreateModalVisible(true)}
+            >
+              新建课程
             </Button>
             <Button
+              icon={<DownloadOutlined />}
               key={'export-example'}
               onClick={async () => {
                 await downloadCourseExample();
               }}
             >
-              <DownloadOutlined />
               下载导入课程示例数据
             </Button>
             <Button
+              icon={<UploadOutlined />}
               key={'upload'}
               onClick={() => {
                 setUploadModalVisible(true);
               }}
             >
-              <UploadOutlined />
               批量导入课程信息
             </Button>
             <Button
+              icon={<DownloadOutlined />}
               key={'export'}
               onClick={async () => {
                 await downloadCourseInfo();
               }}
             >
-              <DownloadOutlined />
               导出课程信息
             </Button>
           </Space>,

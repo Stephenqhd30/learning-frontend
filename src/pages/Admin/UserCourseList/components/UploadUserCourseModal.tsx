@@ -1,9 +1,8 @@
 import '@umijs/max';
-import { Button, message } from 'antd';
+import { message } from 'antd';
 import React from 'react';
 import { ModalForm, ProForm, ProFormUploadDragger } from '@ant-design/pro-components';
-import { importCourseDataByExcelUsingPost } from '@/services/learning-backend/excelController';
-import { UploadOutlined } from '@ant-design/icons';
+import { importUserCourseDataByExcelUsingPost } from '@/services/learning-backend/excelController';
 
 interface Props {
   onCancel: () => void;
@@ -22,23 +21,23 @@ const UploadCourseModal: React.FC<Props> = (props) => {
 
   return (
     <ModalForm
-      title={'批量导入课程信息'}
+      title={'批量导入用户课程信息'}
       open={visible}
       form={form}
       onFinish={async (values: any) => {
-        const hide = message.loading("正在导入课程信息，请稍等...")
+        const hide = message.loading("正在导入用户课程信息，请稍等...")
         try {
-          const res = await importCourseDataByExcelUsingPost({
+          const res = await importUserCourseDataByExcelUsingPost({
             file: values.file[0].originFileObj,
           });
           if (res.code === 0 && res?.data?.errorRecords.length === 0) {
-            message.success('课程信息导入成功');
+            message.success('用户课程信息导入成功');
             onSubmit?.();
           } else {
-            message.error(`课程信息导入失败${res?.data?.errorRecords?.errorMessage}` + '请重试');
+            message.error(`用户课程信息导入失败${res?.data?.errorRecords?.errorMessage}` + '请重试');
           }
         } catch (error: any) {
-          message.error(`课程信息导入失败${error.message}` + '请重试');
+          message.error(`用户课程信息导入失败${error.message}` + '请重试');
         } finally {
           hide();
         }
