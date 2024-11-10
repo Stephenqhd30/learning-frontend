@@ -2,10 +2,10 @@ import React, {useRef, useState} from 'react';
 import {ActionType, ProColumns, ProTable} from '@ant-design/pro-components';
 import {Button, message, Space, Typography} from 'antd';
 import {DownloadOutlined} from '@ant-design/icons';
-import { listUserCertificateVoByPageUsingPost } from '@/services/learning-backend/userCertificateController';
-import { USER_CERTIFICATE_EXCEL } from '@/constants';
-import { CertificateDetailsModal, UserInfoCard } from '@/components';
-import { downloadUserCertificateUsingGet } from '@/services/learning-backend/excelController';
+import {listUserCertificateVoByPageUsingPost} from '@/services/learning-backend/userCertificateController';
+import {USER_CERTIFICATE_EXCEL} from '@/constants';
+import {CertificateDetailsModal, UserInfoCard} from '@/components';
+import {downloadUserCertificateUsingGet} from '@/services/learning-backend/excelController';
 
 /**
  * 用户证书列表

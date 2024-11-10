@@ -1,19 +1,19 @@
-import React, { useRef, useState } from 'react';
-import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
-import { Button, message, Popconfirm, Space, Typography } from 'antd';
+import React, {useRef, useState} from 'react';
+import {ActionType, ProColumns, ProTable} from '@ant-design/pro-components';
+import {Button, message, Popconfirm, Space, Typography} from 'antd';
 import {
   deleteUserCourseUsingPost,
-  listUserCourseVoByPageUsingPost,
+  listUserCourseVoByPageUsingPost
 } from '@/services/learning-backend/userCourseController';
-import { UserDetailsModal } from '@/components';
-import { CourseDetailsModal, UploadUserCourseModal } from '@/pages/Admin/UserCourseList/components';
-import { DownloadOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import {UserDetailsModal} from '@/components';
+import {CourseDetailsModal, UploadUserCourseModal} from '@/pages/Admin/UserCourseList/components';
+import {DownloadOutlined, PlusOutlined, UploadOutlined} from '@ant-design/icons';
 import CreateUserCourseModal from '@/pages/Admin/UserCourseList/components/CreateUserCourseModal';
 import {
   downloadUserCourseExampleUsingGet,
   downloadUserCourseUsingGet
 } from '@/services/learning-backend/excelController';
-import { USER_COURSE_EXAMPLE_EXCEL, USER_COURSE_EXCEL } from '@/constants';
+import {USER_COURSE_EXAMPLE_EXCEL, USER_COURSE_EXCEL} from '@/constants';
 import dayjs from 'dayjs';
 
 /**

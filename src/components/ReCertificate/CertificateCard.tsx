@@ -2,9 +2,9 @@ import '@umijs/max';
 import { Image } from 'antd';
 import React from 'react';
 import { IdcardOutlined, SmileOutlined, UserOutlined } from '@ant-design/icons';
-import {CertificateSituation} from '@/enums/CertificateSituationEnum';
-import {certificateTypeEnum} from '@/enums/CertificateTypeEnum';
-import {ProCard} from '@ant-design/pro-components';
+import { CertificateSituation } from '@/enums/CertificateSituationEnum';
+import { certificateTypeEnum } from '@/enums/CertificateTypeEnum';
+import { ProCard } from '@ant-design/pro-components';
 
 interface Props {
   certificate: API.CertificateVO;

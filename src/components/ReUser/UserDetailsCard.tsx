@@ -2,7 +2,7 @@ import '@umijs/max';
 import React from 'react';
 import { ProCard, ProDescriptions } from '@ant-design/pro-components';
 import { userRoleEnum } from '@/enums/UserRoleEnum';
-import {UserAvatarCard} from '@/components';
+import { UserAvatarCard } from '@/components';
 
 interface Props {
   user: API.User;

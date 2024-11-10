@@ -10,7 +10,7 @@ import {
 } from '@ant-design/pro-components';
 import { AntDesignOutlined } from '@ant-design/icons';
 import { uploadFileUsingPost } from '@/services/learning-backend/fileController';
-import {FileUploadBiz} from '@/enums/FileUploadBizEnum';
+import { FileUploadBiz } from '@/enums/FileUploadBizEnum';
 
 interface BaseViewProps {
   user: API.User;

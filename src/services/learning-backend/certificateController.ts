@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import {request} from '@umijs/max';
 
 /** addCertificate POST /api/certificate/add */
 export async function addCertificateUsingPost(

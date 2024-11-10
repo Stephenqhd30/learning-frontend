@@ -1,15 +1,12 @@
-import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
+import {ActionType, ProColumns, ProTable} from '@ant-design/pro-components';
 import '@umijs/max';
-import React, { useRef, useState } from 'react';
-import { listCertificateVoByPageUsingPost } from '@/services/learning-backend/certificateController';
-import { CertificateSituation, certificateSituationEnum } from '@/enums/CertificateSituationEnum';
-import { CertificateType, certificateTypeEnum } from '@/enums/CertificateTypeEnum';
-import { Button, Select, Space, Typography } from 'antd';
-import { UserDetailsModal } from '@/components';
-import {
-  BatchPrintCertificateModal,
-  PrintCertificateModal,
-} from '@/pages/CreateCertificate/components';
+import React, {useRef, useState} from 'react';
+import {listCertificateVoByPageUsingPost} from '@/services/learning-backend/certificateController';
+import {CertificateSituation, certificateSituationEnum} from '@/enums/CertificateSituationEnum';
+import {CertificateType, certificateTypeEnum} from '@/enums/CertificateTypeEnum';
+import {Button, Select, Space, Typography} from 'antd';
+import {UserDetailsModal} from '@/components';
+import {BatchPrintCertificateModal, PrintCertificateModal} from '@/pages/CreateCertificate/components';
 
 
 /**

@@ -1,8 +1,8 @@
-import {message, Select} from 'antd';
-import {ModalForm, ProForm, ProFormSelect, ProFormText, ProFormTextArea} from '@ant-design/pro-components';
+import { message, Select } from 'antd';
+import { ModalForm, ProForm, ProFormSelect, ProFormTextArea } from '@ant-design/pro-components';
 import React from 'react';
 import { doCertificateReviewUsingPost } from '@/services/learning-backend/userCertificateController';
-import {ReviewStatus, reviewStatusEnum} from '@/enums/ReviewStatusEnum';
+import { ReviewStatus, reviewStatusEnum } from '@/enums/ReviewStatusEnum';
 
 interface ReviewModalProps {
   visible: boolean;

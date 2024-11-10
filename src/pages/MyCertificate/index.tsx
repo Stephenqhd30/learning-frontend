@@ -1,12 +1,12 @@
-import { ActionType, PageContainer, ProColumns, ProTable } from '@ant-design/pro-components';
+import {ActionType, PageContainer, ProColumns, ProTable} from '@ant-design/pro-components';
 import '@umijs/max';
-import React, { useRef, useState } from 'react';
-import { listMyCertificateForUserVoByPageUsingPost } from '@/services/learning-backend/certificateController';
-import { MY_CERTIFICATE_TITLE } from '@/constants';
-import { CertificateSituation, certificateSituationEnum } from '@/enums/CertificateSituationEnum';
-import { message, Select, Space, Typography } from 'antd';
-import { ReviewStatus } from '@/enums/ReviewStatusEnum';
-import { CertificateType, certificateTypeEnum } from '@/enums/CertificateTypeEnum';
+import React, {useRef} from 'react';
+import {listMyCertificateForUserVoByPageUsingPost} from '@/services/learning-backend/certificateController';
+import {MY_CERTIFICATE_TITLE} from '@/constants';
+import {CertificateSituation, certificateSituationEnum} from '@/enums/CertificateSituationEnum';
+import {message, Select, Space, Typography} from 'antd';
+import {ReviewStatus} from '@/enums/ReviewStatusEnum';
+import {CertificateType, certificateTypeEnum} from '@/enums/CertificateTypeEnum';
 
 
 /**
@@ -15,8 +15,7 @@ import { CertificateType, certificateTypeEnum } from '@/enums/CertificateTypeEnu
  */
 const MyCertificateList: React.FC = () => {
   const actionRef = useRef<ActionType>();
-  // 当前行数据
-  const [currentRow, setCurrentRow] = useState<API.Certificate>({});
+
   /**
    * 下载证书信息
    */
@@ -104,7 +103,6 @@ const MyCertificateList: React.FC = () => {
           <Typography.Link
             key="update"
             onClick={async () => {
-              setCurrentRow(record)
               await handDownload(record?.certificateUrl as string);
             }}
           >

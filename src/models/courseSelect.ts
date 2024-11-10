@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { listCourseByPageUsingPost } from '@/services/learning-backend/courseController';
-import { message } from 'antd';
+import {useState} from 'react';
+import {listCourseByPageUsingPost} from '@/services/learning-backend/courseController';
+import {message} from 'antd';
 
 /**
  * 课程

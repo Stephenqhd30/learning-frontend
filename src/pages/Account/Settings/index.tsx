@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { ACCOUNT_TITLE } from '@/constants';
 import BaseView from '@/pages/Account/Settings/components/BaseView';
 import { Grid } from 'antd';
-import {useModel} from '@@/exports';
+import { useModel } from '@@/exports';
 
 const { useBreakpoint } = Grid;
 

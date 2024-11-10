@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import {request} from '@umijs/max';
 
 /** addLogPrintCertificate POST /api/logPrintCertificate/add */
 export async function addLogPrintCertificateUsingPost(

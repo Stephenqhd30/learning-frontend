@@ -1,24 +1,14 @@
-import { DownloadOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import {DownloadOutlined, PlusOutlined, UploadOutlined} from '@ant-design/icons';
 import {ActionType, ProColumns, ProTable} from '@ant-design/pro-components';
 import '@umijs/max';
-import { Button, message, Popconfirm, Select, Space, Tag, Typography } from 'antd';
-import React, { useRef, useState } from 'react';
-import {
-  deleteUserUsingPost,
-  listUserByPageUsingPost,
-} from '@/services/learning-backend/userController';
-import { userRoleEnum } from '@/enums/UserRoleEnum';
-import { UserGender, userGenderEnum } from '@/enums/UserGenderEnum';
-import {
-  CreateUserModal,
-  UpdateUserModal,
-  UploadUserModal,
-} from '@/pages/Admin/UserList/components';
-import { USER_EXAMPLE_EXCEL, USER_EXCEL } from '@/constants';
-import {
-  downloadUserExampleUsingGet,
-  downloadUserUsingGet,
-} from '@/services/learning-backend/excelController';
+import {Button, message, Popconfirm, Select, Space, Tag, Typography} from 'antd';
+import React, {useRef, useState} from 'react';
+import {deleteUserUsingPost, listUserByPageUsingPost} from '@/services/learning-backend/userController';
+import {userRoleEnum} from '@/enums/UserRoleEnum';
+import {UserGender, userGenderEnum} from '@/enums/UserGenderEnum';
+import {CreateUserModal, UpdateUserModal, UploadUserModal} from '@/pages/Admin/UserList/components';
+import {USER_EXAMPLE_EXCEL, USER_EXCEL} from '@/constants';
+import {downloadUserExampleUsingGet, downloadUserUsingGet} from '@/services/learning-backend/excelController';
 
 
 /**

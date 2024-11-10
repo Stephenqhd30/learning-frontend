@@ -1,17 +1,11 @@
-import React, { useRef, useState } from 'react';
-import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
-import { Button, message, Popconfirm, Space, Typography } from 'antd';
-import { DownloadOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
-import {
-  deleteCourseUsingPost,
-  listCourseVoByPageUsingPost,
-} from '@/services/learning-backend/courseController';
-import { CreateCourseModal, UpdateCourseModal, UploadCourseModal } from './components';
-import { COURSE_EXCEL } from '@/constants';
-import {
-  downloadCourseExampleUsingGet,
-  downloadCourseUsingGet,
-} from '@/services/learning-backend/excelController';
+import React, {useRef, useState} from 'react';
+import {ActionType, ProColumns, ProTable} from '@ant-design/pro-components';
+import {Button, message, Popconfirm, Space, Typography} from 'antd';
+import {DownloadOutlined, PlusOutlined, UploadOutlined} from '@ant-design/icons';
+import {deleteCourseUsingPost, listCourseVoByPageUsingPost} from '@/services/learning-backend/courseController';
+import {CreateCourseModal, UpdateCourseModal, UploadCourseModal} from './components';
+import {COURSE_EXCEL} from '@/constants';
+import {downloadCourseExampleUsingGet, downloadCourseUsingGet} from '@/services/learning-backend/excelController';
 
 /**
  * 删除节点

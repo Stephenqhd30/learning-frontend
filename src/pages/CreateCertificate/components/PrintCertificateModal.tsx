@@ -1,10 +1,5 @@
 import { message } from 'antd';
-import {
-  ModalForm,
-  ProForm,
-  ProFormDatePicker,
-  ProFormSelect,
-} from '@ant-design/pro-components';
+import { ModalForm, ProForm, ProFormDatePicker, ProFormSelect } from '@ant-design/pro-components';
 import React, { useEffect } from 'react';
 import { addLogPrintCertificateUsingPost } from '@/services/learning-backend/logPrintCertificateController';
 import { listUserCourseVoByPageUsingPost } from '@/services/learning-backend/userCourseController';

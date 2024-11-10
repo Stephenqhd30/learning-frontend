@@ -13,7 +13,7 @@ import { updateCertificateUsingPost } from '@/services/learning-backend/certific
 import { CertificateSituation, certificateSituationEnum } from '@/enums/CertificateSituationEnum';
 import { CertificateType, certificateTypeEnum } from '@/enums/CertificateTypeEnum';
 import { uploadFileUsingPost } from '@/services/learning-backend/fileController';
-import {FileUploadBiz} from '@/enums/FileUploadBizEnum';
+import { FileUploadBiz } from '@/enums/FileUploadBizEnum';
 
 interface UpdateProps {
   oldData?: API.Certificate;

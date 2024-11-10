@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react';
-import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
-import { Button, message, Space, Typography } from 'antd';
-import { DownloadOutlined } from '@ant-design/icons';
-import { listLogPrintCertificateVoByPageUsingPost } from '@/services/learning-backend/logPrintCertificateController';
-import { LOG_PRINT_CERTIFICATE_EXCEL } from '@/constants';
-import { CertificateDetailsModal, UserInfoCard } from '@/components';
-import { downloadLogPrintCertificateUsingGet } from '@/services/learning-backend/excelController';
+import React, {useRef, useState} from 'react';
+import {ActionType, ProColumns, ProTable} from '@ant-design/pro-components';
+import {Button, message, Space, Typography} from 'antd';
+import {DownloadOutlined} from '@ant-design/icons';
+import {listLogPrintCertificateVoByPageUsingPost} from '@/services/learning-backend/logPrintCertificateController';
+import {LOG_PRINT_CERTIFICATE_EXCEL} from '@/constants';
+import {CertificateDetailsModal, UserInfoCard} from '@/components';
+import {downloadLogPrintCertificateUsingGet} from '@/services/learning-backend/excelController';
 
 /**
  * 打印证书日志表

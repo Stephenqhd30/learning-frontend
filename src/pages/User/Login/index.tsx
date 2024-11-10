@@ -7,7 +7,7 @@ import { userLoginUsingPost } from '@/services/learning-backend/userController';
 import { LEARNING_SUBTITLE, LEARNING_TITLE } from '@/constants';
 import AccountLoginPage from '@/pages/User/Login/components/AccountLoginPage';
 
-const {useBreakpoint} = Grid;
+const { useBreakpoint } = Grid;
 /**
  * 登录信息页
  * @constructor

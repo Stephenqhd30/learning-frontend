@@ -1,7 +1,6 @@
 import React from 'react';
-import {Image, Modal, Typography} from 'antd';
-import {ProCard, ProDescriptions} from '@ant-design/pro-components';
-
+import { Image, Modal, Typography } from 'antd';
+import { ProCard, ProDescriptions } from '@ant-design/pro-components';
 
 interface CertificateDetailsProps {
   user: API.UserVO;

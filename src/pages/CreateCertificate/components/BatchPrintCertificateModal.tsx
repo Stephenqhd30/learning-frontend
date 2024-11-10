@@ -1,10 +1,7 @@
 import { message } from 'antd';
 import { ModalForm, ProColumns, ProForm, ProFormDatePicker } from '@ant-design/pro-components';
 import React from 'react';
-import {
-  addLogPrintCertificatesUsingPost,
-  addLogPrintCertificateUsingPost
-} from '@/services/learning-backend/logPrintCertificateController';
+import { addLogPrintCertificatesUsingPost } from '@/services/learning-backend/logPrintCertificateController';
 import { CourseSelect } from '@/components';
 
 interface ReviewModalProps {

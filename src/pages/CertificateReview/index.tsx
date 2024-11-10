@@ -63,7 +63,7 @@ const CertificateReview: React.FC = () => {
       valueType: 'text',
       hideInForm: true,
       hideInSearch: true,
-      render: (_, record) => <div>{record?.userVO?.userName}</div>
+      render: (_, record) => <div>{record?.userVO?.userName}</div>,
     },
     {
       title: '审核状态',

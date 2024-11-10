@@ -1,9 +1,8 @@
 import '@umijs/max';
-import { Button, message } from 'antd';
+import { message } from 'antd';
 import React from 'react';
 import { ModalForm, ProForm, ProFormUploadDragger } from '@ant-design/pro-components';
 import { importCourseDataByExcelUsingPost } from '@/services/learning-backend/excelController';
-import { UploadOutlined } from '@ant-design/icons';
 
 interface Props {
   onCancel: () => void;
