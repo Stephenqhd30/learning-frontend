@@ -28,7 +28,7 @@ const UserDetailsModal: React.FC<Props> = (props) => {
       onOk={() => {
         onSubmit?.();
       }}
-      footer
+      footer={null}
     >
       <UserDetailsCard user={userInfo} />
     </Modal>

@@ -1,4 +1,4 @@
-import ReviewModal from '@/pages/CertificateReview/components/ReviewModal';
-import BatchReviewModal from '@/pages/CertificateReview/components/BatchReviewModal';
+import PrintCertificateModal from '@/pages/CreateCertificate/components/PrintCertificateModal';
+import BatchPrintCertificateModal from '@/pages/CreateCertificate/components/BatchPrintCertificateModal';
 
-export { ReviewModal, BatchReviewModal };
+export { PrintCertificateModal, BatchPrintCertificateModal };

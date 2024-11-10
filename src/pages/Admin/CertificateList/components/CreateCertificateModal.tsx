@@ -7,13 +7,12 @@ import {
   ProFormUploadDragger,
 } from '@ant-design/pro-components';
 import '@umijs/max';
-import { Button, message, Select, UploadProps } from 'antd';
+import { message, Select, UploadProps } from 'antd';
 import React, { useState } from 'react';
 import { addCertificateUsingPost } from '@/services/learning-backend/certificateController';
 import { uploadFileUsingPost } from '@/services/learning-backend/fileController';
 import { CertificateSituation, certificateSituationEnum } from '@/enums/CertificateSituationEnum';
 import { CertificateType, certificateTypeEnum } from '@/enums/CertificateTypeEnum';
-import { PlusOutlined } from '@ant-design/icons';
 import { FileUploadBiz } from '@/enums/FileUploadBizEnum';
 
 interface Props {

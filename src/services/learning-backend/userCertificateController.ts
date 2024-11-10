@@ -76,3 +76,33 @@ export async function listMyUserCertificateVoByPageUsingPost(
     ...(options || {}),
   });
 }
+
+/** doCertificateReview POST /api/userCertificate/review */
+export async function doCertificateReviewUsingPost(
+  body: API.ReviewRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseBoolean_>('/api/userCertificate/review', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** doCertificateReviewByBatch POST /api/userCertificate/review/batch */
+export async function doCertificateReviewByBatchUsingPost(
+  body: API.ReviewRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseBoolean_>('/api/userCertificate/review/batch', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}

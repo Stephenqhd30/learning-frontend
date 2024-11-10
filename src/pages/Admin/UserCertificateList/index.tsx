@@ -3,7 +3,7 @@ import {ActionType, ProColumns, ProTable} from '@ant-design/pro-components';
 import {Button, message, Space, Typography} from 'antd';
 import {DownloadOutlined} from '@ant-design/icons';
 import { listUserCertificateVoByPageUsingPost } from '@/services/learning-backend/userCertificateController';
-import {USER_CERTIFICATE_EXCEL} from '@/constants';
+import { USER_CERTIFICATE_EXCEL } from '@/constants';
 import { CertificateDetailsModal, UserInfoCard } from '@/components';
 import { downloadUserCertificateUsingGet } from '@/services/learning-backend/excelController';
 
@@ -71,16 +71,36 @@ const UserCertificateList: React.FC = () => {
       title: '证书编号',
       dataIndex: 'certificateNumber',
       valueType: 'text',
+      hideInSearch: true,
+      render: (_, record) => <div>{record?.certificateVO?.certificateNumber}</div>,
+    },
+    {
+      title: '证书名称',
+      dataIndex: 'certificateName',
+      valueType: 'text',
+      hideInSearch: true,
+      render: (_, record) => <div>{record?.certificateVO?.certificateName}</div>,
     },
     {
       title: '获得人姓名',
-      dataIndex: 'gainUserName',
+      dataIndex: 'userName',
       valueType: 'text',
+      hideInSearch: true,
+      render: (_, record) => <div>{record?.userVO?.userName}</div>,
+    },
+    {
+      title: '获得人学号',
+      dataIndex: 'userName',
+      valueType: 'text',
+      hideInSearch: true,
+      render: (_, record) => <div>{record?.userVO?.userNumber}</div>,
     },
     {
       title: '证书获得时间',
       dataIndex: 'gainTime',
       valueType: 'dateYear',
+      hideInSearch: true,
+      render: (_, record) => <div>{record?.certificateVO?.certificateYear}</div>,
     },
     {
       title: '操作',

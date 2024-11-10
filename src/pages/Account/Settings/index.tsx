@@ -37,7 +37,7 @@ const Settings: React.FC = () => {
             {
               label: `基本设置`,
               key: 'base',
-              children: <BaseView isMobile={isMobile} user={currentUser}/>,
+              children: <BaseView user={currentUser}/>,
             },
           ],
           onChange: (activeKey) => {

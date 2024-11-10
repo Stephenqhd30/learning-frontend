@@ -1,14 +1,18 @@
-import { message, Modal } from 'antd';
-import { ProColumns, ProTable } from '@ant-design/pro-components';
+import { message } from 'antd';
+import { ModalForm, ProColumns, ProForm, ProFormDatePicker } from '@ant-design/pro-components';
 import React from 'react';
-import {doCertificateReviewByBatchUsingPost} from '@/services/learning-backend/certificateController';
+import {
+  addLogPrintCertificatesUsingPost,
+  addLogPrintCertificateUsingPost
+} from '@/services/learning-backend/logPrintCertificateController';
+import { CourseSelect } from '@/components';
 
 interface ReviewModalProps {
   visible: boolean;
   onCancel?: () => void;
   columns: ProColumns<API.Certificate>[];
   selectedRowKeys: any[];
-  onSubmit: (values: API.ReviewRequest) => Promise<void>;
+  onSubmit: (values: API.LogPrintCertificateAddRequest) => Promise<void>;
 }
 
 /**
@@ -17,35 +21,50 @@ interface ReviewModalProps {
  * @constructor
  */
 const BatchPrintCertificateModal: React.FC<ReviewModalProps> = (props) => {
-  const { visible, onCancel, selectedRowKeys, onSubmit, columns } = props;
+  const { visible, onCancel, selectedRowKeys, onSubmit } = props;
+  const [form] = ProForm.useForm();
   return (
-    <Modal
-      destroyOnClose
-      title={'批量审核信息'}
-      onCancel={() => onCancel?.()}
+    <ModalForm
+      title={'制作证书'}
       open={visible}
-      footer
-    >
-      <ProTable
-        type={'form'}
-        columns={columns}
-        onSubmit={async (values: API.ReviewRequest) => {
-          try {
-            const success = await doCertificateReviewByBatchUsingPost({
-              ...values,
-              idList: JSON.stringify(selectedRowKeys),
-            });
-            if (success) {
-              onSubmit?.(values);
-              message.success('审核信息已更新');
-              onCancel?.();
-            }
-          } catch (error: any) {
-            message.error('审核失败' + error.message);
+      form={form}
+      onFinish={async (values: API.LogPrintCertificateAddRequest) => {
+        const hide = message.loading('正在制作证书...');
+        try {
+          const res = await addLogPrintCertificatesUsingPost({
+            ...values,
+            certificateIds: selectedRowKeys
+          });
+          if (res.code === 0 && res.data) {
+            onSubmit?.(values);
+            message.success('证书生成成功');
+          } else {
+            message.error(`证书生成失败${res.message}`);
           }
-        }}
-      />
-    </Modal>
+        } catch (error: any) {
+          message.error(`证书生成失败${error.message}`);
+          return false;
+        } finally {
+          hide();
+        }
+      }}
+      autoFocusFirstInput
+      modalProps={{
+        destroyOnClose: true,
+        onCancel: () => {
+          onCancel?.();
+        }
+      }}
+      submitter={{
+        searchConfig: {
+          submitText: '生成证书',
+          resetText: '取消'
+        }
+      }}
+    >
+      <CourseSelect  name={'courseId'} label={"请选择课程"}/>
+      <ProFormDatePicker name={'finishTime'} label={'证书发放时间'}/>
+    </ModalForm>
   );
 };
 

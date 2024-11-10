@@ -11,7 +11,7 @@ export default () => {
   const loadData = async () => {
     try {
       const res = await listCourseByPageUsingPost({
-        pageSize: 50,
+        pageSize: 500,
       });
       if (res.code === 0 && res?.data?.records) {
         setCourseList(res?.data?.records);

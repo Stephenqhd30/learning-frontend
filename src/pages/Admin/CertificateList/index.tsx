@@ -1,24 +1,24 @@
-import { DownloadOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import {DownloadOutlined, EditOutlined, PlusOutlined, UploadOutlined} from '@ant-design/icons';
 import {ActionType, ProColumns, ProTable} from '@ant-design/pro-components';
 import '@umijs/max';
-import { Button, message, Popconfirm, Select, Space, Typography } from 'antd';
+import {Button, message, Popconfirm, Select, Space, Typography} from 'antd';
 import React, {useRef, useState} from 'react';
 import {
   deleteCertificateUsingPost,
-  listCertificateVoByPageUsingPost,
+  listCertificateVoByPageUsingPost
 } from '@/services/learning-backend/certificateController';
-import { CertificateSituation, certificateSituationEnum } from '@/enums/CertificateSituationEnum';
-import { CertificateType, certificateTypeEnum } from '@/enums/CertificateTypeEnum';
+import {CertificateSituation, certificateSituationEnum} from '@/enums/CertificateSituationEnum';
+import {CertificateType, certificateTypeEnum} from '@/enums/CertificateTypeEnum';
 import {
   CreateCertificateModal,
   UpdateCertificateModal,
-  UploadCertificateModal,
+  UploadCertificateModal
 } from '@/pages/Admin/CertificateList/components';
-import { ReviewStatus, reviewStatusEnum } from '@/enums/ReviewStatusEnum';
-import { CERTIFICATE_EXAMPLE_EXCEL, CERTIFICATE_EXCEL } from '@/constants';
+import {ReviewStatus, reviewStatusEnum} from '@/enums/ReviewStatusEnum';
+import {CERTIFICATE_EXAMPLE_EXCEL, CERTIFICATE_EXCEL} from '@/constants';
 import {
   downloadCertificateExampleUsingGet,
-  downloadCertificateUsingGet,
+  downloadCertificateUsingGet
 } from '@/services/learning-backend/excelController';
 
 
@@ -94,6 +94,8 @@ const downloadCertificateExample = async () => {
   }
 };
 
+
+
 /**
  * 用户管理列表
  * @constructor
@@ -107,7 +109,7 @@ const CertificateList: React.FC = () => {
   const [uploadModalVisible, setUploadModalVisible] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   // 当前用户的所点击的数据
-  const [currentRow, setCurrentRow] = useState<API.Certificate>();
+  const [currentRow, setCurrentRow] = useState<API.CertificateVO>();
 
   /**
    * 去审核信息页
@@ -125,7 +127,6 @@ const CertificateList: React.FC = () => {
       dataIndex: 'id',
       valueType: 'text',
       hideInForm: true,
-      hideInTable: true,
     },
     {
       title: '证书编号',
@@ -138,9 +139,11 @@ const CertificateList: React.FC = () => {
       valueType: 'text',
     },
     {
-      title: '获得人id',
-      dataIndex: 'gainUserId',
+      title: '获得人',
+      dataIndex: 'userId',
       valueType: 'text',
+      hideInSearch: true,
+      render: (_, record) => <div>{record?.userVO?.userName}</div>,
     },
     {
       title: '证书获得时间',
@@ -186,8 +189,8 @@ const CertificateList: React.FC = () => {
     {
       title: '证书地址',
       dataIndex: 'certificateUrl',
-      valueType: 'image',
       hideInSearch: true,
+      hideInTable: true,
     },
     {
       title: '审核状态',
@@ -224,7 +227,7 @@ const CertificateList: React.FC = () => {
       valueType: 'text',
       hideInForm: true,
       hideInSearch: true,
-      render: (_, record) => <div>{record?.userVO?.userName}</div>,
+      render: (_, record) => <div>{record?.createUserVO?.userName}</div>
     },
     {
       title: '审核时间',
@@ -295,7 +298,7 @@ const CertificateList: React.FC = () => {
   ];
   return (
     <>
-      <ProTable<API.Certificate, API.PageParams>
+      <ProTable<API.CertificateVO, API.PageParams>
         headerTitle={'证书列表'}
         actionRef={actionRef}
         rowKey={'id'}
@@ -331,6 +334,13 @@ const CertificateList: React.FC = () => {
               icon={<DownloadOutlined />}
             >
               导出证书信息
+            </Button>
+            <Button
+              key={'import'}
+              onClick={() => setUploadModalVisible(true)}
+              icon={<UploadOutlined />}
+            >
+              批量导入证书信息
             </Button>
             <Button
               key="text"

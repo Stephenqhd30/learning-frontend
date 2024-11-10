@@ -2,12 +2,11 @@ import React, { useRef, useState } from 'react';
 import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import { certificateSituationEnum } from '@/enums/CertificateSituationEnum';
 import { certificateTypeEnum } from '@/enums/CertificateTypeEnum';
-import {Button, message, Select, Space, Typography} from 'antd';
-import { getUserByIdUsingGet } from '@/services/learning-backend/userController';
+import { Button, Select, Space, Typography } from 'antd';
 import { listCertificateVoByPageUsingPost } from '@/services/learning-backend/certificateController';
 import { BatchReviewModal, ReviewModal } from '@/pages/CertificateReview/components';
 import { ReviewStatus, reviewStatusEnum } from '@/enums/ReviewStatusEnum';
-import {UserDetailsModal} from '@/components';
+import { UserDetailsModal } from '@/components';
 
 const CertificateReview: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -18,26 +17,10 @@ const CertificateReview: React.FC = () => {
   // 批量审核信息 Modal 框
   const [batchReviewModal, setBatchReviewModal] = useState<boolean>(false);
   // 当前行数据
-  const [currentRow, setCurrentRow] = useState<API.Certificate>({});
-  // 获得者用户信息
-  const [userInfo, setUserInfo] = useState<API.User>({});
+  const [currentRow, setCurrentRow] = useState<API.CertificateVO>({});
   // 选中行数据
   const [selectedRowKeys, setSelectedRowKeys] = useState<any[]>([]);
 
-  /**
-   * 获得者用户信息
-   * @param userId 获得者用户id
-   */
-  const getCurrentUserInfo = async (userId: any) => {
-    try {
-      const res = await getUserByIdUsingGet({ id: userId });
-      if (res.code === 0 && res.data) {
-        setUserInfo(res.data);
-      }
-    } catch (error: any) {
-      message.error('获取用户数据失败' + error.message);
-    }
-  };
   /**
    * 表格列数据
    */
@@ -68,13 +51,6 @@ const CertificateReview: React.FC = () => {
       hideInForm: true,
     },
     {
-      title: '证书地址',
-      dataIndex: 'certificateUrl',
-      valueType: 'image',
-      hideInSearch: true,
-      hideInForm: true,
-    },
-    {
       title: '证书类型',
       dataIndex: 'certificateType',
       valueType: 'select',
@@ -82,10 +58,12 @@ const CertificateReview: React.FC = () => {
       hideInForm: true,
     },
     {
-      title: '获得者id',
+      title: '获得者',
       dataIndex: 'gainUserId',
       valueType: 'text',
       hideInForm: true,
+      hideInSearch: true,
+      render: (_, record) => <div>{record?.userVO?.userName}</div>
     },
     {
       title: '审核状态',
@@ -126,7 +104,7 @@ const CertificateReview: React.FC = () => {
       valueType: 'text',
       hideInForm: true,
       hideInSearch: true,
-      render: (_, record) => <div>{record.userVO?.userName}</div>,
+      render: (_, record) => <div>{record.createUserVO?.userName}</div>,
     },
     {
       title: '操作',
@@ -138,7 +116,6 @@ const CertificateReview: React.FC = () => {
             key={'user-details'}
             onClick={async () => {
               setUserDetailsModal(true);
-              await getCurrentUserInfo(record?.gainUserId);
               setCurrentRow(record);
             }}
           >
@@ -159,7 +136,7 @@ const CertificateReview: React.FC = () => {
   ];
   return (
     <>
-      <ProTable<API.Certificate, API.PageParams>
+      <ProTable<API.CertificateVO, API.PageParams>
         headerTitle={'证书审核'}
         rowKey={'id'}
         actionRef={actionRef}
@@ -212,7 +189,7 @@ const CertificateReview: React.FC = () => {
             setUserDetailsModal(false);
             actionRef.current?.reload();
           }}
-          userInfo={userInfo}
+          userInfo={currentRow?.userVO ?? {}}
           visible={userDetailsModal}
         />
       )}
@@ -222,7 +199,6 @@ const CertificateReview: React.FC = () => {
           visible={reviewModal}
           onCancel={() => setReviewModal(false)}
           certificate={currentRow ?? {}}
-          columns={columns}
           onSubmit={async () => {
             setReviewModal(false);
             actionRef.current?.reload();
@@ -238,6 +214,7 @@ const CertificateReview: React.FC = () => {
           columns={columns}
           onSubmit={async () => {
             setReviewModal(false);
+            setSelectedRowKeys([]);
             actionRef.current?.reload();
           }}
         />

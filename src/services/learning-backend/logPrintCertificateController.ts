@@ -17,6 +17,21 @@ export async function addLogPrintCertificateUsingPost(
   });
 }
 
+/** addLogPrintCertificates POST /api/logPrintCertificate/add/batch */
+export async function addLogPrintCertificatesUsingPost(
+  body: API.LogPrintCertificateAddRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseListLong_>('/api/logPrintCertificate/add/batch', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** deleteLogPrintCertificate POST /api/logPrintCertificate/delete */
 export async function deleteLogPrintCertificateUsingPost(
   body: API.DeleteRequest,
@@ -69,24 +84,6 @@ export async function listLogPrintCertificateVoByPageUsingPost(
 ) {
   return request<API.BaseResponsePageLogPrintCertificateVO_>(
     '/api/logPrintCertificate/list/page/vo',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: body,
-      ...(options || {}),
-    },
-  );
-}
-
-/** listMyLogPrintCertificateVOByPage POST /api/logPrintCertificate/my/list/page/vo */
-export async function listMyLogPrintCertificateVoByPageUsingPost(
-  body: API.LogPrintCertificateQueryRequest,
-  options?: { [key: string]: any },
-) {
-  return request<API.BaseResponsePageLogPrintCertificateVO_>(
-    '/api/logPrintCertificate/my/list/page/vo',
     {
       method: 'POST',
       headers: {

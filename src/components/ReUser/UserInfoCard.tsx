@@ -24,6 +24,7 @@ const UserInfoCard: React.FC<CertificateDetailsProps> = (props) => {
       open={visible}
       width={800}
       onOk={onCancel}
+      footer={null}
     >
 
         <ProCard bordered={false} >

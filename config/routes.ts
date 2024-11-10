@@ -38,7 +38,7 @@ export default [
         component: './Admin/UserCourseList',
       },
       {
-        name: '打印证书日志',
+        name: '证书打印日志',
         path: '/admin/print/certificate',
         component: './Admin/LogPrintCertificateList',
       },

@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
-import { Button, message, Select, Space, Typography } from 'antd';
+import { Button, message, Space, Typography } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
-import { UserGender, userGenderEnum } from '@/enums/UserGenderEnum';
 import { listLogPrintCertificateVoByPageUsingPost } from '@/services/learning-backend/logPrintCertificateController';
 import { LOG_PRINT_CERTIFICATE_EXCEL } from '@/constants';
 import { CertificateDetailsModal, UserInfoCard } from '@/components';
@@ -50,7 +49,7 @@ const LogPrintCertificateList: React.FC = () => {
   /**
    * 表格列数据
    */
-  const columns: ProColumns<API.LogPrintCertificate>[] = [
+  const columns: ProColumns<API.LogPrintCertificateVO>[] = [
     {
       title: 'id',
       dataIndex: 'id',
@@ -59,86 +58,54 @@ const LogPrintCertificateList: React.FC = () => {
       hideInTable: true,
     },
     {
-      title: '获得人Id',
-      dataIndex: 'userId',
+      title: '获得人姓名',
       valueType: 'text',
-      hideInForm: true,
-      hideInTable: true,
+      hideInSearch: true,
+      render: (_, record) => {
+        return <div>{record?.userVO?.userName}</div>
+      }
     },
     {
-      title: '证书id',
-      dataIndex: 'certificateId',
+      title: '证书名称',
       valueType: 'text',
-      hideInForm: true,
-      hideInTable: true,
+      hideInSearch: true,
+      render: (_, record) => {
+        return <div>{record?.certificateVO?.certificateName}</div>
+      }
     },
-    {
-      title: '课程id',
-      dataIndex: 'courseId',
-      valueType: 'text',
-      hideInForm: true,
-      hideInTable: true,
-    },
-
     {
       title: '证书编号',
-      dataIndex: 'certificateNumber',
       valueType: 'text',
-    },
-    {
-      title: '获得人姓名',
-      dataIndex: 'userName',
-      valueType: 'text',
-    },
-    {
-      title: '身份证号',
-      dataIndex: 'userIdCard',
-      valueType: 'text',
-      hideInForm: true,
-      hideInTable: true,
-    },
-    {
-      title: '性别',
-      dataIndex: 'userGender',
-      valueType: 'text',
-      valueEnum: userGenderEnum,
-      renderFormItem: () => {
-        return (
-          <Select>
-            <Select.Option value={UserGender.MALE}>
-              {userGenderEnum[UserGender.MALE].text}
-            </Select.Option>
-            <Select.Option value={UserGender.FEMALE}>
-              {userGenderEnum[UserGender.FEMALE].text}
-            </Select.Option>
-            <Select.Option value={UserGender.SECURITY}>
-              {userGenderEnum[UserGender.SECURITY].text}
-            </Select.Option>
-          </Select>
-        );
-      },
+      hideInSearch: true,
+      render: (_, record) => {
+        return <div>{record?.certificateVO?.certificateNumber}</div>
+      }
     },
     {
       title: '课程名称',
-      dataIndex: 'courseName',
       valueType: 'text',
+      hideInSearch: true,
+      render: (_, record) => {
+        return <div>{record?.courseVO?.courseName}</div>
+      }
     },
     {
-      title: '开课时间',
+      title: '课程号',
+      valueType: 'text',
+      hideInSearch: true,
+      render: (_, record) => {
+        return <div>{record?.courseVO?.courseNumber}</div>
+      }
+    },
+    {
+      title: '课程开始时间',
       dataIndex: 'acquisitionTime',
       valueType: 'date',
     },
     {
-      title: '结课时间',
+      title: '证书发放时间',
       dataIndex: 'finishTime',
       valueType: 'date',
-    },
-    {
-      title: '创建时间',
-      dataIndex: 'createTime',
-      valueType: 'date',
-      hideInSearch: true,
-      hideInForm: true,
     },
     {
       title: '操作',

@@ -13,6 +13,7 @@ import { updateCertificateUsingPost } from '@/services/learning-backend/certific
 import { CertificateSituation, certificateSituationEnum } from '@/enums/CertificateSituationEnum';
 import { CertificateType, certificateTypeEnum } from '@/enums/CertificateTypeEnum';
 import { uploadFileUsingPost } from '@/services/learning-backend/fileController';
+import {FileUploadBiz} from '@/enums/FileUploadBizEnum';
 
 interface UpdateProps {
   oldData?: API.Certificate;
@@ -31,7 +32,6 @@ const handleUpdate = async (fields: API.CertificateUpdateRequest) => {
   try {
     const res = await updateCertificateUsingPost(fields);
     if (res.code === 0 && res.data) {
-      hide();
       message.success('更新成功');
       return true;
     } else {
@@ -39,9 +39,10 @@ const handleUpdate = async (fields: API.CertificateUpdateRequest) => {
       return false;
     }
   } catch (error: any) {
-    hide();
     message.error(`更新失败${error.message}, 请重试!`);
     return false;
+  } finally {
+    hide();
   }
 };
 
@@ -67,7 +68,7 @@ const UpdateCertificateModal: React.FC<UpdateProps> = (props) => {
       try {
         const res = await uploadFileUsingPost(
           {
-            biz: 'certificate_url',
+            biz: FileUploadBiz.CERTIFICATE_URL,
           },
           {
             file: file,
@@ -101,6 +102,7 @@ const UpdateCertificateModal: React.FC<UpdateProps> = (props) => {
           ...values,
           certificateUrl,
           id: oldData?.id,
+          userId: oldData?.userId,
         });
         if (success) {
           await onSubmit?.(values);
@@ -121,7 +123,6 @@ const UpdateCertificateModal: React.FC<UpdateProps> = (props) => {
       }}
     >
       <ProFormText name={'certificateName'} label={'证书名称'} />
-      <ProFormText name={'gainUserId'} label={'获得者Id'} />
       <ProFormDatePicker.Year name={'certificateYear'} label={'证书获得年份'} />
       <ProFormSelect
         name={'certificateSituation'}

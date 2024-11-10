@@ -1,4 +1,4 @@
-import {Avatar, message, Typography, UploadProps} from 'antd';
+import { Avatar, Grid, message, Typography, UploadProps } from 'antd';
 import React, { useState } from 'react';
 import { updateMyUserUsingPost } from '@/services/learning-backend/userController';
 import {
@@ -10,15 +10,24 @@ import {
 } from '@ant-design/pro-components';
 import { AntDesignOutlined } from '@ant-design/icons';
 import { uploadFileUsingPost } from '@/services/learning-backend/fileController';
+import {FileUploadBiz} from '@/enums/FileUploadBizEnum';
 
 interface BaseViewProps {
   user: API.User;
-  isMobile: boolean;
 }
 
+const {useBreakpoint} = Grid;
+/**
+ * 个人基础设置
+ * @param props
+ * @constructor
+ */
 const BaseView: React.FC<BaseViewProps> = (props) => {
-  const { user, isMobile } = props;
+  const { user } = props;
   const [userAvatar, setUserAvatar] = useState<string>();
+  const [form] = ProForm.useForm<API.UserUpdateRequest>();
+  const screens = useBreakpoint();
+  const isMobile = !screens.md;
   /**
    * 更新用户信息
    * @param values
@@ -54,7 +63,7 @@ const BaseView: React.FC<BaseViewProps> = (props) => {
       try {
         const res = await uploadFileUsingPost(
           {
-            biz: 'user_avatar',
+            biz: FileUploadBiz.USER_AVATAR,
           },
           {
             file: file,
@@ -77,23 +86,29 @@ const BaseView: React.FC<BaseViewProps> = (props) => {
 
   return (
     <ProCard
-      title={<Typography.Title level={5}>更新个人基本信息</Typography.Title> }
+      title={<Typography.Title level={5}>更新个人基本信息</Typography.Title>}
       extra={isMobile ? '' : new Date().toLocaleDateString()}
       headerBordered
-      bodyStyle={{ padding: isMobile ? 4 : 24 }}
-      headStyle={{ padding: isMobile ? 4 : 24 }}
+      bodyStyle={{ padding: 4 }}
+      headStyle={{ padding: 4 }}
     >
       <ProForm
         layout="vertical"
         onFinish={async (values) => {
           await handleUpdate(values);
         }}
+        onReset={async () => {
+          form.resetFields();
+        }}
         submitter={{
           searchConfig: {
             submitText: '更新用户信息',
           },
-          render: (_, dom) => dom[1],
+          resetButtonProps: {
+
+          },
         }}
+        form={form}
         initialValues={user}
       >
         <ProFormText name="userName" label="用户名" />

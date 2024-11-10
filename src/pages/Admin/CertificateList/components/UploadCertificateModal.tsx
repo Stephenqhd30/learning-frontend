@@ -1,9 +1,8 @@
 import '@umijs/max';
-import { Button, message } from 'antd';
+import { message } from 'antd';
 import React, { useState } from 'react';
 import { ModalForm, ProForm, ProFormUploadDragger } from '@ant-design/pro-components';
 import { importCertificateDataByExcelUsingPost } from '@/services/learning-backend/excelController';
-import { UploadOutlined } from '@ant-design/icons';
 
 interface Props {
   onCancel: () => void;
@@ -28,11 +27,6 @@ const UploadCertificateModal: React.FC<Props> = (props) => {
       title={'批量导入证书信息'}
       open={visible}
       form={form}
-      trigger={
-        <Button icon={<UploadOutlined />}>
-          批量导入证书信息
-        </Button>
-      }
       onFinish={async (values: any) => {
         // 避免重复提交
         if (submitting) return;

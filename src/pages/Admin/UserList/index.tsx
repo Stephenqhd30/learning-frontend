@@ -66,7 +66,6 @@ const UserList: React.FC = () => {
       const res = await downloadUserUsingGet({
         responseType: 'blob',
       });
-
       // 创建 Blob 对象
       // @ts-ignore
       const url = window.URL.createObjectURL(new Blob([res]));
@@ -92,7 +91,6 @@ const UserList: React.FC = () => {
       const res = await downloadUserExampleUsingGet({
         responseType: 'blob',
       });
-
       // 创建 Blob 对象
       // @ts-ignore
       const url = window.URL.createObjectURL(new Blob([res]));
@@ -118,8 +116,6 @@ const UserList: React.FC = () => {
       title: 'id',
       dataIndex: 'id',
       valueType: 'text',
-      hideInForm: true,
-      hideInTable: true,
     },
     {
       title: '姓名',

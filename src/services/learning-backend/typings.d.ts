@@ -17,6 +17,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseListLong_ = {
+    code?: number;
+    data?: number[];
+    message?: string;
+  };
+
   type BaseResponseLoginUserVO_ = {
     code?: number;
     data?: LoginUserVO;
@@ -157,7 +163,7 @@ declare namespace API {
     certificateUrl?: string;
     certificateYear?: string;
     createTime?: string;
-    gainUserId?: number;
+    createUserId?: number;
     id?: number;
     isDelete?: number;
     reviewMessage?: string;
@@ -196,8 +202,8 @@ declare namespace API {
     certificateType?: number;
     certificateUrl?: string;
     certificateYear?: string;
+    createUserId?: number;
     current?: number;
-    gainUserId?: number;
     id?: number;
     noId?: number;
     pageSize?: number;
@@ -216,8 +222,8 @@ declare namespace API {
     certificateType?: number;
     certificateUrl?: string;
     certificateYear?: string;
-    gainUserId?: number;
     id?: number;
+    userId?: number;
   };
 
   type CertificateVO = {
@@ -228,7 +234,8 @@ declare namespace API {
     certificateUrl?: string;
     certificateYear?: string;
     createTime?: string;
-    gainUserId?: number;
+    createUserId?: number;
+    createUserVO?: UserVO;
     id?: number;
     reviewMessage?: string;
     reviewStatus?: number;
@@ -348,38 +355,28 @@ declare namespace API {
   type LogPrintCertificate = {
     acquisitionTime?: string;
     certificateId?: number;
-    certificateNumber?: string;
     courseId?: number;
-    courseName?: string;
     createTime?: string;
+    createUserId?: number;
     finishTime?: string;
     id?: number;
-    userGender?: number;
     userId?: number;
-    userIdCard?: string;
-    userName?: string;
   };
 
   type LogPrintCertificateAddRequest = {
     acquisitionTime?: string;
     certificateId?: number;
-    certificateNumber?: string;
+    certificateIds?: number[];
     courseId?: number;
-    courseName?: string;
     finishTime?: string;
-    userGender?: number;
     userId?: number;
-    userIdCard?: string;
-    userName?: string;
   };
 
   type LogPrintCertificateQueryRequest = {
     acquisitionTime?: string;
     certificateId?: number;
-    certificateNumber?: string;
     courseId?: number;
-    courseName?: string;
-    createTime?: string;
+    createUserId?: number;
     current?: number;
     finishTime?: string;
     id?: number;
@@ -387,26 +384,21 @@ declare namespace API {
     pageSize?: number;
     sortField?: string;
     sortOrder?: string;
-    userGender?: number;
     userId?: number;
-    userName?: string;
   };
 
   type LogPrintCertificateVO = {
     acquisitionTime?: string;
     certificateId?: number;
-    certificateNumber?: string;
     certificateVO?: CertificateVO;
     courseId?: number;
-    courseName?: string;
     courseVO?: CourseVO;
     createTime?: string;
+    createUserId?: number;
+    createUserVO?: UserVO;
     finishTime?: string;
     id?: number;
-    userGender?: number;
     userId?: number;
-    userIdCard?: string;
-    userName?: string;
     userVO?: UserVO;
   };
 
@@ -586,7 +578,7 @@ declare namespace API {
 
   type ReviewRequest = {
     id?: number;
-    idList?: string;
+    idList?: number[];
     reviewMessage?: string;
     reviewStatus?: number;
   };
@@ -625,23 +617,16 @@ declare namespace API {
 
   type UserCertificate = {
     certificateId?: number;
-    certificateName?: string;
-    certificateNumber?: string;
     createTime?: string;
-    gainTime?: string;
-    gainUserName?: string;
     id?: number;
     userId?: number;
   };
 
   type UserCertificateQueryRequest = {
     certificateId?: number;
-    certificateName?: string;
-    certificateNumber?: string;
     current?: number;
-    gainTime?: string;
-    gainUserName?: string;
     id?: number;
+    notId?: number;
     pageSize?: number;
     sortField?: string;
     sortOrder?: string;
@@ -655,9 +640,9 @@ declare namespace API {
     certificateVO?: CertificateVO;
     createTime?: string;
     gainTime?: string;
-    gainUserName?: string;
     id?: number;
     userId?: number;
+    userName?: string;
     userVO?: UserVO;
   };
 

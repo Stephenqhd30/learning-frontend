@@ -1,12 +1,12 @@
-import { ActionType, PageContainer, ProCard, ProList } from '@ant-design/pro-components';
+import { ActionType, PageContainer, ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
 import React, { useRef, useState } from 'react';
 import { listMyCertificateForUserVoByPageUsingPost } from '@/services/learning-backend/certificateController';
 import { MY_CERTIFICATE_TITLE } from '@/constants';
-import { CertificateCard } from '@/components';
-import { CertificateSituation } from '@/enums/CertificateSituationEnum';
-import { Col, Row } from 'antd';
-import { DownloadCertificateModal } from '@/pages/MyCertificate/components';
+import { CertificateSituation, certificateSituationEnum } from '@/enums/CertificateSituationEnum';
+import { message, Select, Space, Typography } from 'antd';
+import { ReviewStatus } from '@/enums/ReviewStatusEnum';
+import { CertificateType, certificateTypeEnum } from '@/enums/CertificateTypeEnum';
 
 
 /**
@@ -17,34 +17,115 @@ const MyCertificateList: React.FC = () => {
   const actionRef = useRef<ActionType>();
   // 当前行数据
   const [currentRow, setCurrentRow] = useState<API.Certificate>({});
-  const [downloadModalVisible, setDownloadModalVisible] = useState<boolean>(false);
-  // 表格加载状态
-  const [loading, setLoading] = useState<boolean>(false);
-  // 证书列表
+  /**
+   * 下载证书信息
+   */
+  const handDownload = async (certificateUrl: string) => {
+    try {
 
+      // 创建下载链接
+      const link = document.createElement('a');
+      link.href = certificateUrl;
+      // 从 URL 提取文件名，或使用默认名称
+      const fileName = certificateUrl.split('/').pop() || '我的证书.pdf';
+      link.setAttribute('download', fileName);
+      // 触发点击事件，启动文件下载
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      // 释放临时 URL
+      window.URL.revokeObjectURL(certificateUrl);
+      link.removeAttribute('download');
+    } catch (error: any) {
+      message.error('下载失败: ' + error.message);
+    }
+  };
+  /**
+   * 列表项
+   */
+  const columns: ProColumns<API.CertificateForUserVO>[] = [
+    {
+      title: '证书编号',
+      dataIndex: 'certificateNumber',
+      valueType: 'text',
+    },
+    {
+      title: '证书名称',
+      dataIndex: 'certificateName',
+      valueType: 'text',
+    },
+    {
+      title: '证书获得时间',
+      dataIndex: 'certificateYear',
+      valueType: 'dateYear',
+    },
+    {
+      title: '证书获得情况',
+      dataIndex: 'certificateSituation',
+      valueType: 'text',
+      valueEnum: certificateSituationEnum,
+      renderFormItem: () => {
+        return (
+          <Select>
+            <Select.Option value={CertificateSituation.HAVE}>
+              {certificateSituationEnum[CertificateSituation.HAVE].text}
+            </Select.Option>
+            <Select.Option value={CertificateSituation.NO}>
+              {certificateSituationEnum[CertificateSituation.NO].text}
+            </Select.Option>
+          </Select>
+       );
+      },
+    },
+    {
+      title: '证书类型',
+      dataIndex: 'certificateType',
+      valueType: 'text',
+      valueEnum: certificateTypeEnum,
+      renderFormItem: () => {
+        return (
+          <Select>
+            <Select.Option value={CertificateType.CADRE_TRAINING}>
+              {certificateTypeEnum[CertificateType.CADRE_TRAINING].text}
+            </Select.Option>
+            <Select.Option value={CertificateType.OTHERS}>
+              {certificateTypeEnum[CertificateType.OTHERS].text}
+            </Select.Option>
+          </Select>
+       );
+      },
+    },
+    {
+      title: '操作',
+      dataIndex: 'option',
+      valueType: 'option',
+      render: (_, record) => (
+        <Space size={'middle'}>
+          <Typography.Link
+            key="update"
+            onClick={async () => {
+              setCurrentRow(record)
+              await handDownload(record?.certificateUrl as string);
+            }}
+          >
+            下载证书
+          </Typography.Link>
+        </Space>
+     ),
+    },
+  ];
   return (
     <PageContainer
       header={{
         title: MY_CERTIFICATE_TITLE,
       }}
     >
-      <Row gutter={[4, 16]}>
-        <ProList<API.CertificateVO>
+      <ProTable<API.CertificateForUserVO, API.PageParams>
+        headerTitle={'我的证书列表'}
+        actionRef={actionRef}
           rowKey={'id'}
-          actionRef={actionRef}
-          loading={loading}
-          ghost
-          grid={{
-            gutter: 16,
-            xs: 1,
-            sm: 2,
-            md: 2,
-            lg: 3,
-            xl: 3,
-            xxl: 3,
-          }}
+        search={false}
           request={async (params, sort, filter) => {
-            setLoading(true);
             const sortField = Object.keys(sort)?.[0];
             const sortOrder = sort?.[sortField] ?? undefined;
             const { data, code } = await listMyCertificateForUserVoByPageUsingPost({
@@ -53,40 +134,17 @@ const MyCertificateList: React.FC = () => {
               sortField,
               sortOrder,
               certificateSituation: CertificateSituation.HAVE,
+              reviewStatus: ReviewStatus.PASS
             } as API.CertificateQueryRequest);
-            setLoading(false);
+
             return {
               success: code === 0,
               data: data?.records || [],
               total: data?.total || 0,
             };
           }}
-          renderItem={(certificate) => (
-            <Col span={24}>
-              <ProCard
-                style={{ marginBottom: 16 }}
-                onClick={() => {
-                  setCurrentRow(certificate);
-                  setDownloadModalVisible(true);
-                }}
-              >
-                <CertificateCard certificate={certificate} />
-              </ProCard>
-            </Col>
-          )}
+        columns={columns}
         />
-      </Row>
-      {/*下载证书*/}
-      {downloadModalVisible && (
-        <DownloadCertificateModal
-          visible={downloadModalVisible}
-          onCancel={() => setDownloadModalVisible(false)}
-          certificateInfo={currentRow}
-          onSubmit={async () => {
-            setDownloadModalVisible(false);
-          }}
-        />
-      )}
     </PageContainer>
   );
 };

@@ -5,9 +5,11 @@ import { listCertificateVoByPageUsingPost } from '@/services/learning-backend/ce
 import { CertificateSituation, certificateSituationEnum } from '@/enums/CertificateSituationEnum';
 import { CertificateType, certificateTypeEnum } from '@/enums/CertificateTypeEnum';
 import { Button, Select, Space, Typography } from 'antd';
-import { ReviewStatus, reviewStatusEnum } from '@/enums/ReviewStatusEnum';
 import { UserDetailsModal } from '@/components';
-import {BatchReviewModal} from '@/pages/CertificateReview/components';
+import {
+  BatchPrintCertificateModal,
+  PrintCertificateModal,
+} from '@/pages/CreateCertificate/components';
 
 
 /**
@@ -48,10 +50,11 @@ const CreateCertificatePage: React.FC = () => {
       valueType: 'text',
     },
     {
-      title: '获得人id',
+      title: '获得人',
       dataIndex: 'gainUserId',
       valueType: 'text',
-      hideInTable: true,
+      hideInSearch: true,
+      render: (_, record) => <div>{record?.userVO?.userName}</div>,
     },
     {
       title: '证书获得时间',
@@ -74,7 +77,7 @@ const CreateCertificatePage: React.FC = () => {
             </Select.Option>
           </Select>
         );
-      }
+      },
     },
     {
       title: '证书类型',
@@ -92,42 +95,7 @@ const CreateCertificatePage: React.FC = () => {
             </Select.Option>
           </Select>
         );
-      }
-    },
-    {
-      title: '证书地址',
-      dataIndex: 'certificateUrl',
-      valueType: 'image',
-      hideInSearch: true
-    },
-    {
-      title: '审核状态',
-      dataIndex: 'reviewStatus',
-      valueType: 'select',
-      valueEnum: reviewStatusEnum,
-      hideInForm: true,
-      renderFormItem: () => {
-        return (
-          <Select>
-            <Select.Option value={ReviewStatus.REVIEWING}>
-              {reviewStatusEnum[ReviewStatus.REVIEWING].text}
-            </Select.Option>
-            <Select.Option value={ReviewStatus.PASS}>
-              {reviewStatusEnum[ReviewStatus.PASS].text}
-            </Select.Option>
-            <Select.Option value={ReviewStatus.REJECT}>
-              {reviewStatusEnum[ReviewStatus.REJECT].text}
-            </Select.Option>
-          </Select>
-        );
-      }
-    },
-    {
-      title: '审核信息',
-      dataIndex: 'reviewMessage',
-      valueType: 'text',
-      hideInForm: true,
-      hideInSearch: true
+      },
     },
     {
       title: '审核人',
@@ -135,7 +103,7 @@ const CreateCertificatePage: React.FC = () => {
       valueType: 'text',
       hideInForm: true,
       hideInSearch: true,
-      render: (_, record) => <div>{record?.userVO?.userName}</div>
+      render: (_, record) => <div>{record?.userVO?.userName}</div>,
     },
     {
       title: '审核时间',
@@ -143,7 +111,7 @@ const CreateCertificatePage: React.FC = () => {
       dataIndex: 'reviewTime',
       valueType: 'dateTime',
       hideInSearch: true,
-      hideInForm: true
+      hideInForm: true,
     },
     {
       title: '操作',
@@ -180,13 +148,13 @@ const CreateCertificatePage: React.FC = () => {
       <ProTable<API.CertificateVO, API.PageParams>
         headerTitle={'待制作证书列表'}
         actionRef={actionRef}
-        rowKey={'key'}
+        rowKey={'id'}
         search={{
-          labelWidth: 120
+          labelWidth: 120,
         }}
         rowSelection={{
           selectedRowKeys: selectedRowKeys,
-          onChange: setSelectedRowKeys
+          onChange: setSelectedRowKeys,
         }}
         tableAlertOptionRender={() => {
           return (
@@ -198,7 +166,7 @@ const CreateCertificatePage: React.FC = () => {
                   actionRef.current?.reload();
                 }}
               >
-                批量审核
+                批量制作证书
               </Button>
             </Space>
           );
@@ -234,9 +202,21 @@ const CreateCertificatePage: React.FC = () => {
           }}
         />
       )}
-      {/*批量审核*/}
+      {/*制作证书*/}
+      {printCertificateModalVisible && (
+        <PrintCertificateModal
+          visible={printCertificateModalVisible}
+          onCancel={() => setPrintCertificateModalVisible(false)}
+          onSubmit={async () => {
+            setPrintCertificateModalVisible(false);
+            actionRef.current?.reload();
+          }}
+          certificate={currentRow}
+        />
+      )}
+      {/*批量制作证书*/}
       {batchPrintModalVisible && (
-        <BatchReviewModal
+        <BatchPrintCertificateModal
           visible={batchPrintModalVisible}
           onCancel={() => setBatchPrintModalVisible(false)}
           selectedRowKeys={selectedRowKeys ?? []}
