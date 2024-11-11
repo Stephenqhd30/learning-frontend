@@ -21,7 +21,6 @@ const MyCertificateList: React.FC = () => {
    */
   const handDownload = async (certificateUrl: string) => {
     try {
-
       // 创建下载链接
       const link = document.createElement('a');
       link.href = certificateUrl;
@@ -30,6 +29,7 @@ const MyCertificateList: React.FC = () => {
       link.setAttribute('download', fileName);
       // 触发点击事件，启动文件下载
       document.body.appendChild(link);
+      link.target = '_blank';
       link.click();
       document.body.removeChild(link);
       // 释放临时 URL
