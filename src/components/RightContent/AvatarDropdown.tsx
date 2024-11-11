@@ -31,7 +31,6 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
    */
   const loginOut = async () => {
     await userLogoutUsingPost();
-    const { search, pathname } = window.location;
     const urlParams = new URL(window.location.href).searchParams;
     /** 此方法会跳转到 redirect 参数所在的位置 */
     const redirect = urlParams.get('redirect');
@@ -40,7 +39,7 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       history.replace({
         pathname: '/user/login',
         search: stringify({
-          redirect: pathname + search,
+          redirect: '/',
         }),
       });
     }

@@ -46,7 +46,7 @@ export const requestConfig: RequestConfig = {
         !location.pathname.includes('/user/login')
       ) {
         // 跳转至登录页面
-        window.location.href = `/user/login?redirect=${window.location.href}`;
+        window.location.href = `/user/login?redirect=/`;
         throw new Error('用户还未登录,请先登录');
       }
       return response;

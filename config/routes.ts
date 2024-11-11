@@ -57,6 +57,7 @@ export default [
   {
     path: '/create/certificate',
     name: '制作证书',
+    access: 'canAdmin',
     icon: 'DiffOutlined',
     component: './CreateCertificate',
   },

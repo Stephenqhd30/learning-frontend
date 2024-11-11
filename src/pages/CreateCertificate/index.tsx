@@ -7,6 +7,7 @@ import {CertificateType, certificateTypeEnum} from '@/enums/CertificateTypeEnum'
 import {Button, Select, Space, Typography} from 'antd';
 import {UserDetailsModal} from '@/components';
 import {BatchPrintCertificateModal, PrintCertificateModal} from '@/pages/CreateCertificate/components';
+import { ReviewStatus } from '@/enums/ReviewStatusEnum';
 
 
 /**
@@ -100,15 +101,7 @@ const CreateCertificatePage: React.FC = () => {
       valueType: 'text',
       hideInForm: true,
       hideInSearch: true,
-      render: (_, record) => <div>{record?.userVO?.userName}</div>,
-    },
-    {
-      title: '审核时间',
-      sorter: true,
-      dataIndex: 'reviewTime',
-      valueType: 'dateTime',
-      hideInSearch: true,
-      hideInForm: true,
+      render: (_, record) => <div>{record?.createUserVO?.userName}</div>,
     },
     {
       title: '操作',
@@ -177,6 +170,7 @@ const CreateCertificatePage: React.FC = () => {
             sortField,
             sortOrder,
             certificateSituation: CertificateSituation.NO,
+            reviewStatus: ReviewStatus.PASS
           } as API.CertificateQueryRequest);
 
           return {

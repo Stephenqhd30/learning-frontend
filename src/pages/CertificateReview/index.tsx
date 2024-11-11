@@ -49,6 +49,7 @@ const CertificateReview: React.FC = () => {
       valueType: 'select',
       valueEnum: certificateSituationEnum,
       hideInForm: true,
+      hideInSearch: true,
     },
     {
       title: '证书类型',
