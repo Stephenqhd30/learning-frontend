@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import {request} from '@umijs/max';
+import { request } from '@umijs/max';
 
 /** downloadCertificate GET /api/excel/certificate/download */
 export async function downloadCertificateUsingGet(options?: { [key: string]: any }) {

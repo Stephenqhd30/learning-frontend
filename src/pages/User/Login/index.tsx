@@ -1,7 +1,7 @@
 import { Footer } from '@/components';
 import { LoginForm, ProCard, ProConfigProvider } from '@ant-design/pro-components';
 import { history, useModel } from '@umijs/max';
-import { Grid, Image, message, theme } from 'antd';
+import {Grid, Image, message, theme, Typography} from 'antd';
 import React, { useEffect, useState } from 'react';
 import { userLoginUsingPost } from '@/services/learning-backend/userController';
 import { LEARNING_SUBTITLE, LEARNING_TITLE } from '@/constants';
@@ -31,6 +31,7 @@ const Login: React.FC = () => {
           ...initialState,
           currentUser: res?.data,
         });
+        localStorage.setItem('learning-token', res?.data?.token || '');
         setRedirected(true); // 设置重定向状态为 true
         message.success('登录成功！');
       } else {
@@ -67,7 +68,7 @@ const Login: React.FC = () => {
             <ProCard boxShadow={!isMobile} bodyStyle={{ padding: isMobile ? 0 : 24 }}>
               <LoginForm
                 logo={<Image src={'/logo.svg'} preview={false} width={56} />}
-                title={LEARNING_TITLE}
+                title={<Typography.Title level={3}>{LEARNING_TITLE}</Typography.Title>}
                 subTitle={LEARNING_SUBTITLE}
                 containerStyle={{
                   padding: isMobile ? 0 : 24,

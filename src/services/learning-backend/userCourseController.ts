@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import {request} from '@umijs/max';
+import { request } from '@umijs/max';
 
 /** addUserCourse POST /api/userCourse/add */
 export async function addUserCourseUsingPost(

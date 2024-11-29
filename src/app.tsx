@@ -20,8 +20,9 @@ export async function getInitialState(): Promise<InitialState> {
   try {
     if (location.pathname !== loginPath) {
       const res = await getLoginUserUsingGet();
-      if (res.code === 0) {
+      if (res.code === 0 && res.data) {
         initialState.currentUser = res.data as any;
+        localStorage.setItem('learning-token', res?.data?.token || '');
       }
     }
   } catch (error: any) {}

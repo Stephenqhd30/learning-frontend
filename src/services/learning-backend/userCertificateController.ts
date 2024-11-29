@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import {request} from '@umijs/max';
+import { request } from '@umijs/max';
 
 /** deleteUserCertificate POST /api/userCertificate/delete */
 export async function deleteUserCertificateUsingPost(

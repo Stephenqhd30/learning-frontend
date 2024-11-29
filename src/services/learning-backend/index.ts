@@ -10,7 +10,6 @@ import * as logPrintCertificateController from './logPrintCertificateController'
 import * as userController from './userController';
 import * as userCertificateController from './userCertificateController';
 import * as userCourseController from './userCourseController';
-
 export default {
   certificateController,
   courseController,
