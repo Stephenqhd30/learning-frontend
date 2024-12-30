@@ -359,8 +359,10 @@ declare namespace API {
     courseId?: number;
     createTime?: string;
     createUserId?: number;
+    executorMessage?: string;
     finishTime?: string;
     id?: number;
+    status?: string;
     userId?: number;
   };
 
@@ -379,12 +381,14 @@ declare namespace API {
     courseId?: number;
     createUserId?: number;
     current?: number;
+    executorMessage?: string;
     finishTime?: string;
     id?: number;
     notId?: number;
     pageSize?: number;
     sortField?: string;
     sortOrder?: string;
+    status?: string;
     userId?: number;
   };
 
@@ -397,8 +401,10 @@ declare namespace API {
     createTime?: string;
     createUserId?: number;
     createUserVO?: UserVO;
+    executorMessage?: string;
     finishTime?: string;
     id?: number;
+    status?: string;
     userId?: number;
     userVO?: UserVO;
   };

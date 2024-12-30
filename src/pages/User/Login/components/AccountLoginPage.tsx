@@ -15,11 +15,14 @@ const AccountLoginPage: React.FC = () => (
         size: 'large',
         prefix: <UserOutlined />,
       }}
-      placeholder={'请输入用户名'}
+      placeholder={'请输入姓名'}
       rules={[
         {
           required: true,
-          message: '账号是必填项！',
+          message: '请输入合法姓名！',
+          max: 10,
+          min: 2,
+          pattern: /^[\u4E00-\u9FA5]{2,10}(·[\u4E00-\u9FA5]{2,10}){0,2}$/, // 验证中文姓名
         },
       ]}
     />
@@ -33,9 +36,11 @@ const AccountLoginPage: React.FC = () => (
       rules={[
         {
           required: true,
-          message: '身份证号是必填项！',
+          message: '请输入合法身份证号！',
           max: 18,
           min: 18,
+          pattern:
+            /^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/, // 验证身份证号
         },
       ]}
     />

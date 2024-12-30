@@ -119,9 +119,8 @@ const MyCertificateList: React.FC = () => {
       }}
     >
       <ProTable<API.CertificateForUserVO, API.PageParams>
-        headerTitle={'我的证书列表'}
         actionRef={actionRef}
-          rowKey={'id'}
+        rowKey={'id'}
         search={false}
           request={async (params, sort, filter) => {
             const sortField = Object.keys(sort)?.[0];

@@ -69,7 +69,7 @@ const Login: React.FC = () => {
               <LoginForm
                 logo={<Image src={'/logo.svg'} preview={false} width={56} />}
                 title={<Typography.Title level={3}>{LEARNING_TITLE}</Typography.Title>}
-                subTitle={LEARNING_SUBTITLE}
+                subTitle={<Typography.Title level={5}>{LEARNING_SUBTITLE}</Typography.Title>}
                 containerStyle={{
                   padding: isMobile ? 0 : 24,
                 }}

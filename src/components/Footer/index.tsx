@@ -1,6 +1,6 @@
 import { DefaultFooter } from '@ant-design/pro-components';
 import React from 'react';
-import { LEARNING_DEFAULT_MESSAGE, LEARNING_SUBTITLE, LEARNING_URL } from '@/constants';
+import {LEARNING_DEFAULT_MESSAGE, LEARNING_IPC, LEARNING_URL} from '@/constants';
 
 const Footer: React.FC = () => {
   const defaultMessage = LEARNING_DEFAULT_MESSAGE;
@@ -13,8 +13,8 @@ const Footer: React.FC = () => {
       }}
       links={[
         {
-          key: 'LEARNING_SUBTITLE',
-          title: LEARNING_SUBTITLE,
+          key: 'LEARNING_IPC',
+          title: LEARNING_IPC,
           href: LEARNING_URL,
           blankTarget: true,
         },
