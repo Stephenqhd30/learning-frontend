@@ -6,12 +6,12 @@ import { Button, Select, Space, Typography } from 'antd';
 import { listCertificateVoByPageUsingPost } from '@/services/learning-backend/certificateController';
 import { BatchReviewModal, ReviewModal } from '@/pages/CertificateReview/components';
 import { ReviewStatus, reviewStatusEnum } from '@/enums/ReviewStatusEnum';
-import { UserDetailsModal } from '@/components';
+import { UserInfoCard } from '@/components';
 
 const CertificateReview: React.FC = () => {
   const actionRef = useRef<ActionType>();
   // 用户详细 Modal 框
-  const [userDetailsModal, setUserDetailsModal] = useState<boolean>(false);
+  const [userInfoModal, setUserInfoModal] = useState<boolean>(false);
   // 审核信息 Modal 框
   const [reviewModal, setReviewModal] = useState<boolean>(false);
   // 批量审核信息 Modal 框
@@ -60,7 +60,7 @@ const CertificateReview: React.FC = () => {
     },
     {
       title: '获得者',
-      dataIndex: 'gainUserId',
+      dataIndex: 'userId',
       valueType: 'text',
       hideInForm: true,
       hideInSearch: true,
@@ -105,7 +105,7 @@ const CertificateReview: React.FC = () => {
       valueType: 'text',
       hideInForm: true,
       hideInSearch: true,
-      render: (_, record) => <div>{record.createUserVO?.userName}</div>,
+      render: (_, record) => <div>{record.reviewerVO?.userName}</div>,
     },
     {
       title: '操作',
@@ -116,7 +116,7 @@ const CertificateReview: React.FC = () => {
           <Typography.Link
             key={'user-details'}
             onClick={async () => {
-              setUserDetailsModal(true);
+              setUserInfoModal(true);
               setCurrentRow(record);
             }}
           >
@@ -183,15 +183,11 @@ const CertificateReview: React.FC = () => {
         }}
       />
       {/*查看获得者信息*/}
-      {userDetailsModal && (
-        <UserDetailsModal
-          onCancel={() => setUserDetailsModal(false)}
-          onSubmit={async () => {
-            setUserDetailsModal(false);
-            actionRef.current?.reload();
-          }}
-          userInfo={currentRow?.userVO ?? {}}
-          visible={userDetailsModal}
+      {userInfoModal && (
+        <UserInfoCard
+          visible={userInfoModal}
+          onCancel={() => setUserInfoModal(false)}
+          user={currentRow?.userVO ?? {}}
         />
       )}
       {/*审核*/}

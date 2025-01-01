@@ -227,7 +227,7 @@ const CertificateList: React.FC = () => {
       valueType: 'text',
       hideInForm: true,
       hideInSearch: true,
-      render: (_, record) => <div>{record?.createUserVO?.userName}</div>
+      render: (_, record) => <div>{record?.reviewerVO?.userName}</div>
     },
     {
       title: '审核时间',
@@ -244,16 +244,6 @@ const CertificateList: React.FC = () => {
       valueType: 'dateTime',
       hideInSearch: true,
       hideInForm: true,
-      hideInTable: true,
-    },
-    {
-      title: '更新时间',
-      sorter: true,
-      dataIndex: 'updateTime',
-      valueType: 'dateTime',
-      hideInSearch: true,
-      hideInForm: true,
-      hideInTable: true,
     },
     {
       title: '操作',

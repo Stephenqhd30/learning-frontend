@@ -7,15 +7,15 @@ import {
   ProFormTextArea,
 } from '@ant-design/pro-components';
 import React from 'react';
-import { doCertificateReviewByBatchUsingPost } from '@/services/learning-backend/userCertificateController';
 import { ReviewStatus, reviewStatusEnum } from '@/enums/ReviewStatusEnum';
+import { addCertificateReviewLogsByBatchUsingPost } from '@/services/learning-backend/certificateReviewLogsController';
 
 interface ReviewModalProps {
   visible: boolean;
   onCancel?: () => void;
   columns: ProColumns<API.Certificate>[];
   selectedRowKeys: any[];
-  onSubmit: (values: API.ReviewRequest) => Promise<void>;
+  onSubmit: (values: API.CertificateReviewLogsAddRequest) => Promise<void>;
 }
 
 /**
@@ -28,22 +28,25 @@ const BatchReviewModal: React.FC<ReviewModalProps> = (props) => {
   const [form] = ProForm.useForm();
   return (
     <ModalForm
-      title={'批量导入用户课程信息'}
+      title={'批量审核证书信息'}
       open={visible}
       form={form}
-      onFinish={async (values: API.ReviewRequest) => {
+      onFinish={async (values: API.CertificateReviewLogsAddRequest) => {
         try {
-          const success = await doCertificateReviewByBatchUsingPost({
+          const success = await addCertificateReviewLogsByBatchUsingPost({
             ...values,
             idList: selectedRowKeys,
           });
-          if (success) {
+          if (success.code === 0 && success.data) {
             onSubmit?.(values);
             message.success('审核信息已更新');
-            onCancel?.();
+          } else {
+            message.error(`审核失败`);
           }
         } catch (error: any) {
           message.error('审核失败' + error.message);
+        } finally {
+          onCancel?.();
         }
       }}
       modalProps={{

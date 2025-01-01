@@ -3,6 +3,7 @@
 // API 更新时间：
 // API 唯一标识：
 import * as certificateController from './certificateController';
+import * as certificateReviewLogsController from './certificateReviewLogsController';
 import * as courseController from './courseController';
 import * as excelController from './excelController';
 import * as fileController from './fileController';
@@ -12,6 +13,7 @@ import * as userCertificateController from './userCertificateController';
 import * as userCourseController from './userCourseController';
 export default {
   certificateController,
+  certificateReviewLogsController,
   courseController,
   excelController,
   fileController,

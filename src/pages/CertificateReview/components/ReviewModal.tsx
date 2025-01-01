@@ -1,14 +1,14 @@
 import { message, Select } from 'antd';
 import { ModalForm, ProForm, ProFormSelect, ProFormTextArea } from '@ant-design/pro-components';
 import React from 'react';
-import { doCertificateReviewUsingPost } from '@/services/learning-backend/userCertificateController';
 import { ReviewStatus, reviewStatusEnum } from '@/enums/ReviewStatusEnum';
+import { addCertificateReviewLogsUsingPost } from '@/services/learning-backend/certificateReviewLogsController';
 
 interface ReviewModalProps {
   visible: boolean;
   onCancel?: () => void;
   certificate: API.Certificate;
-  onSubmit: (values: API.ReviewRequest) => Promise<void>;
+  onSubmit: (values: API.CertificateReviewLogsAddRequest) => Promise<void>;
 }
 
 
@@ -22,22 +22,26 @@ const ReviewModal: React.FC<ReviewModalProps> = (props) => {
   const [form] = ProForm.useForm();
   return (
     <ModalForm
-      title={'批量导入用户课程信息'}
+      title={'审核证书信息'}
       open={visible}
       form={form}
       initialValues={certificate}
-      onFinish={async (values: API.ReviewRequest) => {
+      onFinish={async (values: API.CertificateReviewLogsAddRequest) => {
         try {
-          const success = await doCertificateReviewUsingPost({
+          const success = await addCertificateReviewLogsUsingPost({
             ...values,
-            id: certificate.id,
+            certificateId: certificate.id,
           });
-          if (success) {
+          if (success.code === 0 && success.data) {
             onSubmit?.(values);
             message.success('审核信息已更新');
+          } else {
+            message.error('审核失败');
           }
         } catch (error: any) {
           message.error('审核失败' + error.message);
+        } finally {
+          onCancel?.();
         }
       }}
       modalProps={{
@@ -52,7 +56,6 @@ const ReviewModal: React.FC<ReviewModalProps> = (props) => {
           resetText: '取消',
         },
       }}
-
     >
       <ProFormSelect name={'reviewStatus'} label={'审核状态'}>
         <Select>
@@ -67,7 +70,7 @@ const ReviewModal: React.FC<ReviewModalProps> = (props) => {
           </Select.Option>
         </Select>
       </ProFormSelect>
-      <ProFormTextArea name={'reviewMessage'} label={"审核信息"}/>
+      <ProFormTextArea name={'reviewMessage'} label={'审核信息'} />
     </ModalForm>
   );
 };

@@ -5,6 +5,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseCertificateReviewLogsVO_ = {
+    code?: number;
+    data?: CertificateReviewLogsVO;
+    message?: string;
+  };
+
   type BaseResponseCertificateVO_ = {
     code?: number;
     data?: CertificateVO;
@@ -56,6 +62,18 @@ declare namespace API {
   type BaseResponsePageCertificateForUserVO_ = {
     code?: number;
     data?: PageCertificateForUserVO_;
+    message?: string;
+  };
+
+  type BaseResponsePageCertificateReviewLogs_ = {
+    code?: number;
+    data?: PageCertificateReviewLogs_;
+    message?: string;
+  };
+
+  type BaseResponsePageCertificateReviewLogsVO_ = {
+    code?: number;
+    data?: PageCertificateReviewLogsVO_;
     message?: string;
   };
 
@@ -163,7 +181,6 @@ declare namespace API {
     certificateUrl?: string;
     certificateYear?: string;
     createTime?: string;
-    createUserId?: number;
     id?: number;
     isDelete?: number;
     reviewMessage?: string;
@@ -202,7 +219,6 @@ declare namespace API {
     certificateType?: number;
     certificateUrl?: string;
     certificateYear?: string;
-    createUserId?: number;
     current?: number;
     id?: number;
     noId?: number;
@@ -214,6 +230,46 @@ declare namespace API {
     sortField?: string;
     sortOrder?: string;
     userId?: number;
+  };
+
+  type CertificateReviewLogs = {
+    certificateId?: number;
+    id?: number;
+    reviewMessage?: string;
+    reviewStatus?: number;
+    reviewTime?: string;
+    reviewerId?: number;
+  };
+
+  type CertificateReviewLogsAddRequest = {
+    certificateId?: number;
+    idList?: number[];
+    reviewMessage?: string;
+    reviewStatus?: number;
+  };
+
+  type CertificateReviewLogsQueryRequest = {
+    certificateId?: number;
+    current?: number;
+    id?: number;
+    notId?: number;
+    pageSize?: number;
+    reviewMessage?: string;
+    reviewStatus?: number;
+    reviewTime?: string;
+    reviewerId?: number;
+    sortField?: string;
+    sortOrder?: string;
+  };
+
+  type CertificateReviewLogsVO = {
+    certificateId?: number;
+    id?: number;
+    reviewMessage?: string;
+    reviewStatus?: number;
+    reviewTime?: string;
+    reviewerId?: number;
+    reviewerVO?: UserVO;
   };
 
   type CertificateUpdateRequest = {
@@ -234,13 +290,12 @@ declare namespace API {
     certificateUrl?: string;
     certificateYear?: string;
     createTime?: string;
-    createUserId?: number;
-    createUserVO?: UserVO;
     id?: number;
     reviewMessage?: string;
     reviewStatus?: number;
     reviewTime?: string;
     reviewerId?: number;
+    reviewerVO?: UserVO;
     updateTime?: string;
     userId?: number;
     userVO?: UserVO;
@@ -300,6 +355,11 @@ declare namespace API {
   };
 
   type DeleteRequest = {
+    id?: number;
+  };
+
+  type getCertificateReviewLogsVOByIdUsingGETParams = {
+    /** id */
     id?: number;
   };
 
@@ -433,6 +493,32 @@ declare namespace API {
     orders?: OrderItem[];
     pages?: number;
     records?: CertificateForUserVO[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
+  type PageCertificateReviewLogs_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: CertificateReviewLogs[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
+  type PageCertificateReviewLogsVO_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: CertificateReviewLogsVO[];
     searchCount?: boolean;
     size?: number;
     total?: number;
@@ -579,13 +665,6 @@ declare namespace API {
     searchCount?: boolean;
     size?: number;
     total?: number;
-  };
-
-  type ReviewRequest = {
-    id?: number;
-    idList?: number[];
-    reviewMessage?: string;
-    reviewStatus?: number;
   };
 
   type uploadFileUsingPOSTParams = {

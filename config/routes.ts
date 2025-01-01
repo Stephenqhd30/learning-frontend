@@ -38,6 +38,11 @@ export default [
         component: './Admin/UserCourseList',
       },
       {
+        name: '证书审核日志',
+        path: '/admin/review/certificate',
+        component: './Admin/CertificateReviewLogsList',
+      },
+      {
         name: '证书打印日志',
         path: '/admin/print/certificate',
         component: './Admin/LogPrintCertificateList',
