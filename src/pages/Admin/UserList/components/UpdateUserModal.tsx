@@ -3,7 +3,6 @@ import {
   ProForm,
   ProFormSelect,
   ProFormText,
-  ProFormTextArea,
   ProFormUploadDragger,
 } from '@ant-design/pro-components';
 import '@umijs/max';
@@ -121,9 +120,10 @@ const UpdateUserModal: React.FC<Props> = (props) => {
       <ProFormText name={'userName'} label={'用户名'} />
       <ProFormText name={'userIdCard'} label={'身份证号'} />
       <ProFormText name={'userNumber'} label={'学号'} />
-      <ProFormTextArea name={'userProfile'} label={'简介'} />
+      <ProFormText name={'userDepartment'} label={'院系'} />
+      <ProFormText name={'userGrade'} label={'年级'} />
+      <ProFormText name={'userMajor'} label={'专业'} />
       <ProFormText name={'userPhone'} label={'电话'} />
-      <ProFormText name={'userEmail'} label={'邮箱'} />
       <ProFormUploadDragger
         title={'上传头像'}
         label={'头像'}

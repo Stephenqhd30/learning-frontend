@@ -17,8 +17,8 @@ export async function addLogPrintCertificateUsingPost(
   });
 }
 
-/** addLogPrintCertificates POST /api/logPrintCertificate/add/batch */
-export async function addLogPrintCertificatesUsingPost(
+/** addLogPrintCertificatesByBatch POST /api/logPrintCertificate/add/batch */
+export async function addLogPrintCertificatesByBatchUsingPost(
   body: API.LogPrintCertificateAddRequest,
   options?: { [key: string]: any },
 ) {

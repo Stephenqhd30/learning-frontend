@@ -57,12 +57,6 @@ const UserInfoCard: React.FC<CertificateDetailsProps> = (props) => {
                 valueType: 'text'
               },
               {
-                title: '邮箱',
-                key: 'userEmail',
-                dataIndex: 'userEmail',
-                valueType: 'text'
-              },
-              {
                 title: '电话',
                 key: 'userPhone',
                 dataIndex: 'userPhone',

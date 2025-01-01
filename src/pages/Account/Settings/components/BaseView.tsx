@@ -1,4 +1,4 @@
-import { Avatar, Grid, message, Typography, UploadProps } from 'antd';
+import { Avatar, message, Typography, UploadProps } from 'antd';
 import React, { useState } from 'react';
 import { updateMyUserUsingPost } from '@/services/learning-backend/userController';
 import {
@@ -16,7 +16,6 @@ interface BaseViewProps {
   user: API.User;
 }
 
-const {useBreakpoint} = Grid;
 /**
  * 个人基础设置
  * @param props
@@ -26,8 +25,6 @@ const BaseView: React.FC<BaseViewProps> = (props) => {
   const { user } = props;
   const [userAvatar, setUserAvatar] = useState<string>();
   const [form] = ProForm.useForm<API.UserUpdateRequest>();
-  const screens = useBreakpoint();
-  const isMobile = !screens.md;
   /**
    * 更新用户信息
    * @param values
@@ -87,7 +84,6 @@ const BaseView: React.FC<BaseViewProps> = (props) => {
   return (
     <ProCard
       title={<Typography.Title level={5}>更新个人基本信息</Typography.Title>}
-      extra={isMobile ? '' : new Date().toLocaleDateString()}
       headerBordered
       bodyStyle={{ padding: 4 }}
       headStyle={{ padding: 4 }}
@@ -108,13 +104,15 @@ const BaseView: React.FC<BaseViewProps> = (props) => {
 
           },
         }}
+        autoFocusFirstInput={false}
         form={form}
         initialValues={user}
       >
         <ProFormText name="userName" label="用户名" />
         <ProFormText name="userPhone" label="电话" />
-        <ProFormText name="userEmail" label="邮箱" />
-        <ProFormTextArea name="userProfile" label="简介" />
+        <ProFormText name={'userDepartment'} label={'院系'} />
+        <ProFormText name={'userGrade'} label={'年级'} />
+        <ProFormText name={'userMajor'} label={'专业'} />
         <Avatar
           size={{ xs: 64, sm: 64, md: 64, lg: 64, xl: 100, xxl: 120 }}
           icon={<AntDesignOutlined />}

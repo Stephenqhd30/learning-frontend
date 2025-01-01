@@ -1,27 +1,29 @@
 import React from 'react';
-import { PageContainer, ProCard } from '@ant-design/pro-components';
+import { PageContainer } from '@ant-design/pro-components';
 import { ACCOUNT_TITLE } from '@/constants';
-import { Col, Row } from 'antd';
+import { Col, Grid, Row } from 'antd';
 import { useModel } from '@@/exports';
 import UserCard from '@/components/ReUser/UserCard';
 import UserDetailsCard from '@/components/ReUser/UserDetailsCard';
 
+const {useBreakpoint} = Grid;
+/**
+ * 用户中心
+ * @constructor
+ */
 const UserCenter: React.FC = () => {
   const { initialState } = useModel('@@initialState');
   const currentUser = initialState?.currentUser;
-
+  const scene = useBreakpoint();
+  const isMobile = !scene.md;
   return (
-    <PageContainer title={ACCOUNT_TITLE} extra={new Date().toLocaleDateString()}>
+    <PageContainer breadcrumb={undefined} title={ACCOUNT_TITLE}>
       <Row align={'top'} gutter={[16, 16]}>
-        <Col xs={24} md={8} lg={6} xl={6}>
-          <ProCard bordered={false}>
-            <UserCard user={currentUser || {}} />
-          </ProCard>
+        <Col span={ isMobile ? 24 : 7 }>
+          <UserCard user={currentUser || {}} />
         </Col>
-        <Col xs={24} md={16} lg={18} xl={18}>
-          <ProCard bordered>
-            <UserDetailsCard user={currentUser || {}} />
-          </ProCard>
+        <Col span={ isMobile ? 24 : 17 }>
+          <UserDetailsCard user={currentUser || {}} />
         </Col>
       </Row>
     </PageContainer>

@@ -1,5 +1,5 @@
 import {DownloadOutlined, PlusOutlined, UploadOutlined} from '@ant-design/icons';
-import {ActionType, ProColumns, ProTable} from '@ant-design/pro-components';
+import {ActionType, ProColumns, ProFormText, ProTable} from '@ant-design/pro-components';
 import '@umijs/max';
 import {Button, message, Popconfirm, Select, Space, Tag, Typography} from 'antd';
 import React, {useRef, useState} from 'react';
@@ -127,19 +127,24 @@ const UserList: React.FC = () => {
       hideInSearch: true,
     },
     {
-      title: '简介',
-      dataIndex: 'userProfile',
-      valueType: 'textarea',
+      title: '院系',
+      dataIndex: 'userDepartment',
+      valueType: 'text',
+    },
+    {
+      title: '年级',
+      dataIndex: 'userGrade',
+      valueType: 'text',
+    },
+    {
+      title: '专业',
+      dataIndex: 'userMajor',
+      valueType: 'text',
     },
     {
       title: '电话',
       dataIndex: 'userPhone',
       valueType: 'password',
-    },
-    {
-      title: '邮箱',
-      dataIndex: 'userEmail',
-      valueType: 'text',
     },
     {
       title: '性别',

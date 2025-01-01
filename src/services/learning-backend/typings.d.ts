@@ -339,17 +339,16 @@ declare namespace API {
   };
 
   type LoginUserVO = {
-    createTime?: string;
     id?: number;
     token?: string;
-    updateTime?: string;
     userAvatar?: string;
-    userEmail?: string;
+    userDepartment?: string;
     userGender?: number;
+    userGrade?: string;
+    userMajor?: string;
     userName?: string;
     userNumber?: string;
     userPhone?: string;
-    userProfile?: string;
     userRole?: string;
   };
 
@@ -367,7 +366,6 @@ declare namespace API {
   };
 
   type LogPrintCertificateAddRequest = {
-    acquisitionTime?: string;
     certificateId?: number;
     certificateIds?: number[];
     courseId?: number;
@@ -600,25 +598,27 @@ declare namespace API {
     isDelete?: number;
     updateTime?: string;
     userAvatar?: string;
-    userEmail?: string;
+    userDepartment?: string;
     userGender?: number;
+    userGrade?: string;
     userIdCard?: string;
+    userMajor?: string;
     userName?: string;
     userNumber?: string;
     userPhone?: string;
-    userProfile?: string;
     userRole?: string;
   };
 
   type UserAddRequest = {
     userAvatar?: string;
-    userEmail?: string;
+    userDepartment?: string;
     userGender?: number;
+    userGrade?: string;
     userIdCard?: string;
+    userMajor?: string;
     userName?: string;
     userNumber?: string;
     userPhone?: string;
-    userProfile?: string;
     userRole?: string;
   };
 
@@ -691,12 +691,13 @@ declare namespace API {
 
   type UserEditRequest = {
     userAvatar?: string;
-    userEmail?: string;
+    userDepartment?: string;
     userGender?: number;
+    userGrade?: string;
+    userMajor?: string;
     userName?: string;
     userNumber?: string;
     userPhone?: string;
-    userProfile?: string;
     userRole?: string;
   };
 
@@ -711,26 +712,28 @@ declare namespace API {
     pageSize?: number;
     sortField?: string;
     sortOrder?: string;
-    userEmail?: string;
+    userDepartment?: string;
     userGender?: number;
+    userGrade?: string;
     userIdCard?: string;
+    userMajor?: string;
     userName?: string;
     userNumber?: string;
     userPhone?: string;
-    userProfile?: string;
     userRole?: string;
   };
 
   type UserUpdateRequest = {
     id?: number;
     userAvatar?: string;
-    userEmail?: string;
+    userDepartment?: string;
     userGender?: number;
+    userGrade?: string;
     userIdCard?: string;
+    userMajor?: string;
     userName?: string;
     userNumber?: string;
     userPhone?: string;
-    userProfile?: string;
     userRole?: string;
   };
 
@@ -739,12 +742,13 @@ declare namespace API {
     id?: number;
     updateTime?: string;
     userAvatar?: string;
-    userEmail?: string;
+    userDepartment?: string;
     userGender?: number;
+    userGrade?: string;
+    userMajor?: string;
     userName?: string;
     userNumber?: string;
     userPhone?: string;
-    userProfile?: string;
     userRole?: string;
   };
 }

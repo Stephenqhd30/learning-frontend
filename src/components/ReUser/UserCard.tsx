@@ -1,10 +1,13 @@
 import '@umijs/max';
-import { Image } from 'antd';
+import { Avatar, Button, Space, Tag, Typography } from 'antd';
 import React from 'react';
-import { IdcardOutlined, SmileOutlined, UserOutlined } from '@ant-design/icons';
+import { ProCard, StatisticCard } from '@ant-design/pro-components';
+import { EditOutlined } from '@ant-design/icons';
+import { history, useModel } from '@umijs/max';
 
-interface UserProps {
-  user: API.User;
+interface Props {
+  title?: string;
+  user: API.LoginUserVO;
 }
 
 /**
@@ -12,37 +15,88 @@ interface UserProps {
  * @param props
  * @constructor
  */
-const UserCard: React.FC<UserProps> = (props) => {
-  const { user } = props;
+const UserCard: React.FC<Props> = (props) => {
+  const { title = '个人信息', user } = props;
+  const { initialState } = useModel('@@initialState');
+  const { currentUser } = initialState || {};
 
   return (
-    <>
-      <Image style={{ maxWidth: 420, marginBottom: 24 }} src={user?.userAvatar} />
-      <p>
-        <IdcardOutlined
-          style={{
-            marginRight: 8,
+    <ProCard
+      title={title}
+      extra={
+        currentUser?.id === user?.id && (
+          <Button
+            type={'text'}
+            onClick={() => {
+              history.push('/account/settings');
+            }}
+            icon={<EditOutlined />}
+          />
+        )
+      }
+      headerBordered
+    >
+      <StatisticCard.Group direction={'column'} bodyStyle={{ padding: 0 }}>
+        <StatisticCard
+          layout={'center'}
+          chart={<Avatar size={100} src={user?.userAvatar} />}
+          chartPlacement={'left'}
+        />
+        <StatisticCard
+          bodyStyle={{ padding: 0 }}
+          headStyle={{ padding: 0 }}
+          title={
+            <Typography.Text
+              style={{
+                fontSize: 20,
+                fontWeight: 700,
+              }}
+              ellipsis={{
+                tooltip: user?.userName,
+                symbol: '...',
+              }}
+           >
+              {user?.userName}
+            </Typography.Text>
+          }
+          statistic={{
+            valueRender: () => {
+              return (
+                <Space wrap>
+                  <Tag
+                    style={{
+                      fontSize: 14,
+                    }}
+                    color={'blue-inverse'}
+                    bordered={false}
+                  >
+                    {user?.userDepartment}
+                  </Tag>
+                  <Tag
+                   style={{
+                      fontSize: 14,
+                    }}
+                    color={'cyan-inverse'}
+                    bordered={false}
+                  >
+                    {user?.userGrade}
+                  </Tag>
+                  <Tag
+                    style={{
+                      fontSize: 14,
+                   }}
+                    color={'gold-inverse'}
+                    bordered={false}
+                  >
+                    {user?.userMajor}
+                  </Tag>
+                </Space>
+              );
+            },
           }}
         />
-        {user?.userName}
-      </p>
-      <p>
-        <SmileOutlined
-          style={{
-            marginRight: 8,
-          }}
-        />
-        {user?.userProfile}
-      </p>
-      <p>
-        <UserOutlined
-          style={{
-            marginRight: 8,
-          }}
-        />
-        {user?.userRole === 'admin' ? '管理员' : '普通用户'}
-      </p>
-    </>
+      </StatisticCard.Group>
+    </ProCard>
   );
 };
 export default UserCard;
