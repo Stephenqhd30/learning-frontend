@@ -101,7 +101,7 @@ const CreateCertificatePage: React.FC = () => {
       valueType: 'text',
       hideInForm: true,
       hideInSearch: true,
-      render: (_, record) => <div>{record?.createUserVO?.userName}</div>,
+      render: (_, record) => <div>{record?.reviewerVO?.userName}</div>,
     },
     {
       title: '操作',

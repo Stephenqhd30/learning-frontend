@@ -20,6 +20,7 @@ import {
   downloadCertificateExampleUsingGet,
   downloadCertificateUsingGet
 } from '@/services/learning-backend/excelController';
+import {certificateStatusEnum} from '@/enums/CertificateStatusEnum';
 
 
 /**
@@ -185,6 +186,11 @@ const CertificateList: React.FC = () => {
           </Select>
         );
       },
+    },
+    {
+      title: '证书执行状态',
+      dataIndex: 'status',
+      valueEnum: certificateStatusEnum,
     },
     {
       title: '证书地址',

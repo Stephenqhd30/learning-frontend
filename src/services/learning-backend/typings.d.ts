@@ -187,6 +187,7 @@ declare namespace API {
     reviewStatus?: number;
     reviewTime?: string;
     reviewerId?: number;
+    status?: string;
     updateTime?: string;
     userId?: number;
   };
@@ -229,6 +230,7 @@ declare namespace API {
     reviewerId?: number;
     sortField?: string;
     sortOrder?: string;
+    status?: string;
     userId?: number;
   };
 
@@ -279,6 +281,7 @@ declare namespace API {
     certificateUrl?: string;
     certificateYear?: string;
     id?: number;
+    status?: string;
     userId?: number;
   };
 
@@ -296,59 +299,65 @@ declare namespace API {
     reviewTime?: string;
     reviewerId?: number;
     reviewerVO?: UserVO;
+    status?: string;
     updateTime?: string;
     userId?: number;
     userVO?: UserVO;
   };
 
   type Course = {
-    acquisitionTime?: string;
     courseName?: string;
     courseNumber?: number;
     createTime?: string;
-    finishTime?: string;
+    endTime?: string;
     id?: number;
     isDelete?: number;
+    startTime?: string;
+    status?: string;
     updateTime?: string;
     userId?: number;
   };
 
   type CourseAddRequest = {
-    acquisitionTime?: string;
     courseName?: string;
     courseNumber?: number;
-    finishTime?: string;
+    endTime?: string;
+    startTime?: string;
+    status?: string;
   };
 
   type CourseQueryRequest = {
-    acquisitionTime?: string;
     courseName?: string;
     courseNumber?: number;
     current?: number;
-    finishTime?: string;
+    endTime?: string;
     id?: number;
     notId?: number;
     pageSize?: number;
     sortField?: string;
     sortOrder?: string;
+    startTime?: string;
+    status?: string;
     userId?: number;
   };
 
   type CourseUpdateRequest = {
-    acquisitionTime?: string;
     courseName?: string;
     courseNumber?: number;
-    finishTime?: string;
+    endTime?: string;
     id?: number;
+    startTime?: string;
+    status?: string;
   };
 
   type CourseVO = {
-    acquisitionTime?: string;
     courseName?: string;
     courseNumber?: number;
     createTime?: string;
-    finishTime?: string;
+    endTime?: string;
     id?: number;
+    startTime?: string;
+    status?: string;
     updateTime?: string;
     userId?: number;
     userVO?: UserVO;
@@ -705,6 +714,8 @@ declare namespace API {
     certificateId?: number;
     createTime?: string;
     id?: number;
+    isDelete?: number;
+    updateTime?: string;
     userId?: number;
   };
 
@@ -727,6 +738,8 @@ declare namespace API {
     createTime?: string;
     gainTime?: string;
     id?: number;
+    isDelete?: number;
+    updateTime?: string;
     userId?: number;
     userName?: string;
     userVO?: UserVO;
@@ -735,7 +748,6 @@ declare namespace API {
   type UserCourse = {
     courseId?: number;
     createTime?: string;
-    createUserId?: number;
     id?: number;
     userId?: number;
   };
@@ -748,7 +760,6 @@ declare namespace API {
 
   type UserCourseQueryRequest = {
     courseId?: number;
-    createUserId?: number;
     current?: number;
     id?: number;
     notId?: number;
@@ -762,7 +773,6 @@ declare namespace API {
     courseId?: number;
     courseVO?: CourseVO;
     createTime?: string;
-    createUserId?: number;
     id?: number;
     userId?: number;
     userVO?: UserVO;

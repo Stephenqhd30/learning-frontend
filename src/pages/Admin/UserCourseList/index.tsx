@@ -121,7 +121,6 @@ const UserCourseList: React.FC = () => {
       dataIndex: 'id',
       valueType: 'text',
       hideInForm: true,
-      hideInTable: true,
     },
     {
       title: '课程id',
@@ -160,7 +159,7 @@ const UserCourseList: React.FC = () => {
       render: (_, record) => {
         return (
           <Typography.Text>
-            {dayjs(record?.courseVO?.acquisitionTime).format('YYYY-MM-DD')}
+            {dayjs(record?.courseVO?.startTime).format('YYYY-MM-DD')}
           </Typography.Text>
         );
       },
@@ -172,7 +171,7 @@ const UserCourseList: React.FC = () => {
       render: (_, record) => {
         return (
           <Typography.Text>
-            {dayjs(record?.courseVO?.finishTime).format('YYYY-MM-DD')}
+            {dayjs(record?.courseVO?.endTime).format('YYYY-MM-DD')}
           </Typography.Text>
         );
       },

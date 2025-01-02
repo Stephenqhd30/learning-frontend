@@ -6,6 +6,7 @@ import {deleteCourseUsingPost, listCourseVoByPageUsingPost} from '@/services/lea
 import {CreateCourseModal, UpdateCourseModal, UploadCourseModal} from './components';
 import {COURSE_EXCEL} from '@/constants';
 import {downloadCourseExampleUsingGet, downloadCourseUsingGet} from '@/services/learning-backend/excelController';
+import {courseStatusEnum} from '@/enums/CourseStatusEnum';
 
 /**
  * 删除节点
@@ -107,7 +108,6 @@ const CourseList: React.FC = () => {
       dataIndex: 'id',
       valueType: 'text',
       hideInForm: true,
-      hideInTable: true,
     },
     {
       title: '课程号',
@@ -131,13 +131,18 @@ const CourseList: React.FC = () => {
     },
     {
       title: '开课时间',
-      dataIndex: 'acquisitionTime',
+      dataIndex: 'startTime',
       valueType: 'date',
     },
     {
       title: '结课时间',
-      dataIndex: 'finishTime',
+      dataIndex: 'endTime',
       valueType: 'date',
+    },
+    {
+      title: '课程状态',
+      dataIndex: 'status',
+      valueEnum: courseStatusEnum,
     },
     {
       title: '创建时间',
@@ -145,7 +150,6 @@ const CourseList: React.FC = () => {
       valueType: 'date',
       hideInSearch: true,
       hideInForm: true,
-      hideInTable: true,
     },
     {
       title: '更新时间',
@@ -153,7 +157,6 @@ const CourseList: React.FC = () => {
       valueType: 'date',
       hideInSearch: true,
       hideInForm: true,
-      hideInTable: true,
     },
     {
       title: '操作',
