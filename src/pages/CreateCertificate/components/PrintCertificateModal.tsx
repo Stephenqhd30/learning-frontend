@@ -2,7 +2,8 @@ import { message } from 'antd';
 import { ModalForm, ProForm, ProFormDatePicker, ProFormSelect } from '@ant-design/pro-components';
 import React, { useEffect } from 'react';
 import { addLogPrintCertificateUsingPost } from '@/services/learning-backend/logPrintCertificateController';
-import { listUserCourseVoByPageUsingPost } from '@/services/learning-backend/userCourseController';
+import { listMyUserCourseVoByPageUsingPost } from '@/services/learning-backend/userCourseController';
+import { CourseStatus } from '@/enums/CourseStatusEnum';
 
 interface ReviewModalProps {
   visible: boolean;
@@ -25,14 +26,14 @@ const PrintCertificateModal: React.FC<ReviewModalProps> = (props) => {
 
   const loadData = async () => {
     try {
-      const res = await listUserCourseVoByPageUsingPost({
-        userId: certificate.userId
+      const res = await listMyUserCourseVoByPageUsingPost({
+        userId: certificate.userId,
+        status: CourseStatus.BEGIN,
       })
       if (res.code === 0 && res.data) {
         setUserCourseList(res.data?.records || []);
       } else {
         setUserCourseList([]);
-        message.error(`获取用户已加入队伍列表失败${res.message}`);
       }
     } catch (error: any) {
       setUserCourseList([]);

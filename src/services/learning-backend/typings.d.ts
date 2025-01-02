@@ -426,17 +426,14 @@ declare namespace API {
     certificateId?: number;
     courseId?: number;
     createTime?: string;
-    createUserId?: number;
-    executorMessage?: string;
     finishTime?: string;
     id?: number;
-    status?: string;
     userId?: number;
   };
 
   type LogPrintCertificateAddRequest = {
     certificateId?: number;
-    certificateIds?: number[];
+    certificateIdList?: number[];
     courseId?: number;
     finishTime?: string;
     userId?: number;
@@ -466,12 +463,8 @@ declare namespace API {
     courseId?: number;
     courseVO?: CourseVO;
     createTime?: string;
-    createUserId?: number;
-    createUserVO?: UserVO;
-    executorMessage?: string;
     finishTime?: string;
     id?: number;
-    status?: string;
     userId?: number;
     userVO?: UserVO;
   };
@@ -766,6 +759,7 @@ declare namespace API {
     pageSize?: number;
     sortField?: string;
     sortOrder?: string;
+    status?: string;
     userId?: number;
   };
 

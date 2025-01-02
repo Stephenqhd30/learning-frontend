@@ -2,7 +2,7 @@ import { message } from 'antd';
 import { ModalForm, ProColumns, ProForm, ProFormDatePicker } from '@ant-design/pro-components';
 import React from 'react';
 import { CourseSelect } from '@/components';
-import {addLogPrintCertificatesByBatchUsingPost} from '@/services/learning-backend/logPrintCertificateController';
+import {addLogPrintCertificatesByBatchAsyncUsingPost} from '@/services/learning-backend/logPrintCertificateController';
 
 interface ReviewModalProps {
   visible: boolean;
@@ -28,13 +28,13 @@ const BatchPrintCertificateModal: React.FC<ReviewModalProps> = (props) => {
       onFinish={async (values: API.LogPrintCertificateAddRequest) => {
         const hide = message.loading('正在制作证书...');
         try {
-          const res = await addLogPrintCertificatesByBatchUsingPost({
+          const res = await addLogPrintCertificatesByBatchAsyncUsingPost({
             ...values,
-            certificateIds: selectedRowKeys
+            certificateIdList: selectedRowKeys
           });
           if (res.code === 0 && res.data) {
             onSubmit?.(values);
-            message.success('证书生成成功');
+            message.success('证书正在生成中');
           } else {
             message.error(`证书生成失败${res.message}`);
           }

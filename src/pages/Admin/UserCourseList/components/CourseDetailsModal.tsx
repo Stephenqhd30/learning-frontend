@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal } from 'antd';
 import { ProCard, ProDescriptions } from '@ant-design/pro-components';
+import {courseStatusEnum} from '@/enums/CourseStatusEnum';
 
 interface Props {
   courseInfo: API.CourseVO;
@@ -53,13 +54,18 @@ const CourseDetailsModal: React.FC<Props> = (props) => {
               },
             },
             {
+              title: '课程状态',
+              dataIndex: 'status',
+              valueEnum: courseStatusEnum,
+            },
+            {
               title: '开课时间',
-              dataIndex: 'acquisitionTime',
+              dataIndex: 'startTime',
               valueType: 'date',
             },
             {
               title: '结课时间',
-              dataIndex: 'finishTime',
+              dataIndex: 'endTime',
               valueType: 'date',
             },
           ]}

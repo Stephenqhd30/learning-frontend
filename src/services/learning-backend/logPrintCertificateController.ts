@@ -17,12 +17,12 @@ export async function addLogPrintCertificateUsingPost(
   });
 }
 
-/** addLogPrintCertificatesByBatch POST /api/logPrintCertificate/add/batch */
-export async function addLogPrintCertificatesByBatchUsingPost(
+/** addLogPrintCertificatesByBatchAsync POST /api/logPrintCertificate/add/batch/async */
+export async function addLogPrintCertificatesByBatchAsyncUsingPost(
   body: API.LogPrintCertificateAddRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseListLong_>('/api/logPrintCertificate/add/batch', {
+  return request<API.BaseResponseListLong_>('/api/logPrintCertificate/add/batch/async', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
