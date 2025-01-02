@@ -8,7 +8,7 @@
 import Footer from './Footer';
 import {AvatarDropdown, AvatarName} from './RightContent/AvatarDropdown';
 import {UserAvatarCard, UserCard, UserDetailsCard, UserDetailsModal, UserInfoCard} from '@/components/ReUser';
-import {CertificateCard, CertificateDetailsModal} from '@/components/ReCertificate';
+import { CertificateDetailsModal } from '@/components/ReCertificate';
 import {ShareModal} from '@/components/ReCommon';
 import {CourseSelect} from '@/components/ReCourse';
 
@@ -24,5 +24,4 @@ export {
   CourseSelect,
   UserInfoCard,
   CertificateDetailsModal,
-  CertificateCard,
 };

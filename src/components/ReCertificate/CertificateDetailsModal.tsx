@@ -3,6 +3,7 @@ import { Modal, Typography } from 'antd';
 import { ProCard, ProDescriptions } from '@ant-design/pro-components';
 import { certificateSituationEnum } from '@/enums/CertificateSituationEnum';
 import { certificateTypeEnum } from '@/enums/CertificateTypeEnum';
+import {certificateStatusEnum} from '@/enums/CertificateStatusEnum';
 
 interface CertificateDetailsProps {
   certificate: API.CertificateVO;
@@ -73,6 +74,11 @@ const CertificateDetailsModal: React.FC<CertificateDetailsProps> = (props) => {
               key: 'certificateYear',
               dataIndex: 'certificateYear',
               valueType: 'text',
+            },
+            {
+              title: '证书执行状态',
+              dataIndex: 'status',
+              valueEnum: certificateStatusEnum,
             },
             {
               title: '证书下载地址',
