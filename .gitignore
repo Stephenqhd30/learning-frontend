@@ -39,3 +39,5 @@ screenshot
 .eslintcache
 
 build
+
+src/constants/index.ts
