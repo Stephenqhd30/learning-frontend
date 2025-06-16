@@ -7,7 +7,8 @@ import {
   LEARNING_PUBLIC,
   LEARNING_PUBLIC_URL
 } from '@/constants';
-import {GlobalOutlined, SafetyCertificateOutlined} from '@ant-design/icons';
+import {SafetyCertificateOutlined} from '@ant-design/icons';
+import {Image} from 'antd';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -33,7 +34,7 @@ const Footer: React.FC = () => {
           key: 'LEARNING_PUBLIC',
           title: (
             <>
-              <GlobalOutlined style={{marginRight: 4}}/>
+              <Image width={16} preview={false} style={{marginRight: 4}} src={'/public.png'}/>
               {LEARNING_PUBLIC}
             </>
           ),
